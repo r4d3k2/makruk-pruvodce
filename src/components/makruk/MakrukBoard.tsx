@@ -14,6 +14,8 @@ interface MakrukBoardProps {
   toHighlight?: Coord | null;
   selectedSquare?: Coord | null;
   hintSquare?: Coord | null;
+  /** Optional secondary hint (target square) — used at hint level 2. */
+  hintToSquare?: Coord | null;
   errorSquare?: Coord | null;
   /** Last move's destination — if set, that square pulses with a gold ring
    * (used by the promotion-blink animation). */
@@ -72,6 +74,7 @@ export function MakrukBoard({
   toHighlight = null,
   selectedSquare = null,
   hintSquare = null,
+  hintToSquare = null,
   errorSquare = null,
   promoFlashSquare = null,
   onCellClick,
@@ -167,6 +170,17 @@ export function MakrukBoard({
                     stroke="var(--accent)"
                     strokeWidth={2}
                     opacity={0.55}
+                    className="mk-pulse"
+                    pointerEvents="none"
+                  />
+                )}
+                {at(hintToSquare, r, c) && (
+                  <circle
+                    cx={x + CELL / 2}
+                    cy={y + CELL / 2}
+                    r={CELL * 0.32}
+                    fill="var(--accent)"
+                    opacity={0.30}
                     className="mk-pulse"
                     pointerEvents="none"
                   />
