@@ -15,12 +15,15 @@ import {
   pieceTraceUpTo,
   squareName,
   type Coord,
+  type Side,
 } from "../lib/makruk";
 import {
   applyTheme,
+  loadPlayerSide,
   loadProgress,
   loadTheme,
   recordResult,
+  savePlayerSide,
   starsFromMistakes,
   progressKey,
   type ThemeId,
@@ -31,7 +34,6 @@ type Mode = "study" | "practice" | "pieces" | "games";
 type Tab = "strategy" | "history" | "move";
 type PiecesView = "cards" | "quiz";
 
-const USER_SIDE: "white" = "white";
 const OPPONENT_DELAY_MS = 700;
 
 interface PracticeState {
@@ -82,6 +84,7 @@ function findNextVariant(
 
 export function Index() {
   const [theme, setThemeState] = useState<ThemeId>(() => loadTheme());
+  const [playerSide, setPlayerSideState] = useState<Side>(() => loadPlayerSide());
   const [mode, setMode] = useState<Mode>("study");
   const [strategyId, setStrategyId] = useState<string>(STRATEGIES[0].id);
   const [variantId, setVariantId] = useState<string | null>(
@@ -156,12 +159,31 @@ export function Index() {
     setPractice(INITIAL_PRACTICE);
   }, []);
 
-  // When mode switches, or strategy/variant changes, reset practice.
+  // When mode switches, or strategy/variant/side changes, reset practice.
+  // If playerSide === "black", schedule the white opponent to play move 0
+  // automatically after 700 ms so the user always reacts to the first move.
   useEffect(() => {
-    if (mode === "practice") {
-      resetPractice();
+    if (mode !== "practice") return;
+    setFlipped(playerSide === "black");
+    resetPractice();
+    if (playerSide === "black") {
+      setPractice((p) => ({ ...p, opponentThinking: true }));
+      opponentTimerRef.current = window.setTimeout(() => {
+        opponentTimerRef.current = null;
+        setMoveIndex(0);
+        setPractice((p) => ({ ...p, opponentThinking: false }));
+      }, OPPONENT_DELAY_MS);
     }
-  }, [mode, strategyId, variantId, resetPractice]);
+  }, [mode, strategyId, variantId, playerSide, resetPractice]);
+
+  const handleSetPlayerSide = useCallback(
+    (side: Side) => {
+      if (side === playerSide) return;
+      savePlayerSide(side);
+      setPlayerSideState(side);
+    },
+    [playerSide],
+  );
 
   const nextMoveIndex = moveIndex + 1;
   const nextMove =
@@ -173,7 +195,7 @@ export function Index() {
     !practice.done &&
     !practice.opponentThinking &&
     !!nextMove &&
-    moveSide(nextMoveIndex) === USER_SIDE;
+    moveSide(nextMoveIndex) === playerSide;
 
   const playOpponent = useCallback(() => {
     setMoveIndex((prevIdx) => {
@@ -462,6 +484,34 @@ export function Index() {
         </Pill>
       </nav>
 
+      {/* PRACTICE: side toggle */}
+      {mode === "practice" && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 6,
+            marginBottom: 12,
+            flexWrap: "wrap",
+          }}
+        >
+          <Pill
+            level={2}
+            active={playerSide === "white"}
+            onClick={() => handleSetPlayerSide("white")}
+          >
+            <span aria-hidden>♙</span> Hraj za bílého
+          </Pill>
+          <Pill
+            level={2}
+            active={playerSide === "black"}
+            onClick={() => handleSetPlayerSide("black")}
+          >
+            <span aria-hidden>♟</span> Hraj za černého
+          </Pill>
+        </div>
+      )}
+
       {/* STUDY / PRACTICE: strategy + variant selectors */}
       {(mode === "study" || mode === "practice") && (
         <section style={{ marginBottom: 14 }}>
@@ -612,61 +662,58 @@ export function Index() {
           )}
 
           {/* PRACTICE controls */}
-          {mode === "practice" && currentVariant && !practice.done && (
-            <>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: 6,
-                  flexWrap: "wrap",
-                  marginTop: 12,
-                  marginBottom: 10,
-                }}
-              >
-                <Pill onClick={cycleHint} ghost>
-                  💡 Nápověda ({practice.hintLevel}/2)
-                </Pill>
-                <Pill onClick={resetPractice} ghost>
-                  ↺ Začít znovu
-                </Pill>
-                <Pill
-                  square
-                  onClick={() => setFlipped((f) => !f)}
-                  title="Otočit desku"
+          {mode === "practice" && currentVariant && !practice.done && (() => {
+            const userColor = playerSide === "white" ? "bílý" : "černý";
+            const oppColor = playerSide === "white" ? "černý" : "bílý";
+            const isFinal = moveIndex + 1 >= currentMoves.length;
+            const playsLabel = practice.opponentThinking
+              ? `soupeř (${oppColor})`
+              : userTurn
+              ? `vy (${userColor})`
+              : isFinal
+              ? "—"
+              : `soupeř (${oppColor})`;
+            return (
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 6,
+                    flexWrap: "wrap",
+                    marginTop: 12,
+                    marginBottom: 10,
+                  }}
                 >
-                  🔄
-                </Pill>
-              </div>
-              <div
-                style={{
-                  textAlign: "center",
-                  fontSize: 13,
-                  color: "var(--text-muted)",
-                  marginBottom: 12,
-                  fontVariantNumeric: "tabular-nums",
-                }}
-              >
-                Chyby: <strong style={{ color: "var(--text)" }}>{practice.mistakes}</strong>
-                {" | "}
-                Tah:{" "}
-                <strong style={{ color: "var(--text)" }}>
-                  {moveIndex + 1}/{currentMoves.length}
-                </strong>
-                {" | "}
-                Hraje:{" "}
-                <strong style={{ color: "var(--text)" }}>
-                  {practice.opponentThinking
-                    ? "soupeř"
-                    : userTurn
-                    ? "vy"
-                    : moveIndex + 1 >= currentMoves.length
-                    ? "—"
-                    : "soupeř"}
-                </strong>
-              </div>
-            </>
-          )}
+                  <Pill onClick={cycleHint} ghost>
+                    💡 Nápověda ({practice.hintLevel}/2)
+                  </Pill>
+                  <Pill onClick={resetPractice} ghost>
+                    ↺ Začít znovu
+                  </Pill>
+                </div>
+                <div
+                  style={{
+                    textAlign: "center",
+                    fontSize: 13,
+                    color: "var(--text-muted)",
+                    marginBottom: 12,
+                    fontVariantNumeric: "tabular-nums",
+                  }}
+                >
+                  Chyby: <strong style={{ color: "var(--text)" }}>{practice.mistakes}</strong>
+                  {" | "}
+                  Tah:{" "}
+                  <strong style={{ color: "var(--text)" }}>
+                    {moveIndex + 1}/{currentMoves.length}
+                  </strong>
+                  {" | "}
+                  Hraje:{" "}
+                  <strong style={{ color: "var(--text)" }}>{playsLabel}</strong>
+                </div>
+              </>
+            );
+          })()}
 
           {/* Move counter (study) */}
           {mode === "study" && currentVariant && (

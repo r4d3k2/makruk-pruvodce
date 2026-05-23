@@ -1,8 +1,12 @@
+import type { Side } from "./makruk";
+
 export type ThemeId = "thai-sunset" | "teak-day" | "midnight-teak";
 
 const THEME_KEY = "makruk-theme";
 const PROGRESS_KEY = "makruk-progress";
+const PLAYER_SIDE_KEY = "makruk-player-side";
 const DEFAULT_THEME: ThemeId = "thai-sunset";
+const DEFAULT_PLAYER_SIDE: Side = "white";
 
 const VALID_THEMES: ThemeId[] = ["thai-sunset", "teak-day", "midnight-teak"];
 
@@ -31,6 +35,26 @@ export function saveTheme(theme: ThemeId): void {
 export function applyTheme(theme: ThemeId): void {
   if (typeof document === "undefined") return;
   document.documentElement.setAttribute("data-theme", theme);
+}
+
+export function loadPlayerSide(): Side {
+  if (typeof window === "undefined") return DEFAULT_PLAYER_SIDE;
+  try {
+    const raw = window.localStorage.getItem(PLAYER_SIDE_KEY);
+    if (raw === "white" || raw === "black") return raw;
+  } catch {
+    // ignore
+  }
+  return DEFAULT_PLAYER_SIDE;
+}
+
+export function savePlayerSide(side: Side): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(PLAYER_SIDE_KEY, side);
+  } catch {
+    // ignore
+  }
 }
 
 export interface ProgressEntry {

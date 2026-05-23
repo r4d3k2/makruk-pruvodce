@@ -28,7 +28,7 @@ export const STRATEGIES: Strategy[] = [
         id: "symmetric",
         name: "Symetrická hra",
         description:
-          "Oba hráči zrcadlově budují centrum a rozvíjejí lehké figury.",
+          "Oba hráči zrcadlově budují centrum a rozvíjejí lehké figury dovnitř ke králi.",
         moves: [
           {
             from: [5, 3],
@@ -55,47 +55,49 @@ export const STRATEGIES: Strategy[] = [
           },
           {
             from: [7, 1],
-            to: [5, 2],
+            to: [6, 3],
             comment:
-              "Rozvoj koně na přirozené pole. Ma je v makruku silná figura — centralizuj ji co nejdříve.",
+              "Rozvoj koně. V makruku stojí Bia na 3./6. řadě, takže pole c3 i a3 jsou ze startu obsazená vlastními pěšáky — jediný legální skok koně z b1 je dovnitř na d2. Centralizace je v makruku pomalejší než v šachu.",
           },
           {
             from: [0, 1],
-            to: [2, 2],
-            comment: "Symetrický rozvoj koně.",
+            to: [1, 3],
+            comment:
+              "Černý kůň ze stejných důvodů míří jen na d7. Stejná logika, jen z opačné strany desky.",
           },
           {
             from: [7, 6],
-            to: [5, 5],
+            to: [6, 4],
             comment:
-              "Druhý kůň. Bílý má teď oba koně v aktivních pozicích a kontroluje klíčová centrální pole.",
+              "Druhý kůň. Stejné omezení platí i napravo — h3 a f3 jsou obsazená vlastními pěšáky, kůň skáče dovnitř na e2.",
           },
           {
             from: [0, 6],
-            to: [2, 5],
-            comment: "Černý dokončuje rozvoj koní.",
+            to: [1, 4],
+            comment:
+              "Černý dokončuje symetrický rozvoj koní na e7.",
           },
           {
             from: [7, 2],
-            to: [6, 3],
+            to: [6, 2],
             comment:
-              "Khon udělá krok dopředu — jeden z pěti možných pohybů (4 diagonály + 1 dopředu). Buduje ochranu krále.",
+              "Khon dělá krok rovně dopředu — jeden z pěti legálních pohybů (4 diagonály + 1 dopředu). Diagonála na d2 už je zabraná vlastním koněm, takže Khon volí přímý postup na c2.",
           },
           {
             from: [0, 2],
-            to: [1, 3],
+            to: [1, 2],
             comment:
-              "Černý pokračuje v zrcadlení. Pomalý strategický rytmus makruku.",
+              "Černý pokračuje v zrcadlení — Khon na c7.",
           },
           {
             from: [7, 5],
-            to: [6, 4],
+            to: [6, 5],
             comment:
-              "Druhý Khon — bílý má teď stěnu dvou Khon kolem svého krále. Vysoce defenzivní formace.",
+              "Druhý Khon dopředu. Bílý má teď koně na d2/e2 a Khony na c2/f2 — kompaktní formace připravená na střední fázi hry.",
           },
           {
             from: [0, 5],
-            to: [1, 4],
+            to: [1, 5],
             comment:
               "Černý zakončuje symetrický rozvoj. V další fázi některý hráč nakonec naruší symetrii — typicky vyjetím Met nebo aktivací Rua.",
           },
@@ -127,13 +129,13 @@ export const STRATEGIES: Strategy[] = [
           {
             from: [2, 3],
             to: [3, 3],
-            comment: "Černý odpovídá symetricky — d6 chrání centrum.",
+            comment: "Černý odpovídá symetricky — d6 stojí proti d4.",
           },
           {
             from: [5, 2],
             to: [4, 2],
             comment:
-              "Klíčový přípravný tah — c-pěšec uvolňuje cestu pro koně b1 i pro Khona c1. Bez tohoto kroku nelze ze stávající pozice vyvíjet figury z queenside.",
+              "Klíčový přípravný tah — c-pěšec uvolňuje cestu pro koně b1 i pro Khona c1. Bez tohoto kroku není kůň schopen vyrazit na c3 (jediné legální cíle b1 jsou jinak omezené).",
           },
           {
             from: [2, 2],
@@ -200,10 +202,9 @@ export const STRATEGIES: Strategy[] = [
               "Otevírá d-pěšec pole pro Met. Met na e1 se dostane diagonálou na d2 jen pokud je pole volné.",
           },
           {
-            from: [0, 6],
-            to: [2, 5],
-            comment:
-              "Černý vyvíjí koně asymetricky — varuje, že nebude jen kopírovat. Kůň na f6 brání pole e4 i d5.",
+            from: [2, 3],
+            to: [3, 3],
+            comment: "Černý zrcadlí — d6 stojí proti d4.",
           },
           {
             from: [7, 4],
@@ -212,9 +213,10 @@ export const STRATEGIES: Strategy[] = [
               "Met opouští základní pole brzy! Skok diagonálně vpřed na d2 — Met je teď aktivně připravená.",
           },
           {
-            from: [2, 4],
-            to: [3, 4],
-            comment: "Černý buduje centrum, ignoruje výpad Met.",
+            from: [0, 1],
+            to: [1, 3],
+            comment:
+              "Černý vyvíjí levého koně. V makruku stojí Bia na 3./6. řadě, takže pole a6 i c6 jsou obsazená vlastními pěšáky — jediný legální skok koně z b8 je dovnitř na d7.",
           },
           {
             from: [5, 4],
@@ -223,10 +225,9 @@ export const STRATEGIES: Strategy[] = [
               "Bílý e-pěšec postupuje — uvolňuje další diagonálu Met a posiluje centrum.",
           },
           {
-            from: [0, 1],
-            to: [2, 2],
-            comment:
-              "Černý rozvíjí druhého koně. Kůň c6 brání d4 i b4 — případný protiútok bude komplikovaný.",
+            from: [2, 4],
+            to: [3, 4],
+            comment: "Černý buduje vlastní centrum a brání e6.",
           },
           {
             from: [6, 3],
@@ -235,22 +236,22 @@ export const STRATEGIES: Strategy[] = [
               "Met se posunuje diagonálně na e3 — vstupuje do prázdného pole po pohybu e-pěšce. Postupuje hlouběji.",
           },
           {
-            from: [2, 3],
-            to: [3, 3],
+            from: [0, 6],
+            to: [1, 4],
             comment:
-              "Černý udeří v centru — d5 napadá bílý e4 a otevírá další pole pro vývoj.",
+              "Černý druhý kůň — opět jediný legální skok dovnitř, na e7. f6 i h6 jsou obsazená vlastními pěšáky.",
           },
           {
             from: [5, 4],
             to: [4, 5],
             comment:
-              "Met na f4! Skok dále diagonálně. Met je teď daleko ze své základny — útočí na pole f5 a g5, ale je vystavená. Tento tah ukazuje, proč brzký výpad vyžaduje opatrnost: Met je drahá figura riskovaná pro tempo.",
+              "Met na f4! Skok dále diagonálně. Met je teď daleko ze své základny — útočí na pole f5 a g5, ale je vystavená. Brzký výpad vyžaduje opatrnost: Met je drahá figura riskovaná pro tempo.",
           },
           {
             from: [0, 3],
-            to: [1, 4],
+            to: [1, 2],
             comment:
-              "Černý zvyká si na výpad: vlastní Met aktivuje obranně na e7. Drží diagonálu k poli f4, kde stojí bílá Met. Hrozba symetrického protiútoku.",
+              "Černý zvyká si na výpad: vlastní Met aktivuje obranně na c7 (e7 už zabírá kůň). Drží diagonálu k centru a chystá protihru.",
           },
         ],
       },
@@ -303,9 +304,9 @@ export const STRATEGIES: Strategy[] = [
           },
           {
             from: [0, 1],
-            to: [2, 2],
+            to: [1, 3],
             comment:
-              "Černý spěchá s rozvojem — kůň na c6. Musí zabrzdit postup bílé Rua, dokud je čas.",
+              "Černý spěchá s rozvojem — kůň na d7. Z b8 je to jediný legální skok do vnitra desky (a6 i c6 jsou obsazené vlastními pěšáky). Kůň by mohl po teoretickém uvolnění a-sloupce skočit i na a6, ale d7 je centrálnější.",
           },
           {
             from: [4, 0],
@@ -369,15 +370,15 @@ export const STRATEGIES: Strategy[] = [
           },
           {
             from: [0, 1],
-            to: [2, 2],
+            to: [1, 3],
             comment:
-              "Černý rozvíjí koně — důležitý obránce centrálních polí.",
+              "Černý rozvíjí koně. V makruku stojí Bia na 3./6. řadě, takže c6 a a6 jsou obsazené — jediný legální skok černého koně z b8 je dovnitř na d7.",
           },
           {
             from: [7, 1],
-            to: [5, 2],
+            to: [6, 3],
             comment:
-              "Bílý kůň na c3 — podporuje pole d5, kam pěšec smí postoupit (a kde teď stojí černý d-pěšec).",
+              "Bílý kůň analogicky míří na d2 — c3 a a3 jsou zaplněné vlastními pěšáky. Kůň na d2 podporuje pozdější centrální průlom.",
           },
           {
             from: [2, 4],
