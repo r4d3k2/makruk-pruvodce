@@ -8,6 +8,7 @@ import { ResultCard } from "../components/makruk/ResultCard";
 import { Stars } from "../components/makruk/Stars";
 import { STRATEGIES } from "../data/strategies";
 import { PIECES } from "../data/pieces";
+import { GAMES, boardFromSetup } from "../data/games";
 import {
   applyMovesUpTo,
   moveLabel,
@@ -16,6 +17,7 @@ import {
   squareName,
   type Coord,
   type Side,
+  type Board,
 } from "../lib/makruk";
 import {
   applyTheme,
@@ -29,10 +31,14 @@ import {
   type ThemeId,
   type Progress,
 } from "../lib/storage";
+import { recommend } from "../lib/recommend";
 
 type Mode = "study" | "practice" | "pieces" | "games";
 type Tab = "strategy" | "history" | "move";
+type GameTab = "topic" | "move" | "result";
 type PiecesView = "cards" | "quiz";
+
+const PROMO_FLASH_MS = 700;
 
 const OPPONENT_DELAY_MS = 700;
 
@@ -93,12 +99,16 @@ export function Index() {
   const [moveIndex, setMoveIndex] = useState<number>(-1);
   const [flipped, setFlipped] = useState<boolean>(false);
   const [tab, setTab] = useState<Tab>("strategy");
+  const [gameTab, setGameTab] = useState<GameTab>("topic");
+  const [gameId, setGameId] = useState<string>(GAMES[0].id);
   const [piecesView, setPiecesView] = useState<PiecesView>("cards");
   const [practice, setPractice] = useState<PracticeState>(INITIAL_PRACTICE);
   const [progress, setProgress] = useState<Progress>(() => loadProgress());
+  const [promoFlash, setPromoFlash] = useState<Coord | null>(null);
 
   const opponentTimerRef = useRef<number | null>(null);
   const errorTimerRef = useRef<number | null>(null);
+  const promoTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     applyTheme(theme);
@@ -113,6 +123,9 @@ export function Index() {
       if (errorTimerRef.current) {
         window.clearTimeout(errorTimerRef.current);
       }
+      if (promoTimerRef.current) {
+        window.clearTimeout(promoTimerRef.current);
+      }
     };
   }, []);
 
@@ -126,23 +139,57 @@ export function Index() {
     return currentStrategy.variants.find((v) => v.id === variantId) ?? null;
   }, [currentStrategy, variantId]);
 
-  const currentMoves = currentVariant?.moves ?? [];
-  const board = useMemo(
-    () => applyMovesUpTo(currentMoves, moveIndex),
-    [currentMoves, moveIndex],
-  );
-  const pieces = useMemo(
-    () => pieceTraceUpTo(currentMoves, moveIndex),
-    [currentMoves, moveIndex],
+  const currentGame = useMemo(
+    () => GAMES.find((g) => g.id === gameId) ?? GAMES[0],
+    [gameId],
   );
 
-  const currentMove = moveIndex >= 0 ? currentMoves[moveIndex] : null;
+  // Pick which "track" we're showing on the board: a strategy variant
+  // (study/practice) or an instructional game (games mode).
+  const activeMoves =
+    mode === "games" ? currentGame.moves : currentVariant?.moves ?? [];
+  const activeStart: Board | undefined = useMemo(() => {
+    if (mode === "games" && currentGame.setup) {
+      return boardFromSetup(currentGame.setup);
+    }
+    return undefined;
+  }, [mode, currentGame]);
+
+  const board = useMemo(
+    () => applyMovesUpTo(activeMoves, moveIndex, activeStart),
+    [activeMoves, moveIndex, activeStart],
+  );
+  const pieces = useMemo(
+    () => pieceTraceUpTo(activeMoves, moveIndex, activeStart),
+    [activeMoves, moveIndex, activeStart],
+  );
+
+  const currentMove = moveIndex >= 0 ? activeMoves[moveIndex] : null;
   const fromHighlight = currentMove
     ? { row: currentMove.from[0], col: currentMove.from[1] }
     : null;
   const toHighlight = currentMove
     ? { row: currentMove.to[0], col: currentMove.to[1] }
     : null;
+
+  // ===== Promotion blink =====
+  useEffect(() => {
+    if (promoTimerRef.current) {
+      window.clearTimeout(promoTimerRef.current);
+      promoTimerRef.current = null;
+    }
+    if (currentMove?.promotes) {
+      setPromoFlash({ row: currentMove.to[0], col: currentMove.to[1] });
+      promoTimerRef.current = window.setTimeout(() => {
+        setPromoFlash(null);
+        promoTimerRef.current = null;
+      }, PROMO_FLASH_MS);
+    } else {
+      setPromoFlash(null);
+    }
+    // We intentionally depend on moveIndex + activeMoves identity (changing the
+    // variant/game resets the track and clears the flash).
+  }, [moveIndex, activeMoves, currentMove]);
 
   // ===== Practice helpers =====
 
@@ -187,8 +234,8 @@ export function Index() {
 
   const nextMoveIndex = moveIndex + 1;
   const nextMove =
-    mode === "practice" && nextMoveIndex < currentMoves.length
-      ? currentMoves[nextMoveIndex]
+    mode === "practice" && nextMoveIndex < activeMoves.length
+      ? activeMoves[nextMoveIndex]
       : null;
   const userTurn =
     mode === "practice" &&
@@ -200,11 +247,11 @@ export function Index() {
   const playOpponent = useCallback(() => {
     setMoveIndex((prevIdx) => {
       const next = prevIdx + 1;
-      if (next >= currentMoves.length) return prevIdx;
+      if (next >= activeMoves.length) return prevIdx;
       return next;
     });
     setPractice((p) => ({ ...p, opponentThinking: false }));
-  }, [currentMoves.length]);
+  }, [activeMoves.length]);
 
   const scheduleOpponent = useCallback(() => {
     setPractice((p) => ({ ...p, opponentThinking: true }));
@@ -218,8 +265,8 @@ export function Index() {
   // and persist the result.
   useEffect(() => {
     if (mode !== "practice") return;
-    if (currentMoves.length === 0) return;
-    if (moveIndex !== currentMoves.length - 1) return;
+    if (activeMoves.length === 0) return;
+    if (moveIndex !== activeMoves.length - 1) return;
     if (practice.done) return;
     if (!currentVariant) return;
     setPractice((p) => ({ ...p, done: true, opponentThinking: false }));
@@ -231,7 +278,7 @@ export function Index() {
   }, [
     mode,
     moveIndex,
-    currentMoves.length,
+    activeMoves.length,
     practice.done,
     practice.mistakes,
     currentVariant,
@@ -284,7 +331,7 @@ export function Index() {
         setMoveIndex((i) => i + 1);
         // After applying user's move, schedule opponent reply (if exists).
         const opponentIdx = nextMoveIndex + 1;
-        if (opponentIdx < currentMoves.length) {
+        if (opponentIdx < activeMoves.length) {
           scheduleOpponent();
         }
       } else {
@@ -299,7 +346,7 @@ export function Index() {
       practice.selected,
       flashError,
       nextMoveIndex,
-      currentMoves.length,
+      activeMoves.length,
       scheduleOpponent,
     ],
   );
@@ -329,14 +376,26 @@ export function Index() {
     if (mode === "practice") resetPractice();
   };
 
+  const handleSetGame = (id: string) => {
+    if (id === gameId) return;
+    setGameId(id);
+    setMoveIndex(-1);
+    setGameTab("topic");
+  };
+
   const goStart = () => setMoveIndex(-1);
   const goBack = () => setMoveIndex((i) => Math.max(-1, i - 1));
   const goForward = () =>
-    setMoveIndex((i) => Math.min(currentMoves.length - 1, i + 1));
-  const goEnd = () => setMoveIndex(currentMoves.length - 1);
+    setMoveIndex((i) => Math.min(activeMoves.length - 1, i + 1));
+  const goEnd = () => setMoveIndex(activeMoves.length - 1);
 
   const handleSetMode = (m: Mode) => {
-    if (m === "games") return; // disabled in Phase 2
+    if (m === "games") {
+      setMode("games");
+      setMoveIndex(-1);
+      setGameTab("topic");
+      return;
+    }
     setMode(m);
   };
 
@@ -351,6 +410,22 @@ export function Index() {
   const hasNextVariant = currentVariant
     ? !!findNextVariant(strategyId, currentVariant.id)
     : false;
+
+  // Smart recommendation in Practice mode.
+  const recommendation = useMemo(() => {
+    if (mode !== "practice") return null;
+    const excludeKey = currentVariant
+      ? progressKey(strategyId, currentVariant.id)
+      : undefined;
+    return recommend(progress, excludeKey);
+  }, [mode, strategyId, currentVariant, progress]);
+
+  const handleRecommend = () => {
+    if (!recommendation) return;
+    setStrategyId(recommendation.strategyId);
+    setVariantId(recommendation.variantId);
+    // resetPractice will be triggered by the useEffect on strategy/variant change.
+  };
 
   // ===== Move-tab content =====
 
@@ -401,6 +476,63 @@ export function Index() {
     return (
       <p style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
         Vyber tah pro zobrazení komentáře.
+      </p>
+    );
+  };
+
+  const gameTabContent = () => {
+    if (gameTab === "topic") {
+      return (
+        <p style={{ color: "var(--text-soft)", lineHeight: 1.6 }}>
+          {currentGame.description}
+        </p>
+      );
+    }
+    if (gameTab === "result") {
+      return (
+        <div>
+          <div
+            className="font-display"
+            style={{
+              fontSize: 17,
+              marginBottom: 8,
+              color: "var(--accent)",
+            }}
+          >
+            Výsledek
+          </div>
+          <p style={{ color: "var(--text-soft)", lineHeight: 1.6 }}>
+            {currentGame.result}
+          </p>
+        </div>
+      );
+    }
+    // gameTab === "move"
+    if (currentMove) {
+      return (
+        <div>
+          <div
+            className="font-mono"
+            style={{
+              fontSize: 13,
+              marginBottom: 8,
+              color: "var(--accent)",
+            }}
+          >
+            {moveNotationStr}{" "}
+            <span style={{ color: "var(--text-muted)" }}>
+              · {moveSide(moveIndex) === "white" ? "bílý" : "černý"}
+            </span>
+          </div>
+          <p style={{ color: "var(--text-soft)", lineHeight: 1.6 }}>
+            {currentMove.comment}
+          </p>
+        </div>
+      );
+    }
+    return (
+      <p style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
+        Klikni „Vpřed ▶" pro první tah partie.
       </p>
     );
   };
@@ -476,8 +608,6 @@ export function Index() {
         <Pill
           level={1}
           active={mode === "games"}
-          disabled
-          title="Připravujeme"
           onClick={() => handleSetMode("games")}
         >
           <span aria-hidden>📜</span> Partie
@@ -510,6 +640,47 @@ export function Index() {
             <span aria-hidden>♟</span> Hraj za černého
           </Pill>
         </div>
+      )}
+
+      {/* PRACTICE: smart recommendation button */}
+      {mode === "practice" && recommendation && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: 12,
+          }}
+        >
+          <Pill ghost onClick={handleRecommend}>
+            🎯 Doporučit slabé místo
+          </Pill>
+        </div>
+      )}
+
+      {/* GAMES: game selector */}
+      {mode === "games" && (
+        <section style={{ marginBottom: 14 }}>
+          <div
+            style={{
+              display: "flex",
+              gap: 6,
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            {GAMES.map((g) => (
+              <Pill
+                key={g.id}
+                level={2}
+                active={g.id === gameId}
+                onClick={() => handleSetGame(g.id)}
+                title={g.topic}
+              >
+                {g.title}
+              </Pill>
+            ))}
+          </div>
+        </section>
       )}
 
       {/* STUDY / PRACTICE: strategy + variant selectors */}
@@ -589,28 +760,33 @@ export function Index() {
         </section>
       )}
 
-      {/* BOARD (study and practice) */}
-      {(mode === "study" || mode === "practice") && (
+      {/* BOARD (study, practice, games) */}
+      {(mode === "study" || mode === "practice" || mode === "games") && (
         <>
-          <div style={{ marginBottom: 12 }}>
+          <div className="board-wrap" style={{ marginBottom: 12 }}>
             <MakrukBoard
               board={board}
               pieces={pieces}
               flipped={flipped}
-              fromHighlight={mode === "study" ? fromHighlight : null}
-              toHighlight={mode === "study" ? toHighlight : null}
+              fromHighlight={
+                mode === "study" || mode === "games" ? fromHighlight : null
+              }
+              toHighlight={
+                mode === "study" || mode === "games" ? toHighlight : null
+              }
               selectedSquare={mode === "practice" ? practice.selected : null}
               errorSquare={mode === "practice" ? practice.errorSquare : null}
               hintSquare={hintFrom}
               hintToSquare={hintTo}
+              promoFlashSquare={promoFlash}
               onCellClick={
                 mode === "practice" && userTurn ? handleBoardClick : undefined
               }
             />
           </div>
 
-          {/* NAVIGATION (study only) */}
-          {mode === "study" && currentVariant && (
+          {/* NAVIGATION (study and games) */}
+          {(mode === "study" || mode === "games") && (
             <div
               style={{
                 display: "flex",
@@ -639,14 +815,14 @@ export function Index() {
               </Pill>
               <Pill
                 onClick={goForward}
-                disabled={moveIndex >= currentMoves.length - 1}
+                disabled={moveIndex >= activeMoves.length - 1}
               >
                 Vpřed ▶
               </Pill>
               <Pill
                 square
                 onClick={goEnd}
-                disabled={moveIndex >= currentMoves.length - 1}
+                disabled={moveIndex >= activeMoves.length - 1}
                 title="Konec"
               >
                 ⏭
@@ -665,7 +841,7 @@ export function Index() {
           {mode === "practice" && currentVariant && !practice.done && (() => {
             const userColor = playerSide === "white" ? "bílý" : "černý";
             const oppColor = playerSide === "white" ? "černý" : "bílý";
-            const isFinal = moveIndex + 1 >= currentMoves.length;
+            const isFinal = moveIndex + 1 >= activeMoves.length;
             const playsLabel = practice.opponentThinking
               ? `soupeř (${oppColor})`
               : userTurn
@@ -705,7 +881,7 @@ export function Index() {
                   {" | "}
                   Tah:{" "}
                   <strong style={{ color: "var(--text)" }}>
-                    {moveIndex + 1}/{currentMoves.length}
+                    {moveIndex + 1}/{activeMoves.length}
                   </strong>
                   {" | "}
                   Hraje:{" "}
@@ -725,7 +901,29 @@ export function Index() {
                 marginBottom: 12,
               }}
             >
-              Tah {moveIndex + 1} / {currentMoves.length}
+              Tah {moveIndex + 1} / {activeMoves.length}
+            </div>
+          )}
+
+          {/* Game info (difficulty + move counter) */}
+          {mode === "games" && (
+            <div
+              style={{
+                textAlign: "center",
+                fontSize: 13,
+                color: "var(--text-muted)",
+                marginBottom: 12,
+                fontVariantNumeric: "tabular-nums",
+              }}
+            >
+              Obtížnost:{" "}
+              <span style={{ color: "var(--accent)" }}>
+                {"★".repeat(currentGame.difficulty)}
+                <span style={{ opacity: 0.4 }}>
+                  {"☆".repeat(5 - currentGame.difficulty)}
+                </span>
+              </span>{" "}
+              · Tah {moveIndex + 1}/{activeMoves.length}
             </div>
           )}
 
@@ -734,16 +932,15 @@ export function Index() {
             <ResultCard
               stars={starsFromMistakes(practice.mistakes)}
               mistakes={practice.mistakes}
-              totalMoves={currentMoves.length}
+              totalMoves={activeMoves.length}
               hasNextVariant={hasNextVariant}
               onRetry={resetPractice}
               onNextVariant={handleNextVariant}
             />
           )}
 
-          {/* TAB panel (both study + practice show context, with the move-tab
-              reflecting the last move played) */}
-          {currentVariant && (
+          {/* TAB panel (study + practice — strategy/history/move) */}
+          {(mode === "study" || mode === "practice") && currentVariant && (
             <div className="surface" style={{ padding: 16, marginBottom: 12 }}>
               <div
                 style={{
@@ -772,6 +969,41 @@ export function Index() {
                 </button>
               </div>
               <div style={{ fontSize: 15 }}>{tabContent()}</div>
+            </div>
+          )}
+
+          {/* TAB panel (games — topic/move/result) */}
+          {mode === "games" && (
+            <div className="surface" style={{ padding: 16, marginBottom: 12 }}>
+              <div
+                style={{
+                  display: "flex",
+                  borderBottom: "1px solid var(--border-soft)",
+                  marginBottom: 12,
+                }}
+              >
+                <button
+                  className={`tab ${gameTab === "topic" ? "is-active" : ""}`}
+                  onClick={() => setGameTab("topic")}
+                >
+                  Téma
+                </button>
+                <button
+                  className={`tab ${gameTab === "move" ? "is-active" : ""}`}
+                  onClick={() => setGameTab("move")}
+                >
+                  Tah
+                </button>
+                {moveIndex + 1 >= activeMoves.length && activeMoves.length > 0 && (
+                  <button
+                    className={`tab ${gameTab === "result" ? "is-active" : ""}`}
+                    onClick={() => setGameTab("result")}
+                  >
+                    Konec
+                  </button>
+                )}
+              </div>
+              <div style={{ fontSize: 15 }}>{gameTabContent()}</div>
             </div>
           )}
 
@@ -842,6 +1074,8 @@ export function Index() {
       >
         {mode === "pieces"
           ? "Figury · " + (piecesView === "cards" ? "Karty" : "Kvíz")
+          : mode === "games"
+          ? `Partie · ${currentGame.title}`
           : `${currentStrategy.name}${
               currentVariant ? ` · ${currentVariant.name}` : ""
             }`}

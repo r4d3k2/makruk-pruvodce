@@ -381,3 +381,20 @@ button:focus-visible {
   animation: mk-promo-flash 600ms ease-out;
   pointer-events: none;
 }
+
+/* ============================================================
+   MOBILE — board stretches edge-to-edge on narrow viewports
+   ============================================================ */
+.board-wrap {
+  /* Default desktop behaviour: board sits inside the 520px container. */
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 480px) {
+  .board-wrap {
+    /* Cancel the 20px page padding so the board spans full width. */
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}

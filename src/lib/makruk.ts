@@ -100,15 +100,20 @@ function applyOne(board: Board, move: MoveDef): Board {
   return next;
 }
 
-export function applyMoves(moves: MoveDef[]): Board {
-  let board = initialBoard();
+export function applyMoves(moves: MoveDef[], start?: Board): Board {
+  let board = start ? cloneBoard(start) : initialBoard();
   for (const m of moves) board = applyOne(board, m);
   return board;
 }
 
-export function applyMovesUpTo(moves: MoveDef[], index: number): Board {
-  let board = initialBoard();
-  if (index < 0) return board;
+export function applyMovesUpTo(
+  moves: MoveDef[],
+  index: number,
+  start?: Board,
+): Board {
+  const base = start ?? initialBoard();
+  if (index < 0) return cloneBoard(base);
+  let board = cloneBoard(base);
   const limit = Math.min(index + 1, moves.length);
   for (let i = 0; i < limit; i++) board = applyOne(board, moves[i]);
   return board;
@@ -153,8 +158,12 @@ export interface TrackedPiece {
   col: number;
 }
 
-export function pieceTraceUpTo(moves: MoveDef[], index: number): TrackedPiece[] {
-  const board = initialBoard();
+export function pieceTraceUpTo(
+  moves: MoveDef[],
+  index: number,
+  start?: Board,
+): TrackedPiece[] {
+  const board = start ?? initialBoard();
   const positions = new Map<string, { type: PieceType; side: Side; row: number; col: number }>();
 
   for (let r = 0; r < ROWS; r++) {
