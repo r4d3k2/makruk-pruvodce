@@ -22,7 +22,7 @@ export const STRATEGIES: Strategy[] = [
     intro:
       "Nejzákladnější a nejpřirozenější rozjezd v makruku. Pomalý tlak v centru přes d a e pěšce, postupný rozvoj koní a slonů (Khon). Vzhledem k absenci dvojkroku trvá centrum zaplnit déle než v šachu — to dává oběma stranám prostor pro pevnou stavbu.",
     history:
-      "Tato rozestavba je výchozí pozicí v drtivé většině zaznamenaných makruk partií. Pomalé tempo hry znamená, že agresivní výpady v zahájení jsou neefektivní — místo toho se hráči soustředí na koordinaci a strukturu pěšců.",
+      "Tato rozestavba je výchozí pozicí v drtivé většině zaznamenaných makruk partií. Pomalé tempo hry znamená, že agresivní výpady v zahájení jsou neefektivní — místo toho se hráči soustředí na koordinaci a strukturu pěšců.\n\nSymetrie prvních tahů je v makruku přirozeným důsledkem pomalého tempa. Vladimir Kramnik, bývalý mistr světa v šachu, který si makruk vyzkoušel, popsal hru takto: 'Makruk Thai je strategičtější než mezinárodní šachy — musíte plánovat operace s naprostou opatrností, protože makruk lze přirovnat k anticipovanému koncovce mezinárodních šachů.' Strategie se začnou rozcházet typicky až po 10. tahu, kdy některá ze stran udělá první nesymetrický výpad.",
     variants: [
       {
         id: "symmetric",
@@ -112,7 +112,7 @@ export const STRATEGIES: Strategy[] = [
     intro:
       "Hluboce defenzivní formace, ve které bílý postaví oba Khony před krále a Met. Vznikne 'stěna' na druhé řadě — extrémně těžko proniknutelná pro lehké figury soupeře. Cena: pomalý rozvoj a omezené možnosti aktivity.",
     history:
-      "Stěna z Khon je oblíbená u opatrnějších hráčů a v partiích, kde černý hraje agresivně. Khon je v makruku nejlepším obráncem krátkých diagonál a stěna využívá tento atribut maximálně.",
+      "Stěna z Khon je oblíbená u opatrnějších hráčů a v partiích, kde černý hraje agresivně. Khon je v makruku nejlepším obráncem krátkých diagonál a stěna využívá tento atribut maximálně.\n\nPomalý rozvoj a vysoká symetrie v zahájení nejsou v makruku slabostí — je to autentický rys hry, kde absence dvojkroku pěšců a slabá Met znamenají, že obě strany musí budovat pozici postupně. Strategie 'jen reaguj' v makruku selhává (viz Partie 4), ale ani 'zaútoč hned' nefunguje proti pevné Khon-stěně.",
     variants: [
       {
         id: "central-khon-wall",

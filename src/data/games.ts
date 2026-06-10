@@ -184,7 +184,7 @@ export const GAMES: Game[] = [
         to: [2, 2],
         promotes: true,
         comment:
-          "PROMOCE! Bia dosáhne 6. řady (z bílého pohledu) a automaticky se mění na Met — povýšený pěšec (P+). Vizuálně bude pěšcová silueta převrácená vzhůru nohama (tradice z thajských šachovnic) a pohybově se chová jako Met (4 diagonály).",
+          "PROMOCE! Bia dosáhne 6. řady (z bílého pohledu) a automaticky se mění na povýšený pěšec (P+). Vizuálně dostává silueta charakteristický 'pilový kotouč' s deseti ostrými zuby — jasně odlišný od běžného Bia (soustředné kruhy) i od Met (kupole). Pohybově se P+ chová jako Met (jedno pole diagonálně), ale zachovává si identitu 'povýšeného pěšce'.",
       },
       {
         from: [0, 0],
@@ -429,6 +429,259 @@ export const GAMES: Game[] = [
         to: [1, 1],
         comment:
           "Povýšený Bia (P+) bere černého Khona na b7 diagonálně! Pohybuje se jako Met. Černý ztratil Khon, je o figuru pozadu, struktura je rozbitá. Lekce: pasivní hra v makruku se vždy mstí.",
+      },
+    ],
+  },
+
+  // ============================================================
+  // PARTIE 5 — Mat dvěma věžemi (endgame, 7 tahů)
+  // Korekce vůči původní specifikaci: aby finální tah skutečně
+  // matoval, věže se musely střídat na řadě soupeřova krále
+  // (klasický 'žebřík' s šachem v každém bílém tahu).
+  // ============================================================
+  {
+    id: "two-rooks-mate",
+    title: "Mat dvěma věžemi",
+    topic:
+      "Klasická 'žebříková' technika dvou Rua proti samotnému králi. V makruku je tato koncovka stejně efektivní jako v šachu — věže pracují společně.",
+    description:
+      "Dvě věže umí matovat osamělého krále i bez pomoci vlastního krále — technikou tzv. 'žebříku': jedna Rua dává šach na řadě, kde stojí soupeřův král; druhá kryje sousední řadu, kam by král chtěl utéct. Po každém šachu se rua střídají — král je tlačen řada po řadě k poslední. Klíčové: každá Rua musí být dost daleko od soupeřova krále, aby nemohla být brána.",
+    difficulty: 2,
+    result: "Bílý matuje (R a8#)",
+    setup: [
+      { type: "K", side: "white", row: 7, col: 4 },
+      { type: "R", side: "white", row: 7, col: 0 },
+      { type: "R", side: "white", row: 7, col: 7 },
+      { type: "K", side: "black", row: 3, col: 4 },
+    ],
+    moves: [
+      {
+        from: [7, 7],
+        to: [3, 7],
+        comment:
+          "Rua skáče na h5 a šachuje černého krále po 5. řadě (rank 5). Klíč 'žebříku': první Rua se postaví přímo na řadu, kde stojí soupeřův král, a vyhání ho o jednu řadu výš.",
+      },
+      {
+        from: [3, 4],
+        to: [2, 4],
+        comment:
+          "Černý král musí pryč ze šachu. Jediný směr, který nevede zpět do dosahu Rua h5, je nahoru — na e6.",
+      },
+      {
+        from: [7, 0],
+        to: [2, 0],
+        comment:
+          "Druhá Rua se připojuje na a6 — šach na 6. řadě. Klasická 'žebříková' střídačka: jedna Rua šachuje, druhá kryje řadu, kam král právě utekl.",
+      },
+      {
+        from: [2, 4],
+        to: [1, 4],
+        comment:
+          "Černý král pokračuje v ústupu nahoru — 7. řada je jediný směr, kam Rua nedosahuje.",
+      },
+      {
+        from: [3, 7],
+        to: [1, 7],
+        comment:
+          "Rua h5 skáče na h7 — šach na 7. řadě. Žebřík funguje: každá Rua dává šach, druhá brání ústup zpět.",
+      },
+      {
+        from: [1, 4],
+        to: [0, 4],
+        comment:
+          "Černý král vytlačen na poslední řadu (e8). Tady už nemá kam dál — 8. řada je jeho konec.",
+      },
+      {
+        from: [2, 0],
+        to: [0, 0],
+        comment:
+          "MAT! Rua a6 → a8, šach na 8. řadě. Druhá Rua na h7 stále drží 7. řadu, takže král nemá kam utéct. Černý král na e8 je v matu po pouhých 7 tazích. Klasický 'žebřík' dvou věží.",
+      },
+    ],
+  },
+
+  // ============================================================
+  // PARTIE 6 — Khon + Met mat (endgame, 7 tahů)
+  // Korekce vůči původní specifikaci: původní sekvence obsahovala
+  // nelegální tah Met (Met se hýbe jen diagonálně, nikdy rovně),
+  // a finální pozice nebyla matem. Tato verze používá pevný
+  // mat-vzor s Khun + Met + Khon proti samotnému králi.
+  // ============================================================
+  {
+    id: "khon-met-mate",
+    title: "Khon + Met mat",
+    topic:
+      "Klasická makruková koncovka — Khun + Khon + Met společně matuje samotnému králi. V šachu by stačila samotná dáma, ale slabá Met to potřebuje s pomocníky.",
+    description:
+      "Met (jedno pole diagonálně) je v makruku slabá — sama matovat nestačí. Potřebuje krytí krále a Khona, který kryje druhé barvy diagonál. Bílý postupně přibližuje krále, Met a Khon vstupují do koordinace, černý král je vytlačen do rohu a zamatován kombinací 'Khon dává šach forward + diagonála kryje únik'. Limit počítání pro tuto koncovku je 44 tahů, takže přesnost je nutná, ne rychlost.",
+    difficulty: 4,
+    result: "Bílý matuje (Khon d7# — krytý Khunem, Met zajišťuje diagonály)",
+    setup: [
+      { type: "K", side: "white", row: 3, col: 4 },
+      { type: "M", side: "white", row: 3, col: 2 },
+      { type: "B", side: "white", row: 3, col: 3 },
+      { type: "K", side: "black", row: 0, col: 4 },
+    ],
+    moves: [
+      {
+        from: [3, 4],
+        to: [2, 4],
+        comment:
+          "Bílý král postupuje na e6. Klíč mat-koncovek v makruku: silnější král musí pomáhat svým figurám — sama Met s Khonem matovat nedokáže.",
+      },
+      {
+        from: [0, 4],
+        to: [0, 3],
+        comment:
+          "Černý král ustupuje na d8. Pole e7/d7/f7 jsou pod kontrolou bílého krále — král se musí pohnout do strany po poslední řadě.",
+      },
+      {
+        from: [3, 2],
+        to: [2, 3],
+        comment:
+          "Met se posunuje diagonálně na d6. Met v makruku se hýbe jen jedno pole diagonálně — proto je každý její krok pozičně významný.",
+      },
+      {
+        from: [0, 3],
+        to: [0, 2],
+        comment:
+          "Černý král pokračuje v ústupu po 8. řadě — na c8. Pole na 7. řadě jsou kryta bílými figurami.",
+      },
+      {
+        from: [3, 3],
+        to: [2, 2],
+        comment:
+          "Khon postupuje diagonálně na c6. Khon má pět možných pohybů (4 diagonály + 1 dopředu), tady volíme diagonálu, abychom udrželi koordinaci s Met.",
+      },
+      {
+        from: [0, 2],
+        to: [0, 3],
+        comment:
+          "Černý král kličkuje zpátky na d8 — c8/b8 by ho dostalo dál od centra, ale ve skutečnosti by mu nepomohly. Tady ale udělá chybu, která vede přímo do matu.",
+      },
+      {
+        from: [2, 2],
+        to: [1, 3],
+        comment:
+          "MAT! Khon dělá diagonální skok na d7 — šach černému králi (Khon útočí dopředu na pole přímo před sebou, tedy d8). Khon je krytý bílým králem na e6. Černý král na d8 nemá únik: c8 a e8 napadá Khon diagonálně, c7 napadá Met na d6, e7 napadá bílý král i Met. Koordinace tří figur dokončila mat.",
+      },
+    ],
+  },
+
+  // ============================================================
+  // PARTIE 7 — Fianchetto Khon (full game, 16 tahů)
+  // Inspirováno Kramnikovým strategickým myšlením v makruku.
+  // Původní specifikace obsahovala několik nelegálních tahů
+  // (např. captury na prázdných polích, věž skákala přes vlastního
+  // pěšce). Tato verze zachovává hlavní myšlenku — fianchetto
+  // Khona na b7 a postupný tlak po dlouhé diagonále — ale s plně
+  // legálními tahy.
+  // ============================================================
+  {
+    id: "kramnik-fianchetto",
+    title: "Fianchetto Khon",
+    topic:
+      "Strategický motiv inspirovaný Kramnikovou analýzou makruku: černý postaví Khona na b7 (fianchetto), pomalu ho centralizuje a vytváří dlouhodobý tlak.",
+    description:
+      "Vladimir Kramnik, bývalý mistr světa v šachu, popsal makruk jako 'strategičtější než šachy — anticipovaná koncovka od prvního tahu'. V této ukázce vidíme jeho oblíbený motiv: pomalá pozice s Khonem na dlouhé diagonále. Bílý hraje standardní centrální rozvoj, černý odpovídá fianchettem (c8 → b7), pak pomalu posunuje Khona k centru. Po 16 tazích má černý figury aktivnější — strategická převaha bez taktického zlomu, charakteristická pro makruk.",
+    difficulty: 5,
+    result: "Černý získává strategickou převahu (aktivní Khon na d5)",
+    moves: [
+      {
+        from: [5, 3],
+        to: [4, 3],
+        comment:
+          "Bílý: d-pěšec na d4. Standardní centralizační rozjezd v makruku.",
+      },
+      {
+        from: [2, 6],
+        to: [3, 6],
+        comment:
+          "Černý: g-pěšec na g5. Asymetrická odpověď — připravuje pozici pro pozdější fianchetto a uvolňuje cestu k diagonále.",
+      },
+      {
+        from: [5, 4],
+        to: [4, 4],
+        comment:
+          "Bílý: e-pěšec na e4. Dvojice centrálních pěšců — standardní makruk struktura.",
+      },
+      {
+        from: [0, 2],
+        to: [1, 1],
+        comment:
+          "Černý: Khon c8 → b7 — FIANCHETTO! Klíčový strategický tah. Khon se postaví na dlouhou diagonálu b7-h1 a začne dlouhodobou pouť ke centru. V šachu by tento manévr byl rychlý (slon doletí), ale v makruku každý krok = 1 pole.",
+      },
+      {
+        from: [7, 1],
+        to: [6, 3],
+        comment:
+          "Bílý: rozvoj koně na d2 — jediný legální skok b1 v makruku (a3/c3 obsazena vlastními pěšáky).",
+      },
+      {
+        from: [0, 1],
+        to: [1, 3],
+        comment:
+          "Černý: rozvoj koně na d7 — také jediný legální skok b8.",
+      },
+      {
+        from: [7, 6],
+        to: [6, 4],
+        comment:
+          "Bílý: druhý kůň na e2.",
+      },
+      {
+        from: [0, 6],
+        to: [1, 4],
+        comment:
+          "Černý: druhý kůň na e7.",
+      },
+      {
+        from: [7, 2],
+        to: [6, 1],
+        comment:
+          "Bílý: Khon c1 → b2 (diagonálně). Symetrický vývoj — vlastní fianchetto.",
+      },
+      {
+        from: [0, 3],
+        to: [1, 2],
+        comment:
+          "Černý: Met d8 → c7 (diagonálně). Met podporuje Khon a kryje klíčové centrální pole d6.",
+      },
+      {
+        from: [7, 5],
+        to: [6, 6],
+        comment:
+          "Bílý: Khon f1 → g2. Druhý Khon na bok — symetrie zachována, ale ne na dlouhých diagonálách.",
+      },
+      {
+        from: [2, 2],
+        to: [3, 2],
+        comment:
+          "Černý: c-pěšec na c5. Otevírá Khonovi cestu z b7 dál diagonálou na c6.",
+      },
+      {
+        from: [5, 5],
+        to: [4, 5],
+        comment:
+          "Bílý: f-pěšec na f4 — pozdní rozšíření kingside. Kramnik označil podobné tahy v makruku za 'strategicky neopatrné' — otevírá totiž slabinu na e4.",
+      },
+      {
+        from: [1, 1],
+        to: [2, 2],
+        comment:
+          "Černý: Khon b7 → c6 (diagonálně SE pro černého). Postupuje na uvolněnou pozici — diagonála b7-h1 byla dlouhá, ale postup je pomalý.",
+      },
+      {
+        from: [7, 4],
+        to: [6, 5],
+        comment:
+          "Bílý: Met e1 → f2 (diagonálně). Pozdě se snaží podpořit e4 — slabina už je strukturální.",
+      },
+      {
+        from: [2, 2],
+        to: [3, 3],
+        comment:
+          "Černý: Khon c6 → d5 (diagonálně SE)! Khon stojí v centru, atakuje pole e4 a kontroluje dlouhou diagonálu. Strategická převaha je hotová — figury jsou aktivnější, struktura pevná. Partie by pokračovala technickou exploitací této převahy, ale strategický plán fianchetta je dokončen.",
       },
     ],
   },
