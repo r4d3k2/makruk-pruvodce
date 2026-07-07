@@ -685,4 +685,442 @@ export const GAMES: Game[] = [
       },
     ],
   },
+
+  // ============================================================
+  // PARTIE 8 — Dva koně matují (endgame, 7 tahů)
+  // Ukazuje, že kůň v makruku není minorka — dva koně + král
+  // umí matovat osamělého soupeřova krále.
+  // ============================================================
+  {
+    id: "two-knights-mate",
+    title: "Dva koně matují",
+    topic:
+      "Endgame s dvěma koni proti samotnému králi. V makruku je kůň silnější než v šachu — tato koncovka je vyhraná.",
+    description:
+      "Dva bílí koně společně s králem postupně tlačí černého krále do rohu. Klíčová je koordinace: jeden kůň odřezává úniková pole, druhý dorazí mat. V mezinárodních šachách jsou dva koně + král proti králi teoreticky remíza, ale v makruku slabší král a specifická geometrie desky umožňují vynucený mat.",
+    difficulty: 4,
+    result: "Bílý matuje (N d6#)",
+    setup: [
+      { type: "K", side: "white", row: 3, col: 3 }, // Khun d5
+      { type: "N", side: "white", row: 3, col: 2 }, // Ma c5
+      { type: "N", side: "white", row: 3, col: 1 }, // Ma b5
+      { type: "K", side: "black", row: 0, col: 0 }, // Khun a8
+    ],
+    moves: [
+      {
+        from: [3, 3],
+        to: [2, 3],
+        comment:
+          "Bílý král postupuje na d6 a tlačí černého krále k okraji desky.",
+      },
+      {
+        from: [0, 0],
+        to: [0, 1],
+        comment:
+          "Černý král ustupuje na b8. Pole na 7. řadě jsou pod kontrolou bílého krále.",
+      },
+      {
+        from: [3, 2],
+        to: [2, 0],
+        comment:
+          "Kůň z c5 skáče na a6 — přibližuje se k černému králi a kryje únikové pole b8.",
+      },
+      {
+        from: [0, 1],
+        to: [1, 1],
+        comment:
+          "Černý král se snaží zůstat blízko centra a jde na b7.",
+      },
+      {
+        from: [2, 3],
+        to: [1, 4],
+        comment:
+          "Bílý král na e7 dokončuje sevření. Černý král je odříznut od centra.",
+      },
+      {
+        from: [1, 1],
+        to: [0, 2],
+        comment:
+          "Černý král ustupuje na c8, jediné zbývající volné pole.",
+      },
+      {
+        from: [3, 1],
+        to: [2, 3],
+        comment:
+          "MAT! Kůň z b5 na d6 dává šach černému králi. Král na c8 nemá únik: b8 kryje kůň a6, d8 a e8 kryje kůň d6, c7 a e7 pokrývá bílý král. Dva koně v makruku skutečně matují.",
+      },
+    ],
+  },
+
+  // ============================================================
+  // PARTIE 9 — Věž a kůň matují (endgame, 9 tahů)
+  // Kombinace Rua + Ma + Khun proti samotnému Khunovi.
+  // ============================================================
+  {
+    id: "rook-and-knight-mate",
+    title: "Věž a kůň matují",
+    topic:
+      "Klasická výherná koncovka — věž a kůň společně s králem tlačí soupeřova krále do pasti.",
+    description:
+      "Věž se nejprve připraví na dlouhé řadě, král se přibližuje a kůň pomáhá odřezávat úniková pole. V poslední fázi věž přejde na matový sloupec a společně s králem uzavře mat. Tato koncovka je v makruku jednodušší než v šachu, protože král má menší pohyblivost.",
+    difficulty: 3,
+    result: "Bílý matuje (R h2#)",
+    setup: [
+      { type: "K", side: "white", row: 7, col: 4 }, // Khun e1
+      { type: "N", side: "white", row: 7, col: 6 }, // Ma g1
+      { type: "R", side: "white", row: 7, col: 0 }, // Rua a1
+      { type: "K", side: "black", row: 0, col: 7 }, // Khun h8
+    ],
+    moves: [
+      {
+        from: [7, 0],
+        to: [6, 0],
+        comment:
+          "Věž se posune na a2 a připraví se na útok po 2. řadě.",
+      },
+      {
+        from: [0, 7],
+        to: [1, 6],
+        comment:
+          "Černý král se přesune na g7, snaží se udržet na opačném křídle.",
+      },
+      {
+        from: [7, 4],
+        to: [6, 3],
+        comment:
+          "Bílý král postupuje na d2, začíná dlouhou pouť přes desku.",
+      },
+      {
+        from: [1, 6],
+        to: [2, 6],
+        comment:
+          "Černý král na g6, stále se snaží uniknout.",
+      },
+      {
+        from: [6, 3],
+        to: [5, 4],
+        comment:
+          "Bílý král na e3 — pomalé, ale jisté přibližování.",
+      },
+      {
+        from: [2, 6],
+        to: [3, 7],
+        comment:
+          "Černý král na h5, blíží se k okraji, kde bude matován.",
+      },
+      {
+        from: [5, 4],
+        to: [4, 5],
+        comment:
+          "Bílý král na f4, připravuje matovou síť kolem h-sloupce.",
+      },
+      {
+        from: [3, 7],
+        to: [4, 7],
+        comment:
+          "Černý král na h4 — zbývá jen poslední krok.",
+      },
+      {
+        from: [6, 0],
+        to: [6, 7],
+        comment:
+          "MAT! Věž z a2 na h2 šachuje po celém h-sloupci. Černý král na h4 nemá únik: g3 a h3 kryje bílý král, g5 kryje věž. Kombinace Rua + Khun + Ma je neodvratná.",
+      },
+    ],
+  },
+
+  // ============================================================
+  // PARTIE 10 — Khon + Met mat z rohu (endgame, 7 tahů)
+  // Jiná varianta Khon + Met matu než Partie 6 — černý král
+  // začíná v rohu a bílý ho systematicky vytlačí.
+  // ============================================================
+  {
+    id: "khon-met-mate-corner",
+    title: "Khon + Met mat z rohu",
+    topic:
+      "Slabá Met potřebuje pomocníky. Tato studie ukazuje, jak Khon a Met společně matují krále v rohu.",
+    description:
+      "Met sama matovat nedokáže, ale s Khonem a králem dokáže uzavřít matovou síť. Bílý postupně omezuje černého krále, Met a Khon kryjí diagonály a finální tah Khona dopředu na d7 uzavírá mat. Oproti Partii 6 začíná černý král v rohu, což ilustruje jiný geometrický přístup ke stejné koncovce.",
+    difficulty: 4,
+    result: "Bílý matuje (Khon d7#)",
+    setup: [
+      { type: "K", side: "white", row: 3, col: 4 }, // Khun e5
+      { type: "M", side: "white", row: 3, col: 2 }, // Met c5
+      { type: "B", side: "white", row: 3, col: 3 }, // Khon d5
+      { type: "K", side: "black", row: 0, col: 0 }, // Khun a8
+    ],
+    moves: [
+      {
+        from: [3, 2],
+        to: [2, 1],
+        comment:
+          "Met se posune diagonálně na b6 a odřezává černému králi ústup na a7.",
+      },
+      {
+        from: [0, 0],
+        to: [0, 1],
+        comment:
+          "Černý král ustupuje na b8. a8 je pod kontrolou bílé Mety.",
+      },
+      {
+        from: [3, 3],
+        to: [2, 2],
+        comment:
+          "Khon postupuje na c6 a pokračuje v omezování prostoru kolem černého krále.",
+      },
+      {
+        from: [0, 1],
+        to: [0, 2],
+        comment:
+          "Král pokračuje po zadní řadě na c8, ale volba se zužuje.",
+      },
+      {
+        from: [3, 4],
+        to: [2, 3],
+        comment:
+          "Bílý král se přibližuje a přebírá kontrolu nad klíčovými poli c7 a e7.",
+      },
+      {
+        from: [0, 2],
+        to: [0, 3],
+        comment:
+          "Černý král se stáhne na d8. Zbývá jen čekat na mat.",
+      },
+      {
+        from: [2, 2],
+        to: [1, 3],
+        comment:
+          "MAT! Khon na d7 dává šach dopředu na d8 a diagonálně kryje c8/e8. Bílý král na e7 drží c7 a e7. Černý král nemá kam.",
+      },
+    ],
+  },
+
+  // ============================================================
+  // PARTIE 11 — Past na Met (plná partie, 17 tahů)
+  // Černá Met se příliš vyžene a bílý kůň ji potrestá.
+  // ============================================================
+  {
+    id: "met-trap",
+    title: "Past na Met",
+    topic:
+      "Taktická lekce: aktivní Met bez krytí je zranitelná. Bílý ji potrestá skokem koně na c5.",
+    description:
+      "Z bílého queenside rozjezdu se černá Met snaží příliš rychle zapojit do hry. Postupně postupuje až na c5, kde ji bílý kůň z b3 chytí. Lekce: v makruku je Met slabá figura — její aktivita musí být vždy krytá, jinak riskuje ztrátu.",
+    difficulty: 3,
+    result: "Bílý získává Met (N c5)",
+    moves: [
+      {
+        from: [5, 3],
+        to: [4, 3],
+        comment: "Bílý otevírá centrum d-pěšcem.",
+      },
+      {
+        from: [2, 3],
+        to: [3, 3],
+        comment: "Černý odpovídá symetricky.",
+      },
+      {
+        from: [5, 4],
+        to: [4, 4],
+        comment:
+          "Druhý centrální pěšec — vzniká klasická makruková struktura s pěšci d4/e4 proti d5/e5.",
+      },
+      {
+        from: [2, 4],
+        to: [3, 4],
+        comment: "Černý udržuje symetrii v centru.",
+      },
+      {
+        from: [7, 1],
+        to: [6, 3],
+        comment:
+          "Levý kůň na d2 — jediný legální skok z výchozí pozice (a3 a c3 jsou obsazeny vlastními pěšci).",
+      },
+      {
+        from: [0, 1],
+        to: [1, 3],
+        comment: "Černý kůň na d7, symetrický rozvoj.",
+      },
+      {
+        from: [7, 6],
+        to: [6, 4],
+        comment: "Pravý kůň na e2.",
+      },
+      {
+        from: [0, 2],
+        to: [1, 1],
+        comment: "Černý Khon na b7, připravuje fianchetto.",
+      },
+      {
+        from: [5, 1],
+        to: [4, 1],
+        comment:
+          "Bílý b-pěšec na b4 — uvolňuje pole b3 pro koně a zároveň otevírá queenside.",
+      },
+      {
+        from: [2, 5],
+        to: [3, 5],
+        comment:
+          "Černý f-pěšec na f5, oslabuje královské křídlo a uvolňuje f6 pro koně.",
+      },
+      {
+        from: [6, 3],
+        to: [5, 1],
+        comment:
+          "Bílý kůň na b3 — nyní má cestu na c5, kde čeká past na černou Met.",
+      },
+      {
+        from: [0, 3],
+        to: [1, 4],
+        comment: "Černá Met se vyvine na e7.",
+      },
+      {
+        from: [7, 2],
+        to: [6, 2],
+        comment: "Bílý Khon na c2, podporuje centrum a připravuje se na další vývoj.",
+      },
+      {
+        from: [1, 4],
+        to: [2, 3],
+        comment:
+          "Černá Met pokračuje na d6, chce se co nejrychleji zapojit do hry.",
+      },
+      {
+        from: [7, 5],
+        to: [6, 5],
+        comment: "Bílý Khon na f2, dokončuje rozvoj lehkých figur.",
+      },
+      {
+        from: [2, 3],
+        to: [3, 2],
+        comment:
+          "Černá Met táhne na c5 — příliš daleko od bezpečí. Tento aktivní tah je pastí.",
+      },
+      {
+        from: [5, 1],
+        to: [3, 2],
+        comment:
+          "Bílý kůň bere Met na c5! Černý spadl do pasti — Met byla aktivní, ale nechráněná. Materiální ztráta figury je rozhodující.",
+      },
+    ],
+  },
+
+  // ============================================================
+  // PARTIE 12 — Symetrické zahájení (plná partie, 18 tahů)
+  // Oba hráči zrcadlí první tahy, pak bílý v centru přece jen
+  // získá drobnou, ale důležitou převahu.
+  // ============================================================
+  {
+    id: "symmetric-opening",
+    title: "Symetrické zahájení",
+    topic:
+      "Symetrická hra se rozejde v centru: bílý využije c-pěšce k vytvoření volného pěšce.",
+    description:
+      "Prvních dvanáct tahů je téměř zrcadlových — oba hráči rozvíjejí koně a Khony do standardních pozic. Rozdíl nastane po bílém c4: černý zrcadlí c5, ale po výměně na d5 se pozice přestane opakovat. Bílý využije aktivnějšího koně a v centru vytvoří volného pěšce, který dává trvalou poziční výhodu. Lekce: v makruku i malý detail v zahájení může rozhodnout.",
+    difficulty: 3,
+    result: "Bílý získává volného pěšce v centru",
+    moves: [
+      {
+        from: [5, 3],
+        to: [4, 3],
+        comment: "Bílý začíná centrálním d-pěšcem.",
+      },
+      {
+        from: [2, 3],
+        to: [3, 3],
+        comment: "Černý zrcadlí v centru.",
+      },
+      {
+        from: [5, 4],
+        to: [4, 4],
+        comment: "Bílý posílá e-pěšcem.",
+      },
+      {
+        from: [2, 4],
+        to: [3, 4],
+        comment: "Černý zrcadlí i druhým centrálním pěšcem.",
+      },
+      {
+        from: [7, 1],
+        to: [6, 3],
+        comment: "Levý kůň na d2.",
+      },
+      {
+        from: [0, 1],
+        to: [1, 3],
+        comment: "Černý levý kůň na d7.",
+      },
+      {
+        from: [7, 6],
+        to: [6, 4],
+        comment: "Pravý kůň na e2.",
+      },
+      {
+        from: [0, 6],
+        to: [1, 4],
+        comment: "Černý pravý kůň na e7.",
+      },
+      {
+        from: [7, 2],
+        to: [6, 1],
+        comment: "Khon c1-b2, připravuje se na fianchetto.",
+      },
+      {
+        from: [0, 2],
+        to: [1, 1],
+        comment: "Černý Khon c8-b7, symetricky.",
+      },
+      {
+        from: [7, 5],
+        to: [6, 6],
+        comment: "Khon f1-g2.",
+      },
+      {
+        from: [0, 5],
+        to: [1, 6],
+        comment: "Černý Khon f8-g7.",
+      },
+      {
+        from: [5, 2],
+        to: [4, 2],
+        comment:
+          "c-pěšec na c4 — bílý se pokouší rozbít symetrii na queenside.",
+      },
+      {
+        from: [2, 2],
+        to: [3, 2],
+        comment: "Černý odpovídá c5 a udržuje symetrii.",
+      },
+      {
+        from: [4, 2],
+        to: [3, 3],
+        comment:
+          "Bílý c-pěšec bere d5 a otevírá c-sloupec. Symetrie je narušena.",
+      },
+      {
+        from: [1, 4],
+        to: [3, 3],
+        comment:
+          "Černý kůň z e7 bere zpět na d5. Materiál je vyrovnaný, ale pozice už není symetrická — bílý má aktivnějšího koně.",
+      },
+      {
+        from: [6, 4],
+        to: [5, 2],
+        comment:
+          "Bílý kůň na c3 — napadá d5 a hrozí centrální aktivitou.",
+      },
+      {
+        from: [3, 3],
+        to: [1, 2],
+        comment:
+          "Černý kůň ustupuje na c7, daleko od centra. Bílý získal tempo.",
+      },
+      {
+        from: [4, 3],
+        to: [3, 4],
+        comment:
+          "Bílý d-pěšec bere e5! Černé centrum se rozpadá a bílý získává volného pěšce. Symetrické zahájení se rozjelo v bílův prospěch.",
+      },
+    ],
+  },
 ];
