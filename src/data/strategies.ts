@@ -929,7 +929,7 @@ export const STRATEGIES: Strategy[] = [
         id: "open-a-file",
         name: "Otevření a-sloupce",
         description:
-          "Bílý nabídne výměnu krajních pěšců, otevře a-sloupec a vede Rua hluboko do soupeřovy poloviny.",
+          "Bílý nabídne výměnu krajních pěšců a otevře a-sloupec. Věž na něj postaví jen tam, kde je krytá — a když černý sloupec zanedbá, promění tlak na něm ve volného pěšce krok od proměny.",
         moves: [
           {
             from: [5, 0],
@@ -953,43 +953,55 @@ export const STRATEGIES: Strategy[] = [
             from: [2, 0],
             to: [3, 1],
             comment:
-              "Bere zpět a-pěšcem. Sloupec je otevřený pro obě strany — teď jde jen o to, kdo na něj dostane věž dřív.",
+              "Bere zpět a-pěšcem. Sloupec je otevřený pro obě strany — a černá věž z a8 ho celý kontroluje. Bílý je na tahu dřív, ale jeho věž smí jen tam, kde bude krytá.",
           },
           {
             from: [7, 0],
-            to: [4, 0],
+            to: [5, 0],
             comment:
-              "Bílá Rua vykračuje na a4 po prázdném sloupci. Tři pole najednou — Rua se hýbe ortogonálně jako šachová věž.",
+              "Rua na a3 — jediné pole na sloupci, kde je krytá (kůň z b1). Na a4 by ji vzal pěšec z b5, na a6 nebo a7 by ji sebrala černá věž a nikdo by nebral zpět. Bílý věž staví, ne žene.",
           },
           {
             from: [0, 1],
             to: [1, 3],
             comment:
-              "Kůň na d7 — a právě tady černý dělá chybu, kterou má varianta ukázat. Po výměně se uvolnilo pole a6, kam kůň také může a odkud by sloupec bránil. Černý volí centrálnější tah a sloupec pouští. Rozvoj bez ohledu na soupeřův plán je v makruku drahý.",
+              "Kůň na d7 — a právě tady černý dělá chybu, kterou má varianta ukázat. Po výměně se uvolnilo pole a6, kam kůň také může a odkud by sloupec zavřel. Černý volí centrálnější tah, sloupec pouští a věž na a8 nechává bez krytí.",
           },
           {
-            from: [4, 0],
-            to: [2, 0],
+            from: [5, 1],
+            to: [4, 1],
             comment:
-              "Bílá Rua zaujímá 6. řadu (rank 6 z bílého pohledu). Napadá černé pěšce a má za sebou volný sloupec.",
+              "b4. Bílý připravuje věži další kryté pole: pěšec z b4 hlídá a5. Postup po otevřeném sloupci je v makruku pomalý — každé pole je potřeba nejdřív pokrýt.",
           },
           {
             from: [2, 3],
             to: [3, 3],
             comment:
-              "d5. Černý chce protihru v centru a doufá, že bude rychlejší než bílá věž. Je to hazard: a-sloupec zůstává otevřený a nikdo ho nebrání.",
+              "d5. Černý chce protihru v centru a doufá, že bude rychlejší než bílá věž. Mohl vyměnit Rua x a3 a po Ma x a3 by byl sloupec vyřízený — místo toho hazarduje: sloupec zůstává otevřený a nikdo ho nebrání.",
           },
           {
-            from: [2, 0],
-            to: [1, 0],
+            from: [5, 0],
+            to: [3, 0],
             comment:
-              "Rua na 7. řadě! Kontaktuje černou Rua a a8. Toto je vrchol celého plánu — Rua hluboko v soupeřově táboře, omezující krále a vyhrožující jeho figurám.",
+              "Rua na a5, krytá pěšcem z b4. A najednou hrozí Rua x a8 — černá věž stojí bez krytí, protože kůň odešel na d7 a Khon z c8 na a8 nedosáhne. Černý musí reagovat hned.",
+          },
+          {
+            from: [0, 0],
+            to: [3, 0],
+            comment:
+              "Černý mění věže. Krýt a8 Khonem na b7 by nestačilo — po Ma b1-a3 by padl pěšec b5, napadený dvakrát a krytý jednou. Výměna je menší zlo, ale má cenu.",
+          },
+          {
+            from: [4, 1],
+            to: [3, 0],
+            comment:
+              "Bílý bere zpět pěšcem — a ten je najednou volný: před ním je a6 i a7 prázdné a a6 je pro bílého pole proměny. Otevřený sloupec se proměnil v pěšce krok od P+.",
           },
           {
             from: [0, 2],
             to: [1, 1],
             comment:
-              "Khon na b7 — konečně tah se záměrem. Khon dosáhne diagonálně dozadu na a8 a kryje tak vlastní Rua, takže bílá věž na a7 nemá koho brát. Černý přežil, jenže na vlastní plán mu nezbyl jediný tah.",
+              "Khon na b7 — jediný způsob, jak a6 pohlídat (Khon kryje pole diagonálně před sebou). Závěr: bílý má volného pěšce na a5, černý Khon je k b7 přivázaný a celé zahájení černý jen reagoval. Kdo pustí otevřený sloupec, neplatí věží — platí tím, co se po něm potom přižene.",
           },
         ],
       },
