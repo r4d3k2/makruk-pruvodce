@@ -947,9 +947,10 @@ export const GAMES: Game[] = [
         comment: "Pravý kůň na e2.",
       },
       {
-        from: [0, 2],
-        to: [1, 1],
-        comment: "Černý Khon na b7, připravuje fianchetto.",
+        from: [2, 1],
+        to: [3, 1],
+        comment:
+          "Černý b-pěšec na b5 — bere si prostor na dámském křídle. Vedlejší účinek: pěšec už z b6 nekryje pole c5.",
       },
       {
         from: [5, 1],
@@ -958,10 +959,10 @@ export const GAMES: Game[] = [
           "Bílý b-pěšec na b4 — uvolňuje pole b3 pro koně a zároveň otevírá queenside.",
       },
       {
-        from: [2, 5],
-        to: [3, 5],
+        from: [1, 3],
+        to: [2, 1],
         comment:
-          "Černý f-pěšec na f5, oslabuje královské křídlo a uvolňuje f6 pro koně.",
+          "Černý kůň z d7 na b6 (pole se uvolnilo po b5). Míří na a4 a c4 — jenže tím opouští d7, odkud kryl c5. Druhý obránce tohoto pole je pryč.",
       },
       {
         from: [6, 3],
@@ -994,13 +995,13 @@ export const GAMES: Game[] = [
         from: [2, 3],
         to: [3, 2],
         comment:
-          "Černá Met táhne na c5 — příliš daleko od bezpečí. Tento aktivní tah je pastí.",
+          "Černá Met táhne na c5 — příliš daleko od bezpečí. Pole nekryje ani pěšec (b6 odešel na b5), ani kůň (d7 odešel na b6). Tento aktivní tah je pastí.",
       },
       {
         from: [5, 1],
         to: [3, 2],
         comment:
-          "Bílý kůň bere Met na c5! Černý spadl do pasti — Met byla aktivní, ale nechráněná. Materiální ztráta figury je rozhodující.",
+          "Bílý kůň bere Met na c5! Žádná černá figura na c5 nedosáhne — kůň z b6 ani pěšec z b5 diagonálně dozadu nekryjí. Met byla aktivní, ale nechráněná (na c5 ji mimochodem napadal i pěšec b4). Ztráta figury zadarmo je rozhodující.",
       },
     ],
   },
@@ -1014,11 +1015,11 @@ export const GAMES: Game[] = [
     id: "symmetric-opening",
     title: "Symetrické zahájení",
     topic:
-      "Symetrická hra se rozejde v centru: bílý využije c-pěšce k vytvoření volného pěšce.",
+      "Symetrická hra se rozejde v centru: bílý využije c-pěšce k narušení symetrie a získá poziční převahu.",
     description:
-      "Prvních dvanáct tahů je téměř zrcadlových — oba hráči rozvíjejí koně a Khony do standardních pozic. Rozdíl nastane po bílém c4: černý zrcadlí c5, ale po výměně na d5 se pozice přestane opakovat. Bílý využije aktivnějšího koně a v centru vytvoří volného pěšce, který dává trvalou poziční výhodu. Lekce: v makruku i malý detail v zahájení může rozhodnout.",
+      "Prvních dvanáct tahů je téměř zrcadlových — oba hráči rozvíjejí koně a Khony do standardních pozic. Rozdíl nastane po bílém c4: černý zrcadlí c5, ale po výměně na d5 se pozice přestane opakovat. Bílý využije aktivnějšího koně a po výměně v centru zůstane černému izolovaný pěšec na e5 — trvalá poziční slabina. Materiál je vyrovnaný, rozhoduje kvalita pozice. Lekce: v makruku i malý detail v zahájení může rozhodnout.",
     difficulty: 3,
-    result: "Bílý získává volného pěšce v centru",
+    result: "Bílý získává poziční převahu (izolovaný pěšec e5)",
     moves: [
       {
         from: [5, 3],
@@ -1119,7 +1120,97 @@ export const GAMES: Game[] = [
         from: [4, 3],
         to: [3, 4],
         comment:
-          "Bílý d-pěšec bere e5! Černé centrum se rozpadá a bílý získává volného pěšce. Symetrické zahájení se rozjelo v bílův prospěch.",
+          "Bílý d-pěšec bere e5. Není to zisk pěšce — černý vezme zpět f6xe5 a materiál zůstane vyrovnaný. Ale po braní zpět bude černý pěšec na e5 izolovaný (sousední d- a f-pěšec jsou pryč) a bílý kůň na c3 stojí aktivněji než černý na c7. Symetrické zahájení se rozjelo v bílův prospěch — poziční, ne materiální převahou.",
+      },
+    ],
+  },
+
+  // ============================================================
+  // PARTIE 13 — Počítání tahů: Rua a Ma proti králi (endgame, 11 tahů)
+  // Ukázka pravidla počítání: černý má jen krále a začne počítat,
+  // bílý musí zmatovat do limitu 16 (nejsilnější figura = Rua).
+  // ============================================================
+  {
+    id: "counting-rook-knight",
+    title: "Počítání tahů: Rua a Ma proti králi",
+    topic:
+      "Slabší strana oznámí počítání — silnější musí matovat do limitu, jinak je remíza.",
+    description:
+      "Když má slabší strana jen krále, může začít nahlas počítat tahy. Limit určuje nejsilnější figura soupeře — pro Rua je to 16. Počítá se od počtu figur na desce: tady jsou čtyři, takže první tah bílého je pátý a na mat zbývá dvanáct tahů. Když bílý do limitu nezmatuje, partie končí remízou — materiální převaha sama nestačí, musí se proměnit včas.",
+    difficulty: 3,
+    result: "Bílý matuje v limitu (R g8#, tah 10/16)",
+    setup: [
+      { type: "K", side: "white", row: 3, col: 2 }, // Khun c5
+      { type: "R", side: "white", row: 3, col: 6 }, // Rua g5
+      { type: "N", side: "white", row: 5, col: 3 }, // Ma d3
+      { type: "K", side: "black", row: 1, col: 3 }, // Khun d7
+    ],
+    moves: [
+      {
+        from: [3, 6],
+        to: [2, 6],
+        comment:
+          "Černý začíná počítat: na desce jsou 4 figury, limit pro Rua je 16. Tah 5/16 — Rua na g6 odřezává 6. řadu. Černý král je od této chvíle zavřený na dvou posledních řadách.",
+      },
+      {
+        from: [1, 3],
+        to: [0, 3],
+        comment:
+          "Král ustupuje na d8. Dopředu nesmí — 6. řadu hlídá věž — a kamkoli půjde, bílý má plán. Na d8 zůstane nejdéle mimo dosah bílého krále.",
+      },
+      {
+        from: [3, 2],
+        to: [2, 2],
+        comment:
+          "Tah 6/16 — Khun na c6. Bílý král jde dopředu za věží a bere černému králi pole c7 a d7. Věž drží řadu, král zabírá pole před ní.",
+      },
+      {
+        from: [0, 3],
+        to: [0, 4],
+        comment:
+          "Král uhýbá na e8, pryč od bílého krále. Pole c7 i d7 jsou zakázaná; zbývá poslední řada.",
+      },
+      {
+        from: [2, 2],
+        to: [2, 3],
+        comment:
+          "Tah 7/16 — Khun na d6. Sleduje černého krále podél 6. řady a hlídá d7 i e7. Věž se zatím nehýbe — svou práci už dělá.",
+      },
+      {
+        from: [0, 4],
+        to: [1, 5],
+        comment:
+          "Král na f7 — jediný směr, kde má ještě prostor. Zkouší proklouznout kolem věže.",
+      },
+      {
+        from: [5, 3],
+        to: [3, 4],
+        comment:
+          "Tah 8/16 — Ma na e5, šach! Kůň konečně vstupuje do hry: bere králi pole f7 a d7 a zároveň kryje věž na g6. Tři figury teď tvoří jednu síť.",
+      },
+      {
+        from: [1, 5],
+        to: [0, 5],
+        comment:
+          "Král na f8. Na e8 by bílý král došel rychleji; f8 je poslední pokus zůstat od něj dál.",
+      },
+      {
+        from: [2, 3],
+        to: [2, 4],
+        comment:
+          "Tah 9/16 — Khun na e6. Dotlačí: bere pole d7, e7 a f7, věž hlídá g-sloupec i 6. řadu. Černému králi zbývá jediné pole — e8.",
+      },
+      {
+        from: [0, 5],
+        to: [0, 4],
+        comment:
+          "Král na e8, jediné volné pole. Černý stále počítá: bílý má do limitu ještě sedm tahů, ale potřebuje jen jeden.",
+      },
+      {
+        from: [2, 6],
+        to: [0, 6],
+        comment:
+          "MAT v 10/16. Rua na g8 dává šach po poslední řadě. Únik není: d8 a f8 hlídá věž, d7, e7 a f7 bílý král — a d7 s f7 navíc i kůň. Bílý zmatoval šest tahů před limitem. Kdyby se zdržel, po šestnáctém tahu by partie skončila remízou, materiál nematuriál.",
       },
     ],
   },
