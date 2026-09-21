@@ -24,3 +24,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Engine pro scripts/validate-moves.ts (binárka se necommituje)
+tools/fairy-stockfish/
