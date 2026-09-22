@@ -4,10 +4,12 @@
  * (+ strojově čitelný reports/engine-validation.json).
  *
  * Spuštění:  npm run validate   (= npx tsx scripts/validate-moves.ts)
+ *            npm run validate -- --only strategy:rua-on-7th/h-file-rook   (jen vybrané položky)
  *
  * Env:
  *   VALIDATE_MOVETIME=<ms>     čas na jednu pozici (výchozí 1000)
- *   VALIDATE_ONLY=<a,b,...>    zpracovat jen varianty/partie, jejichž id obsahuje některý z řetězců
+ *   VALIDATE_ONLY=<a,b,...>    totéž co --only: zpracovat jen položky, jejichž id obsahuje některý
+ *                              z řetězců (volitelný prefix `strategy:` / `game:` omezí zdroj)
  *
  * Nic v src/ nemění. Engine (tools/fairy-stockfish/) není součástí repozitáře.
  */
@@ -583,8 +585,33 @@ function buildItems(): WorkItem[] {
       result: g.result,
     });
   }
-  const only = process.env.VALIDATE_ONLY?.split(",").map(s => s.trim()).filter(Boolean);
-  return only?.length ? items.filter(it => only.some(o => it.id.includes(o))) : items;
+  const only = parseOnlyFilter();
+  return only.length
+    ? items.filter(it => only.some(o => (!o.source || o.source === it.source) && it.id.includes(o.id)))
+    : items;
+}
+
+/**
+ * Filtr položek: `--only <filtr>[,<filtr>…]` (lze opakovat) nebo env VALIDATE_ONLY.
+ * Filtr je podřetězec id, volitelně s prefixem zdroje: `strategy:rua-on-7th/h-file-rook`, `game:met-trap`.
+ * Bez filtru běží plná validace.
+ */
+function parseOnlyFilter(): { source: Source | null; id: string }[] {
+  const raw: string[] = [];
+  const argv = process.argv.slice(2);
+  for (let i = 0; i < argv.length; i++) {
+    if (argv[i] === "--only" && argv[i + 1]) raw.push(argv[++i]);
+    else if (argv[i].startsWith("--only=")) raw.push(argv[i].slice("--only=".length));
+  }
+  if (process.env.VALIDATE_ONLY) raw.push(process.env.VALIDATE_ONLY);
+  return raw
+    .flatMap(r => r.split(","))
+    .map(s => s.trim())
+    .filter(Boolean)
+    .map(s => {
+      const m = /^(strategy|game):(.+)$/.exec(s);
+      return m ? { source: m[1] as Source, id: m[2] } : { source: null, id: s };
+    });
 }
 
 // ---------------------------------------------------------------------------

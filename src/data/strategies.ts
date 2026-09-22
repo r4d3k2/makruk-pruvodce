@@ -104,11 +104,11 @@ export const STRATEGIES: Strategy[] = [
           },
         ],
       },
-      {
+                        {
         id: "c-pawn-knights",
         name: "Rozvoj přes c-pěšce",
         description:
-          "Bílý otevře cestu koněm postranním c-pěšcem a pak rozvine oba koně do aktivnějších poloh, zatímco černý hraje na uzavřené centrum.",
+          "Bílý otevře cestu koním postranním c-pěšcem, ve správný okamžik vymění pěšce v centru a oba jezdce namíří proti černému pěšci d5.",
         moves: [
           {
             from: [5, 3],
@@ -147,48 +147,48 @@ export const STRATEGIES: Strategy[] = [
               "Kůň na c6. Míří na b4 a d4 — černý chce jezdce na dosah bílého centra, ne jen doma na rozvinutém poli.",
           },
           {
-            from: [5, 4],
-            to: [4, 4],
+            from: [4, 2],
+            to: [3, 3],
             comment:
-              "e-pěšec dopředu. Bílý teď má dva centrální pěšce a aktivního levého koně — rovnováha mezi centrem a křídlem.",
+              "Bílý bere c4×d5. Napětí v centru došlo do bodu, kdy se vyplatí udeřit první: pěšec d4 byl napadený dvakrát (c5, Ma c6) a krytý jen z e3, takže odklad by stál pěšce. Výměnou bílý napětí uvolní za svých podmínek.",
+          },
+          {
+            from: [3, 2],
+            to: [4, 3],
+            comment:
+              "Černý bere c5×d4 — mezitah. Než vezme zpět na d5, sebere pěšce d4, aby po výměnách nezůstal bílý pěšec v centru sám. Pořadí braní rozhoduje o tom, kdo bude mít jakého pěšce.",
+          },
+          {
+            from: [5, 4],
+            to: [4, 3],
+            comment:
+              "Bílý bere e3×d4. Teď hrozí d5×e6 s promocí — pěšec na d5 stojí na 5. řadě a bere na šestou, takže černý musí brát zpět hned.",
           },
           {
             from: [2, 4],
-            to: [3, 4],
+            to: [3, 3],
             comment:
-              "e5. Černý zavírá centrum, aby bílí koně neměli kam skákat, a získává čas na druhého jezdce.",
+              "Bere zpět e6×d5. Mohl i Ma×d4 a nechat bílého povýšit d5×e6 s tím, že P+ vezme koněm zpět — černý ale volí klidnější strukturu: každý má jednoho pěšce uprostřed a nic nevisí.",
           },
           {
             from: [7, 6],
             to: [6, 4],
             comment:
-              "Druhý kůň na e2. f3 a h3 jsou stále obsazená Bia, takže i pravý kůň musí nejprve dovnitř.",
+              "Druhý kůň na e2. f3 a h3 jsou pořád obsazená Bia, takže pravý kůň musí nejprve dovnitř — z e2 ale kryje d4 a míří na f4, odkud podruhé napadne d5.",
           },
           {
             from: [0, 6],
             to: [1, 4],
             comment:
-              "Kůň na e7. Odsud pokryje d5 i f5 — obě pole, přes která by bílý chtěl dál.",
-          },
-          {
-            from: [6, 4],
-            to: [4, 5],
-            comment:
-              "Bílý kůň z e2 vyskočí na f4. Centrální pěšci mu uvolnili cestu a najednou má kůň silné pole.",
-          },
-          {
-            from: [1, 4],
-            to: [3, 5],
-            comment:
-              "Kůň na f5. Černý nečeká, až bílý jezdec na f4 zesílí — staví proti němu vlastního a zároveň hlídá e3 i g3, tedy pole v bílém táboře.",
+              "Kůň na e7 kryje d5 — jediného centrálního pěšce černého, kterého bílý kůň z c3 už napadá. Bilance: struktura je symetrická, oba mají jednoho pěšce v centru, ale bílý má o tempo víc a jasný plán: Ma e2-f4 a Met přes f2 na e3 proti d5. Bílý stojí o něco lépe — přesně to je zisk z rozvoje přes c-pěšce.",
           },
         ],
       },
-      {
+                        {
         id: "e-pawn-kingside",
         name: "Královské křídlo s e-pěšcem",
         description:
-          "Bílý nejprve pustí do centra e-pěšce, pak uvolní f3 pro koně a postaví kompaktní královskou formaci.",
+          "Bílý nejprve pustí do centra e-pěšce, pak uvolní f3 pro koně a dostane oba jezdce na aktivní pole e4 a f3.",
         moves: [
           {
             from: [5, 4],
@@ -230,37 +230,37 @@ export const STRATEGIES: Strategy[] = [
             from: [5, 5],
             to: [4, 5],
             comment:
-              "f-pěšec vpřed. Bílý uvolňuje f3 pro pravého koně — klíčový rozdíl oproti variantěm, kde jezdec končí pasivně na e2.",
+              "f-pěšec vpřed — klíčový tah plánu. Uvolňuje f3 pro pravého koně a podruhé napadá e5. Pěšci d4, e4 i f4 teď stojí v kontaktu s černými a napětí musí někdo vyřešit.",
           },
           {
-            from: [2, 5],
-            to: [3, 5],
+            from: [3, 3],
+            to: [4, 4],
             comment:
-              "f5. Uvolňuje f6 pro koně a hlavně útočí na bílého pěšce na e4 — černý si buduje vlastní hrozby.",
+              "Černý bere d5×e4 hned. Kdyby čekal, bílý by vzal e4×d5 a pěšec e5 by zůstal napadený dvakrát; takhle výměnu řídí on a bílý kůň se sice dostane na e4, ale černý za to nemá žádnou slabinu.",
+          },
+          {
+            from: [6, 3],
+            to: [4, 4],
+            comment:
+              "Kůň bere zpět na e4 a rovnou stojí v centru. Za tempo, které stál f4, získal bílý aktivní figuru — přesně to je smysl uvolnění f3: pravý kůň teď má cestu ven a oba jezdci budou v centru.",
+          },
+          {
+            from: [0, 5],
+            to: [1, 4],
+            comment:
+              "Khon na e7. Kryje d6 i f6 — dvě pole, kam by bílý kůň z e4 mohl vniknout — a drží e5, které je pořád napadené dvakrát.",
           },
           {
             from: [7, 6],
             to: [5, 5],
             comment:
-              "Pravý kůň na f3. f-pěšec ustoupil, takže kůň může obsadit aktivní pole místo pasivního e2.",
+              "Pravý kůň na f3 — druhý jezdec je v centru dění a potřetí napadá e5. Pěšec e5 je teď napadený třikrát (d4, f4, Ma f3) a krytý jen dvakrát (f6, Ma d7): černý musí napětí vyřešit sám.",
           },
           {
-            from: [0, 6],
-            to: [2, 5],
+            from: [3, 4],
+            to: [4, 5],
             comment:
-              "Kůň na f6. Podpírá útok na e4 a hlídá g4 — černý přidává druhého útočníka, místo aby jen čekal.",
-          },
-          {
-            from: [7, 5],
-            to: [6, 5],
-            comment:
-              "Khon na f2. Bílý dokončuje pevnou královskou strukturu a chrání pole před Khunem.",
-          },
-          {
-            from: [0, 5],
-            to: [1, 5],
-            comment:
-              "Khon na f7. Král je krytý a černý má hotovo: pěšec f5 i kůň f6 tlačí na e4, takže bílý musí centrum hlídat, místo aby útočil.",
+              "Černý bere e5×f4 dřív, než pěšec padne. Bílý vezme zpět g3×f4 a bude mít, co chtěl: koně na e4 a f3, pěšce d4 a f4 a víc prostoru. Pozice je vyrovnaná, ale bílá formace je kompaktnější — tak vypadá plán s e-pěšcem, když ho černý nechá dokončit.",
           },
         ],
       },
@@ -275,53 +275,53 @@ export const STRATEGIES: Strategy[] = [
     history:
       "Stěna z Khon je oblíbená u opatrnějších hráčů a v partiích, kde černý hraje agresivně. Khon je v makruku nejlepším obráncem krátkých diagonál a stěna využívá tento atribut maximálně.\n\nKhon-stěna je pevná, ale má cenu: stojí tempa a nic sama neútočí. Proti soupeři, který stěnu jen kopíruje, vzniká mrtvá pozice bez plánu pro obě strany. Proti soupeři, který stěnu ignoruje a hraje na křídle, se ukáže, jestli byla investice do obrany oprávněná. Varianty níže ukazují obě odpovědi.",
     variants: [
-      {
+                        {
         id: "central-khon-wall",
         name: "Dvě stěny — mrtvá pozice",
         description:
-          "Oba hráči postaví Khon-wall. Pozice je pro obě strany naprosto bezpečná — a přesně proto v ní ani jedna strana nemá jak postoupit.",
+          "Oba hráči postaví Khon-wall za zavřeným centrem. Pozice je pro obě strany naprosto bezpečná — a přesně proto v ní ani jedna strana nemá jak postoupit.",
         moves: [
           {
-            from: [5, 3],
-            to: [4, 3],
+            from: [5, 4],
+            to: [4, 4],
             comment:
-              "Centrální d-pěšec. Bílý začíná rozvoj klasicky a získává prostor.",
+              "e-pěšec vpřed. Bílý si bere prostor v centru a záměrně neotevírá žádné napětí: pěšci d3 a f3 zůstávají doma, takže e4 nemá co napadat a nikdo nenapadá jeho.",
           },
           {
-            from: [2, 3],
-            to: [3, 3],
+            from: [2, 4],
+            to: [3, 4],
             comment:
-              "d5. Černý tady zrcadlí záměrně: chce stejnou pevnost jako bílý a spoléhá, že v uzavřené pozici se tempo navíc nedá zúročit.",
+              "e5. Černý zrcadlí záměrně: staví pěšce čelem proti bílému, centrum se zavře a v zavřené pozici se tempo navíc nedá zúročit.",
           },
           {
             from: [5, 2],
             to: [4, 2],
             comment:
-              "Klíčový přípravný tah — c-pěšec uvolňuje cestu pro koně b1 i pro Khona c1. Bez tohoto kroku není kůň schopen vyrazit na c3 (jediné legální cíle b1 jsou jinak omezené).",
+              "Klíčový přípravný tah — c-pěšec uvolňuje c3 pro koně. Bez něj by kůň z b1 měl jediné pole d2, a to bílý potřebuje pro Khon.",
           },
           {
             from: [2, 2],
             to: [3, 2],
             comment:
-              "c5. Stejná příprava z druhé strany. Černý ví, že kopírovat je obecně špatné — u čistě obranné formace mu to ale prochází, protože v zatuhlé pozici není co dobývat.",
+              "c5. Stejná příprava z druhé strany. Kopírovat je obecně špatné — u čistě obranné formace to ale černému prochází, protože v zatuhlém centru není co dobývat.",
           },
           {
             from: [7, 1],
             to: [5, 2],
             comment:
-              "Kůň přichází na c3, právě uvolněné c-pěšcem. Útočí na centrální pole d5 a e4.",
+              "Kůň na c3. Útočí na d5 a b5, ale hlavně uvolnil d2 — tam míří Khon.",
           },
           {
             from: [0, 1],
             to: [2, 2],
             comment:
-              "Kůň na c6. Černý ho staví přesně proti bílému jezdci — vzniká dvojice, která se navzájem hlídá a ani jeden se nedostane dopředu.",
+              "Kůň na c6 — přesně proti bílému jezdci. Vzniká dvojice, která se navzájem hlídá, a ani jeden se nedostane dál.",
           },
           {
             from: [7, 2],
             to: [6, 3],
             comment:
-              "První Khon postupuje na d2 (krok diagonálně vpřed). Je teď přímo před králem a začíná tvořit stěnu.",
+              "První Khon na d2 (krok diagonálně vpřed). Stojí přímo před králem a začíná tvořit stěnu.",
           },
           {
             from: [0, 2],
@@ -339,13 +339,13 @@ export const STRATEGIES: Strategy[] = [
             from: [0, 5],
             to: [1, 4],
             comment:
-              "Khon na e7 a stěna je hotová i u černého. Všimni si vedlejšího účinku: bílý kůň na g1 má jediné pole e2 obsazené vlastním Khonem, takže je úplně zablokovaný. Stejný problém má černý kůň na g8.",
+              "Khon na e7 a stěna je hotová i u černého. Všimni si vedlejšího účinku: bílý kůň na g1 má jediné volné pole e2 obsazené vlastním Khonem, takže je úplně zablokovaný. Stejný problém má černý kůň na g8.",
           },
           {
             from: [7, 3],
             to: [7, 2],
             comment:
-              "Bílému došly užitečné tahy — Khun se přesouvá na uvolněné c1. Pevnost stojí, ale nemá čím udeřit.",
+              "Bílému došly užitečné tahy — Khun se přesouvá na uvolněné c1. Pevnost stojí, ale nemá čím udeřit: jediný pěšcový kontakt by vznikl až po d4 nebo f4, a to by stěnu otevřelo.",
           },
           {
             from: [0, 4],
@@ -355,11 +355,11 @@ export const STRATEGIES: Strategy[] = [
           },
         ],
       },
-      {
+                        {
         id: "khon-wall-central-hit",
         name: "Černý ignoruje stěnu a hraje na křídlo",
         description:
-          "Bílý investuje tempa do Khon-wall, černý místo toho otevírá h-sloupec a dostává na něj Rua. Stěna je pevná — jen je na opačném konci desky.",
+          "Bílý investuje tempa do Khon-wall, černý místo toho otevírá h-sloupec, dostane na něj Rua a chystá zdvojení věží. Stěna je pevná — jen je na opačném konci desky.",
         moves: [
           {
             from: [5, 3],
@@ -371,43 +371,43 @@ export const STRATEGIES: Strategy[] = [
             from: [2, 7],
             to: [3, 7],
             comment:
-              "h5! Černý se odklání hned druhým tahem. Nechává bílého stavět, co chce, a sám si otevírá sloupec pro Rua na h8.",
+              "h5! Černý se odklání hned druhým tahem. Nechává bílého stavět, co chce, a sám si jde otevřít sloupec pro Rua z h8.",
           },
           {
             from: [5, 2],
             to: [4, 2],
             comment:
-              "c-pěšec. Standardní příprava Khon-wall — uvolňuje c3 pro koně a c1 pro Khona.",
+              "c-pěšec. Standardní příprava Khon-wall — uvolňuje c3 pro koně, aby pole d2 zůstalo volné pro Khon.",
           },
           {
             from: [3, 7],
             to: [4, 7],
             comment:
-              "h4. Pěšec jde dál. Černý počítá s tím, že ho bílý bude muset brát nebo nechat projít — a v obou případech se h-sloupec otevře.",
-          },
-          {
-            from: [7, 2],
-            to: [6, 3],
-            comment:
-              "Khon c1 na d2. Bílý pokládá první kámen stěny a dění na křídle si nevšímá.",
-          },
-          {
-            from: [0, 7],
-            to: [3, 7],
-            comment:
-              "Rua na h5, přesně za vlastním pěšcem. Černý ho kryje, takže výměna na h4 mu vyhovuje: bere zpět věží a rovnou získává aktivní pole.",
+              "h4. Pěšec útočí na g3 — a to v makruku není obyčejná hrozba: h4×g3 by pro černého znamenalo promoci, protože 3. řada je jeho šestá. Bílý musí reagovat hned.",
           },
           {
             from: [5, 6],
             to: [4, 7],
             comment:
-              "Bílý bere pěšce g3xh4. Nemá lepší volbu — nechat černého pěšce dojít na h3 by bylo horší.",
+              "Bílý bere g3×h4. Hrozbu h4×g3 s promocí nemůže nechat viset a stěna musí počkat — první tempo si vynutil černý.",
           },
           {
-            from: [3, 7],
+            from: [0, 7],
             to: [4, 7],
             comment:
-              "Rua bere zpět na h4. Přesně o tohle černému šlo: věž je na čtvrté řadě, dívá se přes celou desku na bílého pěšce na d4 a bílý nemá jedinou figuru, která by ji odsud vyhnala.",
+              "Rua bere zpět na h4. Přesně o tohle černému šlo: věž stojí na čtvrté řadě, dívá se přes celou desku na pěšce d4 a bílý nemá jedinou figuru, která by ji odsud vyhnala.",
+          },
+          {
+            from: [7, 2],
+            to: [6, 3],
+            comment:
+              "Khon c1 na d2. Bílý se vrací ke svému plánu a pokládá první kámen stěny — dění na křídle ho zatím stálo jen jedno tempo.",
+          },
+          {
+            from: [0, 6],
+            to: [1, 4],
+            comment:
+              "Kůň na e7 — jediný legální skok z g8, f6 i h6 drží vlastní pěšci. Míří ale na f5, odkud bude napadat d4 i e3, tedy přesně to, co má stěna krýt.",
           },
           {
             from: [7, 5],
@@ -416,26 +416,26 @@ export const STRATEGIES: Strategy[] = [
               "Khon f1 na e2. Stěna d2/e2 je hotová — král i Met jsou v bezpečí. Jenže obě figury koukají jen do vlastního tábora.",
           },
           {
-            from: [0, 6],
-            to: [2, 7],
+            from: [1, 4],
+            to: [3, 5],
             comment:
-              "Kůň na h6. Pole se uvolnilo po vlastním pěšci a černý ho hned využívá — jezdec míří na g4 za věží.",
+              "Kůň na f5. Sedí přímo před stěnou, útočí na d4 i e3 a pěšcem ho nikdo nevyžene: g-pěšec je pryč a e-pěšec stojí na e3.",
           },
           {
             from: [7, 1],
             to: [5, 2],
             comment:
-              "Bílý kůň konečně ven na c3. Rozvoj je dokončený, ale všechny bílé figury stojí v centru a na dámském křídle.",
+              "Bílý kůň konečně ven na c3. Rozvoj je dokončený, ale všechny bílé figury stojí v centru a na dámském křídle — na h-sloupci nemá bílý nic.",
           },
           {
-            from: [2, 7],
-            to: [4, 6],
+            from: [0, 0],
+            to: [1, 0],
             comment:
-              "Kůň na g4! Černý má na bílé polovině desky věž i jezdce, bílý tam nemá nic. Závěr: bílý je pevný, ale pasivní — černý má aktivitu a určuje, kde se bude hrát. Stěna nikoho neochrání před tím, co se děje mimo její dosah.",
+              "Rua a8-a7! V makruku je 7. řada od začátku prázdná, takže druhá věž se po ní přesune na h7 a černý zdvojí věže na otevřeném h-sloupci. Závěr: bílý je pevný, ale pasivní — materiál je vyrovnaný, jenže plán má jen černý. Stěna nikoho neochrání před tím, co se děje mimo její dosah.",
           },
         ],
       },
-      {
+                        {
         id: "khon-wall-kingside",
         name: "Černý udeří dřív, než je stěna hotová",
         description:
@@ -451,7 +451,7 @@ export const STRATEGIES: Strategy[] = [
             from: [2, 3],
             to: [3, 3],
             comment:
-              "d5. Černý okamžitě napadá bílého pěšce na e4 (Bia bere diagonálně vpřed). Stěna je zatím jen záměr — tohle je moje okno.",
+              "d5. Černý okamžitě napadá bílého pěšce na e4 (Bia bere diagonálně vpřed). Stěna je zatím jen záměr — tohle je jeho okno.",
           },
           {
             from: [7, 2],
@@ -463,13 +463,13 @@ export const STRATEGIES: Strategy[] = [
             from: [3, 3],
             to: [4, 4],
             comment:
-              "d5xe4! Černý bere hned. Nečeká, až bílý stěnu dokončí a získá volné ruce — každý tah odkladu hraje pro pomalý plán.",
+              "d5×e4! Černý bere hned. Nečeká, až bílý stěnu dokončí a získá volné ruce — každý tah odkladu hraje pro pomalý plán.",
           },
           {
             from: [5, 3],
             to: [4, 4],
             comment:
-              "Bílý musí brát zpět d3xe4. Vynucený tah — a to je tempo, které stěna nedostane.",
+              "Bílý bere zpět d3×e4. Mohl brát i f3×e4, ale d-pěšec je na e4 užitečnější: uvolňuje d3 a nechává f3 hlídat královské křídlo. Tak či tak je to tempo, které stěna nedostane.",
           },
           {
             from: [0, 1],
@@ -478,22 +478,22 @@ export const STRATEGIES: Strategy[] = [
               "Kůň na d7. Po výměně zůstalo bílému prázdné pole d3 a d-sloupec bez pěšce. Černý tam míří přes c5.",
           },
           {
-            from: [7, 5],
-            to: [6, 4],
+            from: [7, 3],
+            to: [6, 2],
             comment:
-              "Khon na e2. Stěna d2/e2 je konečně hotová — jenže černý mezitím vyměnil v centru a je ve vývoji napřed.",
+              "Khun na c2. Prozíravé: po odchodu d-pěšce zůstal pěšec b3 bez krytí a černý kůň míří na c5, odkud by ho napadl. Bílý ho kryje králem — a stěna zase o tempo počká.",
           },
           {
             from: [1, 3],
             to: [3, 2],
             comment:
-              "Kůň na c5. Odsud útočí na bílého pěšce na e4 i na b3 a nikdo ho nemůže vyhnat pěšcem. Díry, které stěna nechala za sebou, jsou teď černého.",
+              "Kůň na c5. Odsud útočí na e4 i b3. Vyhnat ho může jen b3-b4 — jenže to by bílému rozbilo dámské křídlo, takže si kůň pole na chvíli podrží. Díry, které stěna nechala za sebou, jsou teď černého.",
           },
           {
             from: [5, 2],
             to: [4, 2],
             comment:
-              "Bílý c-pěšec na c4. Nutnost, ne volba: kůň na b1 má jen pole a3, c3 a d2 — dvě drží vlastní pěšci a d2 zabral vlastní Khon. Stěna si zablokovala vlastního jezdce.",
+              "Bílý c-pěšec na c4. Nutnost, ne volba: kůň na b1 má jen pole a3, c3 a d2 — dvě drží vlastní pěšci a d2 zabral vlastní Khon. Stěna si zablokovala vlastního jezdce, c4 mu aspoň uvolní c3.",
           },
           {
             from: [2, 4],
@@ -505,13 +505,13 @@ export const STRATEGIES: Strategy[] = [
             from: [7, 1],
             to: [5, 2],
             comment:
-              "Kůň konečně na c3. Bílý má hotový rozvoj i stěnu, ale iniciativu ne.",
+              "Kůň konečně na c3. Bílý má rozvoj hotový a kryje e4 podruhé — ale stěna zůstala nedostavěná: Khon f1 pořád stojí doma, protože tempa padla na obranu b3 a e4.",
           },
           {
             from: [2, 5],
             to: [3, 5],
             comment:
-              "f5! Druhý útočník na e4 — teď je napadené dvakrát a kryté jen pěšcem z f3. Bílý musí volit mezi dokončováním svého pomalého plánu a obranou centra. Přesně to je cena pomalého plánu: okamžik si vybírá soupeř.",
+              "f5! Druhý útočník na e4 — pěšec je teď napadený dvakrát (Ma c5, f5) a krytý dvakrát (f3, Ma c3), takže bílý drží, ale jen tak tak. Musí volit mezi dokončením stěny a obranou centra: každé tempo navíc si teď vybírá soupeř. Pozice je napjatá — bílý má víc prostoru, černý iniciativu.",
           },
         ],
       },
@@ -594,17 +594,17 @@ export const STRATEGIES: Strategy[] = [
           },
         ],
       },
-      {
+                        {
         id: "met-g5-support",
-        name: "Met na g5 s podporou g-pěšce",
+        name: "Met na f4 přes pěšcovou páku",
         description:
-          "Bílý nejprve vysune Met na f4, pak otevře g-sloupec g-pěšcem a dopraví Met až na útočné g5.",
+          "Bílý vyveze Met na e3, nechá černého otevřít f-sloupec a pákou f4 vymění pěšce e5 — Met se dostane na f4, kde už ji žádný pěšec nenapadá, a odtud hrozí g5.",
         moves: [
           {
             from: [5, 4],
             to: [4, 4],
             comment:
-              "e-pěšec vpřed. Uvolňuje diagonálu e1-d2-c3-b4-a5 a zároveň poskytuje centru oporu.",
+              "e-pěšec vpřed. Uvolňuje diagonálu e1-d2-e3 pro Met a zároveň poskytuje centru oporu.",
           },
           {
             from: [2, 4],
@@ -622,63 +622,63 @@ export const STRATEGIES: Strategy[] = [
             from: [0, 1],
             to: [1, 3],
             comment:
-              "Kůň na d7 — jediný legální skok, a6 i c6 drží vlastní Bia. Odsud černý hlídá c5 a e5 a chystá si c6-c5 s hrou na dámském křídle.",
+              "Kůň na d7 — jediný legální skok, a6 i c6 drží vlastní Bia. Odsud černý hlídá c5 a e5, tedy pole, přes která by Met chtěla dál.",
           },
           {
             from: [6, 3],
             to: [5, 4],
             comment:
-              "Met na e3. Využívá volného pole, které po e4 zůstalo, a postupuje po diagonále hlouběji.",
-          },
-          {
-            from: [2, 2],
-            to: [3, 2],
-            comment:
-              "c5. Černý si otevírá dámské křídlo — zatímco bílá Met putuje doprava, on chce hrát tam, kde bílý žádné figury nemá.",
-          },
-          {
-            from: [5, 4],
-            to: [4, 5],
-            comment:
-              "Met na f4. f-pěšec zůstává na f3, takže f4 je volné — Met obsazuje silné pole na královském křídle.",
+              "Met na e3. Využívá volného pole po e4 — a dál zatím nemůže: pole f4 hlídá černý pěšec e5.",
           },
           {
             from: [2, 5],
             to: [3, 5],
             comment:
-              "f5. Uvolňuje f6 pro koně a bere Met pole g4 — černý ji chce vytlačit na okraj, kde nikomu neuškodí.",
+              "f5. Černý útočí na e4 a nabízí výměnu: chce otevřít f-sloupec pro věž a vyhnat bílého pěšce z centra dřív, než Met dostane oporu.",
           },
           {
-            from: [5, 6],
-            to: [4, 6],
+            from: [4, 4],
+            to: [3, 5],
             comment:
-              "g-pěšec vpřed. Uvolňuje g5, aby se Met mohla posunout ještě hlouběji na královské křídlo.",
+              "Bílý bere e4×f5. Výměnu přijímá s jasným cílem: černý bude brát zpět g-pěšcem a pěšec e5 zůstane bez pěšcové opory — pak přijde f4.",
+          },
+          {
+            from: [2, 6],
+            to: [3, 5],
+            comment:
+              "Bere zpět g6×f5 — jediná dobrá odpověď. Jakékoli otálení by dovolilo f5×g6 s promocí na 6. řadě.",
+          },
+          {
+            from: [5, 5],
+            to: [4, 5],
+            comment:
+              "f4! Pěšcová páka: útočí na e5, které teď kryje jen kůň d7. Pěšce f4 kryjí Met e3 i pěšec g3, takže černý nemůže brát beztrestně — ale nechat e5 padnout nechce taky.",
+          },
+          {
+            from: [3, 4],
+            to: [4, 5],
+            comment:
+              "Černý bere e5×f4 — raději vymění, než aby pěšce ztratil. Tím ale uvolňuje pole f4 přesně pro bílou Met.",
+          },
+          {
+            from: [5, 4],
+            to: [4, 5],
+            comment:
+              "Met bere zpět na f4. Teď stojí na silném poli, které už žádný černý pěšec nenapadá: e-pěšec je pryč a g-pěšec stojí na f5. Bílý mohl brát i g3×f4, ale Met na f4 je celý smysl plánu.",
           },
           {
             from: [0, 6],
             to: [2, 5],
             comment:
-              "Kůň na f6. Hlídá e4 i g4 a čeká, až se Met vysune ještě dál — pak ji chce chytit, ne před ní ustupovat.",
-          },
-          {
-            from: [4, 5],
-            to: [3, 6],
-            comment:
-              "Met na g5! g-pěšec ji kryje a Met je nyní na samém okraji černého tábora. V makruku je takto daleko vysunutá Met riskantní, ale i velmi nepříjemná.",
-          },
-          {
-            from: [0, 5],
-            to: [1, 4],
-            comment:
-              "Khon na e7. Kryje d6 i f6 a černý má plán: tahem h6 Met z g5 vyhnat, nebo ji obklíčit figurami. Vysunutá Met je zbraň jen do chvíle, než na ni soupeř najde dost obránců.",
+              "Kůň na f6. Hlídá g4 a h5 a černý si chystá figury, kterými by Met později obklíčil. Bílý ale má, co chtěl: Met na f4 bez pěšce, který by ji vyhnal, a volné f3 pro koně. Plán zní Ma f3 a pak Met g5 s podporou koně. Bílý stojí o něco lépe — má prostor a aktivní Met, černý ještě musí dokončit rozvoj.",
           },
         ],
       },
-      {
+                        {
         id: "met-against-f5",
         name: "Met proti černému f5",
         description:
-          "Bílý využije černého postranního výpadu f5 k vlastnímu vývoji Met a aktivnímu královskému křídlu.",
+          "Bílý využije černého výpadu f5: postupem e5 uzavře centrum a dostane Met na f4, kde ji už žádný černý pěšec nenapadne.",
         moves: [
           {
             from: [5, 3],
@@ -714,47 +714,47 @@ export const STRATEGIES: Strategy[] = [
             from: [2, 5],
             to: [3, 5],
             comment:
-              "f5. Černý si zvolil vlastní plán: uvolnit f6 pro koně a rozjet hru na f-sloupci. Bílá Met může jít dopředu, on za ní nepůjde.",
+              "f5. Černý si zvolil vlastní plán: uvolnit f6 pro koně a rozjet hru na f-sloupci. Pěšec e4 je teď napadený dvakrát.",
+          },
+          {
+            from: [4, 4],
+            to: [3, 4],
+            comment:
+              "e5! Bílý pěšec jde vpřed s tempem. Na e4 byl napadený dvakrát (d5, f5) a krytý jen z f3, takže by stejně musel něco dělat — a postup je lepší než výměna. Na e5 ho žádný pěšec nenapadá (d- i f-pěšec už černý posunul) a bere černému pole d6 a f6 pro figury.",
+          },
+          {
+            from: [0, 6],
+            to: [1, 4],
+            comment:
+              "Kůň na e7: f6 mu vzal pěšec e5, tak volí pole, odkud kryje d5 a g6, a chystá si c6-c5 s hrou na dámském křídle.",
           },
           {
             from: [6, 3],
             to: [5, 4],
             comment:
-              "Met na e3. Bílý nebrání f4 pasivně, ale pokračuje v aktivní hře uprostřed.",
+              "Met na e3. Cesta na f4 je otevřená a bezpečná: černý e-pěšec stojí na e6 a na f4 nedosáhne.",
           },
           {
-            from: [0, 6],
-            to: [2, 5],
+            from: [0, 4],
+            to: [1, 5],
             comment:
-              "Kůň na f6. Hlídá e4 i g4 a čeká na okamžik, kdy bude moct bílou Met napadnout — černý si na ni chystá figury, ne ústupová pole.",
+              "Khun na f7. Černý dává krále do bezpečí za pěšce f5 a kryje g6 i e6 — ví, že bílá Met míří na f4 a odtamtud na g5.",
           },
           {
             from: [5, 4],
             to: [4, 5],
             comment:
-              "Met na f4! Bílý využívá toho, že černý se věnoval f-sloupci, a okupuje silné pole na královském křídle.",
+              "Met na f4! Silné pole, které černý nemá čím napadnout: jeho pěšci stojí na e6 a g6, kůň by potřeboval d5 nebo g6 a obě pole drží vlastní pěšci. Bílý mohl hrát i f3-f4 a Met nechat doma, ale celý plán stojí na aktivní Met.",
           },
           {
-            from: [2, 4],
-            to: [3, 4],
+            from: [2, 2],
+            to: [3, 2],
             comment:
-              "e5! Pěšec útočí přímo na bílou Met na f4 (Bia bere diagonálně vpřed). Černý přešel do protiútoku — vysunutá Met musí ustoupit, nebo si sehnat krytí.",
-          },
-          {
-            from: [7, 6],
-            to: [6, 4],
-            comment:
-              "Bílý kůň na e2. f3 je stále obsazené Bia, takže kůň jde dovnitř a připravuje se na pozdější skok.",
-          },
-          {
-            from: [0, 5],
-            to: [1, 4],
-            comment:
-              "Khon na e7. Kryje d6 i f6 a černý má, co chtěl: bílá Met stojí vysunutá a bez opory, zatímco jeho figury mají jasné cíle.",
+              "c5. Černý hledá protihru tam, kde bílá Met není: na dámském křídle. Bilance: Met stojí na f4 pevně a bez starostí, ale sama partii nerozhodne — pozice je vyrovnaná a záleží, kdo dřív zapojí zbytek figur.",
           },
         ],
       },
-      {
+                        {
         id: "met-h4-diagonal",
         name: "Met na dlouhé diagonále h4",
         description:
@@ -827,14 +827,14 @@ export const STRATEGIES: Strategy[] = [
               "Bílý kůň na f3. f-pěšec ustoupil, takže kůň může obsadit pole s výhledem na centrum i královské křídlo.",
           },
           {
-            from: [0, 5],
-            to: [1, 4],
+            from: [3, 4],
+            to: [4, 4],
             comment:
-              "Khon na e7. Černý dokončil obranu a bilance je jasná: bílá Met stojí v rohu na h4 bez podpory, černý má centrum i rozvoj. Za vzdálenost se v makruku platí.",
+              "e4! Pěšec e5 byl napadený dvakrát (f4, Ma f3) a krytý jen koněm z d7, tak jde vpřed a sám útočí — na d3 i na koně f3. Bílý ho vezme d3×e4, černý f5×e4 a kůň bude muset uhnout. Bilance: černý má iniciativu v centru, bílá Met stojí v rohu na h4 a útoku se neúčastní. Za vzdálenost se v makruku platí.",
           },
         ],
       },
-      {
+                        {
         id: "met-b4-diagonal",
         name: "Met na dámském křídle b4",
         description:
@@ -907,10 +907,10 @@ export const STRATEGIES: Strategy[] = [
               "Bílý kůň na f3. f-pěšec ustoupil, takže kůň získává aktivní pole na královském křídle.",
           },
           {
-            from: [0, 5],
-            to: [1, 4],
+            from: [3, 4],
+            to: [4, 4],
             comment:
-              "Khon na e7. Černý má rozvinutá obě křídla a jasný plán: zahrát a6-a5 a Met na b4 rovnou napadnout. Slabá figura daleko od svých není hrozba, ale terč.",
+              "e4! Pěšec e5 byl napadený dvakrát (f4, Ma f3) a krytý jen koněm z d7 — místo čekání na výměnu jde vpřed a sám napadá d3 i koně f3. Bílý ho vezme d3×e4, černý bere zpět (d5×e4 nebo f5×e4) a kůň musí uhnout. Bilance: černý má centrum i iniciativu, bílá Met na b4 je daleko od dění a a6-a5 ji brzy vyžene. Slabá figura daleko od svých není hrozba, ale terč.",
           },
         ],
       },
@@ -921,243 +921,243 @@ export const STRATEGIES: Strategy[] = [
     id: "rua-on-7th",
     name: "Rua na 7. řadě",
     intro:
-      "Klasický strategický motiv: dostat věž (Rua) na poslední rank před soupeřem, kde napadá soupeřovy pěšce a omezuje krále. V makruku je to zvlášť cenné, protože Rua je zdaleka nejsilnější figura.",
+      "Klasický strategický motiv: dostat věž (Rua) na otevřený sloupec a odtud na 7. řadu, kde napadá soupeřovy pěšce a omezuje krále. V makruku je to zvlášť cenné, protože Rua je zdaleka nejsilnější figura — a právě proto se o každý otevřený sloupec hraje oběma věžemi.",
     history:
-      "Otevřít sloupec pro Rua se v makruku dělá obvykle přes krajního pěšce — méně rizikové než výměny v centru. Klasický plán: a-pěšec útočí, pak Rua jede skrz.",
+      "Otevřít sloupec pro Rua se v makruku dělá obvykle přes krajního pěšce — méně rizikové než výměny v centru. Háček: na krajních sloupcích stojí věže od začátku proti sobě, a kdo sloupec otevře, dává soupeři první tah. Proto se sloupec otevírá až po přípravě: buď musí být vstupní pole kryté, nebo musí soupeřova věž ze sloupce pryč. Sedmá řada je cíl střední hry; v zahájení jde o to, dostat věž na sloupec tak, aby nevisela.",
     variants: [
-      {
+                        {
         id: "open-a-file",
-        name: "Otevření a-sloupce",
+        name: "Otevření a-sloupce — a výměna věží",
         description:
-          "Bílý nabídne výměnu krajních pěšců, otevře a-sloupec a vede Rua hluboko do soupeřovy poloviny.",
+          "Bílý otevře a-sloupec výměnou krajních pěšců. Jenže obě věže stojí proti sobě: kdo sloupec otevře, dává soupeři první tah — a s dobrou přípravou skončí otevření výměnou věží, ne věží na 7. řadě.",
         moves: [
           {
             from: [5, 0],
             to: [4, 0],
             comment:
-              "Krajní pěšec se posunuje vpřed. Bílý plánuje výměnu, ne tlak — chce otevřený a-sloupec pro Rua.",
-          },
-          {
-            from: [2, 1],
-            to: [3, 1],
-            comment:
-              "b5. Černý do výměny jde dobrovolně — po ní bude a-sloupec otevřený i pro jeho Rua na a8 a on chce být ten, kdo ho obsadí první.",
-          },
-          {
-            from: [4, 0],
-            to: [3, 1],
-            comment:
-              "Bílý bere diagonálně. Pamatuj: Bia bere jen diagonálně vpřed — to je jediný způsob, jak v makruku pěšec vezme figuru.",
-          },
-          {
-            from: [2, 0],
-            to: [3, 1],
-            comment:
-              "Bere zpět a-pěšcem. Sloupec je otevřený pro obě strany — teď jde jen o to, kdo na něj dostane věž dřív.",
-          },
-          {
-            from: [7, 0],
-            to: [4, 0],
-            comment:
-              "Bílá Rua vykračuje na a4 po prázdném sloupci. Tři pole najednou — Rua se hýbe ortogonálně jako šachová věž.",
-          },
-          {
-            from: [0, 1],
-            to: [1, 3],
-            comment:
-              "Kůň na d7 — a právě tady černý dělá chybu, kterou má varianta ukázat. Po výměně se uvolnilo pole a6, kam kůň také může a odkud by sloupec bránil. Černý volí centrálnější tah a sloupec pouští. Rozvoj bez ohledu na soupeřův plán je v makruku drahý.",
-          },
-          {
-            from: [4, 0],
-            to: [2, 0],
-            comment:
-              "Bílá Rua zaujímá 6. řadu (rank 6 z bílého pohledu). Napadá černé pěšce a má za sebou volný sloupec.",
-          },
-          {
-            from: [2, 3],
-            to: [3, 3],
-            comment:
-              "d5. Černý chce protihru v centru a doufá, že bude rychlejší než bílá věž. Je to hazard: a-sloupec zůstává otevřený a nikdo ho nebrání.",
-          },
-          {
-            from: [2, 0],
-            to: [1, 0],
-            comment:
-              "Rua na 7. řadě! Kontaktuje černou Rua a a8. Toto je vrchol celého plánu — Rua hluboko v soupeřově táboře, omezující krále a vyhrožující jeho figurám.",
+              "Krajní pěšec vpřed. Bílý plánuje výměnu, ne tlak — chce otevřený a-sloupec pro Rua.",
           },
           {
             from: [0, 2],
             to: [1, 1],
             comment:
-              "Khon na b7 — konečně tah se záměrem. Khon dosáhne diagonálně dozadu na a8 a kryje tak vlastní Rua, takže bílá věž na a7 nemá koho brát. Černý přežil, jenže na vlastní plán mu nezbyl jediný tah.",
-          },
-        ],
-      },
-      {
-        id: "h-file-rook",
-        name: "Otevření h-sloupce",
-        description:
-          "Bílý otevře h-sloupec výměnou krajních pěšců a vrazí Rua až na 7. řadu, kde tíží černého krále.",
-        moves: [
-          {
-            from: [5, 7],
-            to: [4, 7],
-            comment:
-              "h-pěšec vpřed. Bílý začíná otevírat královský sloupec, aby se k němu dostala Rua z h1.",
+              "Khon na b7. Černý plán čte a připravuje se dřív, než sloupec vůbec existuje: Khon dosáhne diagonálně dozadu na a8 a kryje tak vlastní věž. Bez tohoto tahu by po otevření sloupce visela.",
           },
           {
-            from: [2, 6],
-            to: [3, 6],
+            from: [7, 2],
+            to: [6, 1],
             comment:
-              "g5. Černý nabízí výměnu sám — chce mít otevřený sloupec pro vlastní Rua na h8 a věří, že ho stihne obsadit dřív.",
-          },
-          {
-            from: [4, 7],
-            to: [3, 6],
-            comment:
-              "Bílý bere g-pěšce diagonálně vpřed. V makruku pěšec bere jen tímto způsobem.",
-          },
-          {
-            from: [2, 7],
-            to: [3, 6],
-            comment:
-              "Bere zpět h-pěšcem. Sloupec je volný — jenže bílá Rua na h1 je na tahu dřív. Přesně o tohle tempo v celé variantě jde.",
-          },
-          {
-            from: [7, 7],
-            to: [1, 7],
-            comment:
-              "Rua přímo na h7! Využívá volného h-sloupce a okamžitě proniká do černého tábora. h8 je obsazená černá Rua, takže bílá zastaví o pole dřív.",
-          },
-          {
-            from: [2, 5],
-            to: [3, 5],
-            comment:
-              "f5. Věž na h7 pěšcem nevyžene, tak černý mění plán: uvolňuje f6 pro koně, který na ni dosáhne, a zároveň si bere prostor.",
-          },
-          {
-            from: [5, 5],
-            to: [4, 5],
-            comment:
-              "Bílý f-pěšec vpřed. Zpevňuje královské křídlo a uvolňuje f3 pro koně.",
-          },
-          {
-            from: [0, 6],
-            to: [2, 5],
-            comment:
-              "Kůň na f6 — a rovnou útočí na bílou Rua na h7 (skok f6-h7 je legální L). Černý našel jedním tahem obránce i útočníka.",
-          },
-          {
-            from: [7, 6],
-            to: [5, 5],
-            comment:
-              "Bílý kůň na f3. f-pěšec ustoupil, takže kůň může obsadit aktivní pole a podpořit Rua.",
-          },
-          {
-            from: [2, 3],
-            to: [3, 3],
-            comment:
-              "d5. Věž má černý pod kontrolou, a tak přechází k vlastnímu plánu: prostor v centru, kde bílý zatím nic nepostavil.",
-          },
-          {
-            from: [5, 3],
-            to: [4, 3],
-            comment:
-              "Bílý d-pěšec vpřed. Dává centru váhu a připravuje další figury na koordinovaný tlak.",
-          },
-          {
-            from: [0, 1],
-            to: [1, 3],
-            comment:
-              "Kůň na d7. Černý dorovnal rozvoj a bilance je vyrovnaná: bílý má věž na 7. řadě, černý za to má centrum a jezdce, který na ni dosáhne.",
-          },
-        ],
-      },
-      {
-        id: "b-file-rook",
-        name: "Rua přes b-sloupec",
-        description:
-          "Bílý nejprve vyvine koně z b1, pak převede Rua z a1 na b1 a vystřelí ji otevřeným b-sloupcem na 7. řadu.",
-        moves: [
-          {
-            from: [5, 1],
-            to: [4, 1],
-            comment:
-              "b-pěšec vpřed. Bílý začíná otevírat b-sloupec, který původně patří černému koni.",
-          },
-          {
-            from: [2, 0],
-            to: [3, 0],
-            comment:
-              "a5. Černý jde do výměny sám: b-sloupec se otevře i jemu a jeho Rua na a8 to má na b8 blíž po první řadě než bílá věž z a1.",
-          },
-          {
-            from: [4, 1],
-            to: [3, 0],
-            comment:
-              "Bílý b-pěšec bere černého a-pěšce. Bílý pěšec se dostane na a5 a začíná se čistit cesta po b-sloupci.",
+              "Khon na b2 — totéž zrcadlově. Bílý kryje a1, aby ho otevřený sloupec nemohl stát věž, kdyby první tah na něm připadl černému.",
           },
           {
             from: [2, 1],
-            to: [3, 0],
+            to: [3, 1],
             comment:
-              "Bere zpět b-pěšcem. Sloupec je čistý pro obě strany — teď rozhoduje, kdo na něj dostane věž dřív.",
+              "b5. Černý nabízí výměnu sám. Díky Khonu b7 mu otevřený sloupec už nevadí — ví, že skončí výměnou věží, ne ztrátou.",
+          },
+          {
+            from: [4, 0],
+            to: [3, 1],
+            comment:
+              "Bílý bere a4×b5. Pamatuj: Bia bere jen diagonálně vpřed — to je jediný způsob, jak v makruku pěšec vezme figuru.",
+          },
+          {
+            from: [2, 0],
+            to: [3, 1],
+            comment:
+              "Bere zpět a6×b5 — a sloupec je otevřený celý. Kdyby Khon nestál na b7, byla by to hrubá chyba: na tahu je bílý a R×a8 by vyhrálo věž. Takhle černý ví, že přijde jen výměna.",
+          },
+          {
+            from: [7, 0],
+            to: [0, 0],
+            comment:
+              "R×a8. Bílý bere první, protože jinak by vzal černý R×a1 a Khon b2 by jen bral zpět. Otevřený sloupec s věžemi proti sobě znamená výměnu — ne věž na 7. řadě.",
+          },
+          {
+            from: [1, 1],
+            to: [0, 0],
+            comment:
+              "Khon bere zpět na a8. Věže jsou pryč a s nimi celý plán: sloupec je sice otevřený, ale nemá ho kdo obsadit.",
           },
           {
             from: [7, 1],
             to: [6, 3],
             comment:
-              "Kůň na d2. Bílý uvolňuje b1, aby na něj mohla přejít Rua z a1.",
+              "Kůň na d2. Bílý se vrací k rozvoji — po odchodu a-pěšce má kůň i pole a3, ale d2 je blíž centru.",
+          },
+          {
+            from: [0, 0],
+            to: [1, 1],
+            comment:
+              "Khon se vrací na b7 a kryje pěšce b5. Poučení: otevřít sloupec, na kterém stojí soupeřova věž, znamená výměnu věží. Kdo chce věž na 7. řadě, musí sloupec otevřít, až když ho soupeřova věž nehlídá, nebo mít vstupní pole kryté tak, aby výměna vyšla v jeho prospěch — přesně to ukazují další varianty.",
+          },
+        ],
+      },
+                        {
+        id: "h-file-rook",
+        name: "Otevření h-sloupce",
+        description:
+          "Bílý otevře h-sloupec výměnou krajních pěšců a věž nechá na h1: odtud váže černou věž k obraně h6 a dává tempo tahu Ma h3. Pákou f4 se pak otevře i g-sloupec pro druhou věž.",
+        moves: [
+          {
+            from: [5, 7],
+            to: [4, 7],
+            comment:
+              "h-pěšec vpřed. Bílý začíná otevírat královský sloupec pro Rua z h1.",
+          },
+          {
+            from: [2, 6],
+            to: [3, 6],
+            comment:
+              "g5. Černý nabízí výměnu — chce mít sloupec otevřený i pro vlastní Rua na h8 a spoléhá, že si ho pohlídá.",
+          },
+          {
+            from: [4, 7],
+            to: [3, 6],
+            comment:
+              "Bílý bere h4×g5 diagonálně vpřed. V makruku pěšec bere jen tímto způsobem.",
+          },
+          {
+            from: [2, 5],
+            to: [3, 6],
+            comment:
+              "Bere zpět f6×g5 — a ne h6×g5! Po h×g5 by byl h-sloupec otevřený celý, na tahu bílý a R×h8 by vyhrálo věž. Pěšec h6 proto zůstává na sloupci jako zátka.",
+          },
+          {
+            from: [7, 6],
+            to: [5, 7],
+            comment:
+              "Kůň na h3 — pole se uvolnilo po h-pěšci. Kůň napadá g5 a jeho jediný obránce h6 nesmí brát: h6×g5 by otevřelo sloupec pro R×h8. Tak vypadá tlak věže, která se ze sloupce ještě ani nehnula.",
+          },
+          {
+            from: [0, 5],
+            to: [1, 6],
+            comment:
+              "Khon na g7 — jediná dobrá obrana. Khon dosáhne dozadu na h8 a kryje i h6, takže po Ma×g5 h6×g5 R×h8 by bílý věž o věž jen vyměnil a přišel o koně.",
+          },
+          {
+            from: [5, 5],
+            to: [4, 5],
+            comment:
+              "f4! Druhý útočník na g5. Pěšec je teď napadený dvakrát (Ma h3, f4) a krytý jen z h6 — a h6 brát nesmí. Černý musí výměnu přijmout sám.",
+          },
+          {
+            from: [3, 6],
+            to: [4, 5],
+            comment:
+              "Černý bere g5×f4. Nechat pěšce stát by znamenalo ho ztratit; takhle ho aspoň vymění.",
+          },
+          {
+            from: [5, 6],
+            to: [4, 5],
+            comment:
+              "Bílý bere zpět g3×f4 — a ne e3×f4. G-pěšec pryč znamená otevřený g-sloupec, na kterém stojí černý Khon g7, a pěšec e3 dál kryje d4 i f4.",
+          },
+          {
+            from: [0, 6],
+            to: [2, 5],
+            comment:
+              "Kůň na f6. Černý kryje h7 i h5 a drží g4 — jeho věž na h8 je pořád vázaná k obraně h6, tak přidává druhého obránce křídla.",
+          },
+          {
+            from: [7, 0],
+            to: [6, 0],
+            comment:
+              "Rua a1-a2! Druhá řada je v makruku od začátku prázdná, takže věž se po ní přesune na g2 a napadne Khon g7 po otevřeném g-sloupci. Bílý zapojuje druhou věž, zatímco ta černá na a8 zatím nemá kam.",
+          },
+          {
+            from: [0, 7],
+            to: [0, 6],
+            comment:
+              "Rua na g8: černý kryje Khon g7 dřív, než přijde Rg2, a nechává krále u středu. Cena: opustil h-sloupec — ten teď patří jen bílé věži a h6 hlídá už jen Khon. Bílý stojí o něco lépe: má otevřený g-sloupec, poloviční h-sloupec a plán Ma h3-f2-g4 proti h6.",
+          },
+        ],
+      },
+                        {
+        id: "b-file-rook",
+        name: "Rua přes b-sloupec — a výhodná výměna",
+        description:
+          "Bílý otevře b-sloupec výměnou pěšců, převede Rua z a1 na b1, a když černý sloupec zkříží vlastní věží, věže vymění — výměna mu vyhovuje, protože černá věž byla jediným obráncem pěšce a5.",
+        moves: [
+          {
+            from: [5, 1],
+            to: [4, 1],
+            comment:
+              "b-pěšec vpřed. Bílý chce otevřít b-sloupec — na něm stojí jen koně, žádné věže, takže po otevření nehrozí okamžitá výměna.",
+          },
+          {
+            from: [2, 0],
+            to: [3, 0],
+            comment:
+              "a5. Černý jde do výměny sám: b-sloupec se otevře i jemu a jeho Rua z a8 to má na b8 jen jeden krok.",
+          },
+          {
+            from: [4, 1],
+            to: [3, 0],
+            comment:
+              "Bílý bere b4×a5. Pěšec se dostal na a5 a b-sloupec je z bílé strany čistý.",
+          },
+          {
+            from: [2, 1],
+            to: [3, 0],
+            comment:
+              "Bere zpět b6×a5. Mohl brát i věží — R×a5 by byla aktivnější — ale černý chce věž nechat na 8. řadě, aby mohla na b8. Všimni si, že pěšec a5 teď kryje jen ona.",
+          },
+          {
+            from: [7, 1],
+            to: [6, 3],
+            comment:
+              "Kůň na d2. Bílý uvolňuje b1 pro věž a kůň má z d2 cestu na b3 i c4.",
           },
           {
             from: [0, 1],
             to: [1, 3],
             comment:
-              "Kůň na d7. A tady černý ztrácí čas: měl b-sloupec obsadit věží. Tenhle tah je rozvoj bez ohledu na to, co dělá soupeř.",
+              "Kůň na d7. Kryje b6 i b8 — černý ví, že bílá věž přijde na b1, a připravuje si pole, na která by mohla vniknout.",
           },
           {
             from: [7, 0],
             to: [7, 1],
             comment:
-              "Rua na b1. c3 je obsazené Bia, takže Rua přejde po první řadě a připraví se na výstup b-sloupcem.",
+              "Rua na b1. c3 je obsazené Bia, takže věž přejde po první řadě. Vstupuje na sloupec, na kterém soupeřova věž nestojí — tak má vypadat správné pořadí: nejdřív otevřít, pak obsadit, dokud je sloupec prázdný.",
           },
           {
-            from: [2, 2],
-            to: [3, 2],
+            from: [0, 0],
+            to: [0, 1],
             comment:
-              "c5. Černý si bere prostor a dostává b4 i d4 pod kontrolu — jenže na b-sloupec už nedohlédne a bílá věž se tam právě chystá.",
+              "Rua na b8. Černý sloupec zkříží vlastní věží a nabízí výměnu: b8 kryje kůň d7, takže R×b8 Ma×b8 je pro něj bezpečné. Jinak by bílá věž hrozila Rb5 s útokem na a5.",
           },
           {
             from: [7, 1],
-            to: [1, 1],
+            to: [0, 1],
             comment:
-              "Rua na b7! b-sloupec je otevřený a bílá věž opět proniká na 7. řadu — tentokrát z jiného úhlu.",
+              "R×b8! Bílý výměnu přijímá — a tady je pointa: výměna věží je neutrální jen na první pohled. Černá věž byla jediným obráncem pěšce a5 a kůň, který bere zpět, se vrací na b8, tedy pryč z rozvoje.",
           },
           {
-            from: [0, 6],
-            to: [1, 4],
+            from: [1, 3],
+            to: [0, 1],
             comment:
-              "Kůň na e7. Jezdce na d7 černý nechává stát — kryje ho Khon z c8 — a rozvíjí druhého. Bílá věž na b7 sice tlačí, ale nemá do čeho kousnout.",
+              "Kůň bere zpět na b8. Jinak nejde — a kůň stojí zase tam, kde začínal.",
           },
           {
-            from: [5, 3],
-            to: [4, 3],
+            from: [6, 3],
+            to: [4, 2],
             comment:
-              "Bílý d-pěšec vpřed. Dává centru váhu a otevírá diagonálu pro Met.",
+              "Kůň na c4 — s tempem: útočí na a5, které už nikdo nekryje. Za výměnu věží bílý získal čas i cíl.",
           },
           {
-            from: [2, 4],
-            to: [3, 4],
+            from: [2, 3],
+            to: [3, 3],
             comment:
-              "e5. Černý zavírá centrum a jeho plán je jasný: věž na b7 je hluboko a bez podpory. Stačí ji odříznout a bude bílému spíš přítěží než zbraní.",
+              "d5! Černý pěšce a5 neudrží — kdyby ho bránil postupem a5-a4, kůň by místo něj vzal d6. Raději napadá koně pěšcem d5 a spoléhá na protihru: věž z h8 půjde po prázdné 7. řadě (h7-a7) za bílým koněm. Bilance: bílý vezme Ma×a5 a bude o pěšce napřed, černý za něj dostane aktivitu — bílý stojí o něco lépe. Tak vypadá výměna věží, která se vyplatila.",
           },
         ],
       },
-      {
+                        {
         id: "a-file-active-knights",
         name: "Otevření a-sloupce s aktivními koni",
         description:
-          "Klasické otevření a-sloupce doplněné rychlým rozvojem jezdců — bílý chce Rua na 7. řadě i aktivní koně.",
+          "Bílý otevře a-sloupec a druhou pákou c4 i b-sloupec; koně dostanou centrální pole a věž na a1 váže černou věž k obraně pěšce a6.",
         moves: [
           {
             from: [5, 0],
@@ -1175,61 +1175,61 @@ export const STRATEGIES: Strategy[] = [
             from: [4, 0],
             to: [3, 1],
             comment:
-              "Bílý bere b-pěšce. Výměna pěšců je klíčem k otevřenému sloupci.",
+              "Bílý bere a4×b5. Výměna pěšců je klíčem k otevřenému sloupci.",
           },
           {
-            from: [2, 0],
+            from: [2, 2],
             to: [3, 1],
             comment:
-              "Bere zpět a-pěšcem. Sloupec je volný, jenže na tahu je bílý a jeho věž je blíž. Tempo rozhoduje.",
+              "Bere zpět c6×b5 — správně. Po a6×b5 by sloupec byl otevřený celý, na tahu bílý a R×a8 by vyhrálo věž. Pěšec a6 tak zůstává na sloupci a černá věž ho musí krýt.",
           },
           {
-            from: [7, 0],
-            to: [1, 0],
+            from: [5, 2],
+            to: [4, 2],
             comment:
-              "Rua rovnou na a7. Bílý neztrácí čas mezipolíčky a okamžitě okupuje 7. řadu.",
+              "c4! Druhá páka. Pěšec b5 je napadený a jeho obránce a6 brát nesmí — kdyby vzal, přijde R×a8. Černý musí brát sám, jinak bílý vezme c4×b5 a pěšec bude ztracený.",
           },
           {
-            from: [2, 5],
-            to: [3, 5],
+            from: [3, 1],
+            to: [4, 2],
             comment:
-              "f5. Věž na a7 už nevyžene, tak černý otevírá druhou frontu: uvolňuje f6 pro koně a chystá hru na královském křídle.",
+              "Černý bere b5×c4. Jediná rozumná odpověď — pěšce jinak neudrží.",
+          },
+          {
+            from: [5, 1],
+            to: [4, 2],
+            comment:
+              "Bílý bere zpět b3×c4 (ne d3×c4: d-pěšec má zůstat v centru). Otevřel se i b-sloupec a kůň b1 má konečně volné c3.",
+          },
+          {
+            from: [0, 1],
+            to: [2, 2],
+            comment:
+              "Kůň na c6. Pole se uvolnilo po c-pěšci; kůň odsud hlídá b4 i d4 a kryje a7 — černý čeká bílou věž na a-sloupci a připravuje obranu.",
+          },
+          {
+            from: [7, 1],
+            to: [5, 2],
+            comment:
+              "Kůň na c3 — díky c4 poprvé bez oklik. Aktivní kůň v centru, s výhledem na b5 a d5.",
+          },
+          {
+            from: [0, 6],
+            to: [1, 4],
+            comment:
+              "Kůň na e7. Černý dokončuje rozvoj a drží d5 — ví, že bílý kůň z c3 tam míří.",
           },
           {
             from: [5, 5],
             to: [4, 5],
             comment:
-              "Bílý f-pěšec vpřed. Uvolňuje f3 a zpevňuje královské křídlo.",
-          },
-          {
-            from: [0, 6],
-            to: [2, 5],
-            comment:
-              "Kůň na f6. Míří na e4 a g4 — černý chce jezdce v bílé polovině dřív, než tam bílá věž natáhne posily.",
-          },
-          {
-            from: [7, 6],
-            to: [5, 5],
-            comment:
-              "Bílý kůň na f3. f-pěšec ustoupil, takže kůň obsazuje aktivní pole.",
+              "f4. Uvolňuje f3 pro druhého koně: bílý chce oba jezdce v centru, než věž udeří. Rua a1 mezitím drží černou věž na a8 — pěšec a6 jiného obránce nemá.",
           },
           {
             from: [2, 3],
             to: [3, 3],
             comment:
-              "d5. Černý si bere centrum. Věž na a7 je nepříjemná, ale sama nic nedobude — kdo má střed, ten určuje, kde se bude hrát.",
-          },
-          {
-            from: [5, 3],
-            to: [4, 3],
-            comment:
-              "Bílý d-pěšec vpřed. Bílý má Rua na 7. řadě a aktivního koně — partie je napjatá.",
-          },
-          {
-            from: [0, 1],
-            to: [1, 3],
-            comment:
-              "Kůň na d7. Kryje b6 i c5 a černý má hotovo: bílý má věž na 7. řadě, černý centrum a dva aktivní jezdce. Za pronikání se platí zanedbaným rozvojem.",
+              "d5. Černý napadá c4 a hledá protihru v centru. Bilance: bílý má aktivního koně c3 a druhého na cestě na f3, otevřený b-sloupec pro věž a černou věž vázanou k a6 — stojí o něco lépe. Na 7. řadu zatím nikdo nevnikl: to je práce pro střední hru, ale příprava je hotová.",
           },
         ],
       },
@@ -1244,7 +1244,7 @@ export const STRATEGIES: Strategy[] = [
     history:
       "Protože v makruku nejsou dvojkroky, trvá pěšci dosáhnout 6. řady mnohem déle než v šachu — typicky 8 a více tahů. Hráči proto plánují promoci dlouho předem a vyměňují figury tak, aby pro pěšce vznikla volná cesta.",
     variants: [
-      {
+                        {
         id: "e-file-push",
         name: "Tlak po e-sloupci",
         description:
@@ -1254,7 +1254,7 @@ export const STRATEGIES: Strategy[] = [
             from: [5, 3],
             to: [4, 3],
             comment:
-              "Příprava: d-pěšec vpřed. Bude potřebovat udeřit, až se black vydá s e-pěšcem.",
+              "Příprava: d-pěšec vpřed. Bude potřeba udeřit, až se černý vydá s e-pěšcem.",
           },
           {
             from: [2, 3],
@@ -1284,7 +1284,7 @@ export const STRATEGIES: Strategy[] = [
             from: [2, 4],
             to: [3, 4],
             comment:
-              "e5. Černý nabízí výměnu vědomě: chce, aby bílý pěšec opustil d-sloupec a přesunul se na e-sloupec, kde na něj dosáhne jeho Met z d8. Kdo nemůže promoci zabránit, musí si připravit odpověď.",
+              "e5. Černý nabízí výměnu vědomě: chce, aby bílý pěšec opustil d-sloupec a přesunul se na e-sloupec, kde na něj dosáhnou jeho figury. Kdo nemůže promoci zabránit, musí si připravit odpověď.",
           },
           {
             from: [4, 3],
@@ -1296,190 +1296,188 @@ export const STRATEGIES: Strategy[] = [
             from: [3, 3],
             to: [4, 4],
             comment:
-              "Bere zpět. Černý ví, že bílý pěšec projde — počítá s tím, že ho hned uzavře, a mezitím má vlastního pěšce na e4, tedy v bílé polovině desky.",
+              "Bere zpět. Černý ví, že bílý pěšec projde — počítá s tím, že ho hned napadne, a mezitím má vlastního pěšce na e4, tedy v bílé polovině desky.",
           },
           {
             from: [3, 4],
             to: [2, 4],
             promotes: true,
             comment:
-              "Promoce! Bílý pěšec dosáhne 6. řady (z bílého pohledu) a automaticky se mění na Met — silnější figuru s diagonálním pohybem. Toto je vrchol celého plánu.",
+              "Promoce! Bílý pěšec dosáhne 6. řady (z bílého pohledu) a automaticky se mění na P+ — figuru s pohybem Met. Toto je vrchol celého plánu.",
           },
           {
-            from: [0, 3],
-            to: [1, 4],
+            from: [1, 3],
+            to: [3, 2],
             comment:
-              "Met na e7 — přesně podle plánu. Kryje d6 i f6, takže povýšený pěšec na e6 nemá kam a stává se z něj spíš zajatec než hrozba. Černý za to platí pasivní Met, ale výměnu si vynutí on, až mu to bude vyhovovat.",
+              "Kůň na c5 — uhýbá z dosahu P+ (ten bere diagonálně všemi směry, takže na d7 by ho vzal) a zároveň P+ na e6 sám napadá. Bílý ho nemá čím krýt, takže výměna je nevyhnutelná: bílý vezme f3×e4 a kůň pak P+ na e6 sebere. Bilance: materiál vyrovnaný — promoce sama nic nevyhrála, rozhodne, kdo lépe využije otevřený střed.",
           },
         ],
       },
-      {
+                        {
         id: "d-pawn-e5-promo",
-        name: "Tlak po e-sloupci přes d-pěšce",
+        name: "Volný d-pěšec a hrozba promoce na d6",
         description:
-          "Bílý d-pěšec převezme černého e-pěšce a sám doběhne na e6, kde se povýší.",
+          "Bílý po výměně na c4 dostane d-pěšce na d5, kde je volný: hrozí d5-d6 s promocí a černý musí pole d6 zablokovat figurou.",
         moves: [
           {
             from: [5, 3],
             to: [4, 3],
             comment:
-              "d-pěšec vpřed. Připravuje se na vstřelení do centra a výměnu, která otevře cestu k promoci.",
+              "d-pěšec vpřed. Bílý chce mít v centru pěšce, který jednou půjde dál — příprava promoce začíná výběrem kandidáta.",
+          },
+          {
+            from: [2, 3],
+            to: [3, 3],
+            comment:
+              "d5. Černý staví pěšce čelem proti d4 — zablokovaný pěšec se nikdy nepovýší.",
+          },
+          {
+            from: [5, 2],
+            to: [4, 2],
+            comment:
+              "c4! Páka proti d5. Bílý nechce d-pěšce měnit, chce odstranit pěšce, který ho blokuje.",
+          },
+          {
+            from: [3, 3],
+            to: [4, 2],
+            comment:
+              "Černý bere d5×c4 — vyměňuje blokujícího pěšce dřív, než ho bílý podepře koněm z c3.",
+          },
+          {
+            from: [5, 1],
+            to: [4, 2],
+            comment:
+              "Bílý bere zpět b3×c4. Pěšec d4 už nemá soupeře — před ním je volno až na d6, kde by se povýšil.",
           },
           {
             from: [2, 4],
             to: [3, 4],
             comment:
-              "e5. Černý jde do střetu první — chce vyměnit bílého d-pěšce dřív, než ho stihne cokoli podpořit.",
+              "e5. Černý útočí na d4: buď ho vymění, nebo ho donutí k postupu dřív, než bude mít oporu.",
           },
           {
             from: [4, 3],
-            to: [3, 4],
+            to: [3, 3],
             comment:
-              "Bílý d-pěšec bere černého e-pěšce diagonálně vpřed. Pěšec se přesune na e5 a je najednou blízko 6. řady.",
-          },
-          {
-            from: [2, 5],
-            to: [3, 5],
-            comment:
-              "f5. Promoci už černý nezastaví, tak volí druhou nejlepší věc: uvolňuje f6 pro koně, který se k povýšenému pěšci dostane nejrychleji.",
-          },
-          {
-            from: [3, 4],
-            to: [2, 4],
-            promotes: true,
-            comment:
-              "Promoce! Bílý pěšec z e5 postoupí na e6 a automaticky se mění na P+. V makruku není volba — promoce je vynucená na 6. řadě.",
-          },
-          {
-            from: [0, 1],
-            to: [1, 3],
-            comment:
-              "Kůň na d7. Míří na c5 a e5 — černý chce obsadit pole kolem e6 dřív, než bílý povýšeného pěšce podepře.",
-          },
-          {
-            from: [5, 5],
-            to: [4, 5],
-            comment:
-              "Bílý f-pěšec vpřed. Zpevňuje královské křídlo a uvolňuje f3 pro koně.",
-          },
-          {
-            from: [0, 6],
-            to: [2, 5],
-            comment:
-              "Kůň na f6. Na e6 sám nedosáhne, ale drží e4 i g4 a odřezává povýšenému pěšci cestu k posilám. Černý ho chce vyhladovět, ne brát za každou cenu.",
-          },
-          {
-            from: [7, 6],
-            to: [5, 5],
-            comment:
-              "Bílý kůň na f3. f-pěšec ustoupil, takže kůň může bránit královské křídlo a podporovat povýšeného pěšce.",
+              "d5! Bílý pěšce posílá vpřed, dokud má krytí z c4. Na d5 napadá c6 a hlavně je jen jeden krok od 6. řady.",
           },
           {
             from: [2, 2],
-            to: [3, 2],
+            to: [3, 3],
             comment:
-              "c5. Černý otevírá druhou frontu na dámském křídle: dokud je bílý zaměstnaný jedním pěšcem na e6, může si tady vzít prostor skoro zadarmo.",
+              "Černý bere c6×d5 — jinak by přišlo d5-d6 s promocí, protože pole d6 zatím nikdo nekryje.",
           },
           {
-            from: [5, 2],
-            to: [4, 2],
+            from: [4, 2],
+            to: [3, 3],
             comment:
-              "Bílý c-pěšec vpřed. Uvolňuje c3 pro koně a získává prostor na dámském křídle.",
+              "Bílý bere zpět c4×d5 a pěšec stojí na d5 znovu — tentokrát jako volný: na d-sloupci ani na sousedních sloupcích před ním žádný černý pěšec není. Hrozí d5-d6 s promocí.",
           },
           {
-            from: [0, 5],
-            to: [1, 4],
+            from: [0, 3],
+            to: [1, 2],
             comment:
-              "Khon na e7 — a rovnou útočí na povýšeného pěšce na e6, protože Khon smí i o pole rovně vpřed. Černý dotáhl plán do konce: bílý povýšil, ale figuru neudrží.",
-          },
-        ],
-      },
-      {
-        id: "b-pawn-promo",
-        name: "Tlak po b-sloupci",
-        description:
-          "Bílý a-pěšec odvede černého b-pěšce, pak bílý b-pěšec proběhne až na b6 a povýší se.",
-        moves: [
-          {
-            from: [5, 0],
-            to: [4, 0],
-            comment:
-              "a-pěšec vpřed. Připravuje výměnu, po které bude cesta pro b-pěšce volnější.",
-          },
-          {
-            from: [2, 1],
-            to: [3, 1],
-            comment:
-              "b5. Černý rovnou útočí na bílého pěšce na a4 — chce ho vyměnit dřív, než z něj bude nebezpečný běžec.",
-          },
-          {
-            from: [4, 0],
-            to: [3, 1],
-            comment:
-              "Bílý bere černého b-pěšce. a-pěšec se dostane na b5, což je přesně to, co bílý potřebuje.",
-          },
-          {
-            from: [2, 0],
-            to: [3, 0],
-            comment:
-              "a5. Černý chce pěšce obejít z boku, jenže na b-sloupec odsud nedosáhne — Bia bere jen diagonálně vpřed. Tady se ukazuje, že proti průchozímu pěšci musí nastoupit figura, ne jiný pěšec.",
-          },
-          {
-            from: [3, 1],
-            to: [2, 1],
-            promotes: true,
-            comment:
-              "Promoce! Bílý pěšec z b5 postoupí na b6 a povýší se. Černý a-pěšec se sice pokusil zabránit, ale 6. řada je dosažena.",
-          },
-          {
-            from: [0, 1],
-            to: [1, 3],
-            comment:
-              "Kůň na d7 — a hned útočí na povýšeného pěšce na b6 (skok d7-b6 je legální L). Černý reaguje figurou, což je proti průchozímu pěšci jediný funkční recept.",
-          },
-          {
-            from: [5, 2],
-            to: [4, 2],
-            comment:
-              "Bílý c-pěšec vpřed. Uvolňuje c3 pro koně a získává prostor na dámském křídle.",
-          },
-          {
-            from: [2, 2],
-            to: [3, 2],
-            comment:
-              "c5. Černý uvolňuje c6 pro druhého jezdce a bere bílému koni pole b4 i d4 — chce ho udržet daleko od svého dámského křídla.",
+              "Met na c7! Kryje d6, takže po d5-d6 by P+ hned padl. Slabá Met je ideální blokátor — nic lepšího na tuhle práci černý nemá.",
           },
           {
             from: [7, 1],
             to: [5, 2],
             comment:
-              "Bílý kůň na c3. c-pěšec uvolnil c3 a kůň může obsadit aktivní pole.",
+              "Kůň na c3. Kryje pěšce d5 a bílý má volného pěšce pevně podepřeného — zatím ho ale nemá jak protlačit přes d6.",
+          },
+          {
+            from: [0, 1],
+            to: [1, 3],
+            comment:
+              "Kůň na d7 — kryje e5 a připravuje Khon f8-e7-d6, aby volného pěšce zablokoval natrvalo. Bilance: bílý má volného pěšce, černý pevnou blokádu a o něco lepší figury — promoce zůstává hrozbou, ne ziskem.",
+          },
+        ],
+      },
+                        {
+        id: "b-pawn-promo",
+        name: "Průlom b5 s podporou a- a c-pěšce",
+        description:
+          "Bílý připraví postup b-pěšce oběma sousedy a Khonem na b2, který kryje a1. Průlom b5 vyjde, jenže pole b6 si černý včas pohlídal — promoce zůstane hrozbou.",
+        moves: [
+          {
+            from: [5, 1],
+            to: [4, 1],
+            comment:
+              "b-pěšec vpřed. Bílý vybral kandidáta na promoci: pole b6 je ze všech polí 6. řady nejméně kryté — na začátku ho nehlídá žádná černá figura.",
+          },
+          {
+            from: [0, 1],
+            to: [1, 3],
+            comment:
+              "Kůň na d7. Černý to ví a b6 hned kryje: z d7 dosáhne kůň na b6 i b8.",
+          },
+          {
+            from: [5, 2],
+            to: [4, 2],
+            comment:
+              "c4. Pěšec b4 potřebuje sousedy: na b5 ho budou napadat a6 i c6, takže bílý chce mít krytí z obou stran.",
           },
           {
             from: [0, 6],
             to: [1, 4],
             comment:
-              "Kůň na e7. Černý dorovnává rozvoj, protože na povýšeného pěšce jeden útočník nestačí — bílý si ho bude bránit a černý potřebuje druhou figuru.",
+              "Kůň na e7 — jediný legální skok, f6 i h6 drží vlastní Bia. Černý dokončuje rozvoj a čeká, co bílý s pěšci provede.",
           },
           {
-            from: [5, 3],
-            to: [4, 3],
+            from: [5, 0],
+            to: [4, 0],
             comment:
-              "Bílý d-pěšec vpřed. Dává centru váhu a otevírá diagonálu pro Met.",
+              "a4. Druhý soused. Teď je b5 kryté dvakrát a bílý by mohl prorazit — ještě ale ne: po výměnách by a-pěšec bral na b5 a otevřel a-sloupec s černou věží na tahu.",
           },
           {
-            from: [2, 5],
-            to: [3, 5],
+            from: [0, 4],
+            to: [1, 5],
             comment:
-              "f5. Černý otevírá druhou frontu. Bílý má sice povýšeného pěšce, ale všechny jeho figury zůstaly na dámském křídle — královské křídlo patří černému.",
+              "Khun na f7. Černý dává krále do bezpečí a nechává bílého, ať si pěšce připraví — jeho obrana b6 je hotová.",
+          },
+          {
+            from: [7, 2],
+            to: [6, 1],
+            comment:
+              "Khon na b2 — nenápadný, ale nutný tah. Kryje a1: až se po výměnách otevře a-sloupec, R×a1 nebude vyhrávat věž, ale jen měnit. Bez toho by celý průlom stál bílého věž.",
+          },
+          {
+            from: [0, 2],
+            to: [1, 2],
+            comment:
+              "Khon na c7. Druhý hlídač b6 — a zároveň kryje c6, na které bude bílý pěšec z b5 útočit.",
+          },
+          {
+            from: [4, 1],
+            to: [3, 1],
+            comment:
+              "b5! Průlom. Pěšec je napadený dvakrát (a6, c6) a krytý dvakrát (a4, c4); černý ho musí brát, jinak b5×a6 nebo b5×c6 — obojí s promocí.",
+          },
+          {
+            from: [2, 0],
+            to: [3, 1],
+            comment:
+              "Černý bere a6×b5: otevírá a-sloupec, na kterém má věž on, a ví, že po a4×b5 přijde R×a1 s výměnou věží.",
+          },
+          {
+            from: [4, 2],
+            to: [3, 1],
+            comment:
+              "Bílý bere zpět c4×b5 — ne a4×b5, to by otevřelo a-sloupec s černou věží na tahu a bílý věž zatím měnit nechce. Pěšec stojí na b5 znovu a napadá c6.",
+          },
+          {
+            from: [2, 2],
+            to: [3, 1],
+            comment:
+              "Černý bere c6×b5 — poslední výměna. Bilance: bílý teď vezme a4×b5, černý R×a1 a Khon b2 bere zpět: věže se vymění a bílý pěšec na b5 bude volný. Jenže b6 hlídají Ma d7 i Khon c7, takže promoce nehrozí. Černý stojí o něco lépe — bílý za průlom zaplatil tempy a nic hmatatelného nezískal. Poučení: samotný postup nestačí, promoce potřebuje, aby soupeř pole na 6. řadě nestihl pokrýt.",
           },
         ],
       },
-      {
+                        {
         id: "c-pawn-via-b",
-        name: "Tlak po c-sloupci přes b-pěšce",
+        name: "c-pěšec přes b5 na a6",
         description:
-          "Bílý c-pěšec odvede pozornost na dámském křídle, pak se b-pěšec propracuje přes c6 až k promoci.",
+          "Dva bílí pěšci proti jednomu: po výměnách na b5 zůstane bílý pěšec, který černý a-pěšec nesmí vzít (otevřel by a-sloupec pro R×a8), a promoce b5×a6 vynutí výměnu věží — bílý skončí o pěšce napřed.",
         moves: [
           {
             from: [5, 0],
@@ -1491,82 +1489,82 @@ export const STRATEGIES: Strategy[] = [
             from: [2, 1],
             to: [3, 1],
             comment:
-              "b5. Černý útočí na bílého pěšce na a4. Nechce čekat — chce výměnu, po které bílému na křídle nic nezbude.",
+              "b5. Černý útočí na bílého pěšce na a4 — chce výměnu, po které bílému na křídle nic nezbude.",
           },
           {
             from: [5, 2],
             to: [4, 2],
             comment:
-              "c-pěšec vpřed. Bílý nabízí nový cíl — černý b-pěšec bude muset řešit hrozbu na b5.",
+              "c4! Druhý pěšec proti b5. Pěšec b5 je teď napadený dvakrát a krytý dvakrát (a6, c6) — jenže jeden z obránců, a6, brát nesmí: a6×b5 by otevřelo a-sloupec s bílou věží na tahu.",
           },
           {
             from: [0, 1],
             to: [1, 3],
             comment:
-              "Kůň na d7. Braní černý odkládá a staví jezdce tam, odkud dosáhne na b6 i c5 — na pole, přes která musí bílý pěšec projít.",
+              "Kůň na d7. Černý braní odkládá a staví jezdce tam, odkud dosáhne na b6 i c5 — na pole, přes která by bílý pěšec musel jít.",
+          },
+          {
+            from: [4, 0],
+            to: [3, 1],
+            comment:
+              "Bílý bere a4×b5. Začíná série výměn, kterou si bílý spočítal: poslední pěšec na b5 bude jeho.",
+          },
+          {
+            from: [2, 2],
+            to: [3, 1],
+            comment:
+              "Bere zpět c6×b5 — správně c-pěšcem. Po a6×b5 by přišlo R×a8 a černý by přišel o věž.",
           },
           {
             from: [4, 2],
             to: [3, 1],
             comment:
-              "Bílý c-pěšec bere černého b-pěšce. Bílý pěšec je nyní na b5 a hrozí c6 s promocí.",
+              "Bílý bere c4×b5 a pěšec zůstává na b5. Černý a-pěšec ho vzít nesmí (R×a8), takže bílý pěšec napadá a6 a hrozí b5×a6 s promocí.",
           },
           {
-            from: [2, 0],
-            to: [3, 0],
+            from: [0, 2],
+            to: [1, 1],
             comment:
-              "a5. Černý chce pěšce zablokovat z boku, jenže na b5 z a5 nedosáhne — Bia bere diagonálně vpřed, ne do strany. Tenhle tah přišel o tah pozdě.",
+              "Khon na b7 — jediná dobrá obrana. Khon kryje a8 i a6: kdyby teď bílý vzal b5×a6 s promocí, černá věž vezme zpět a bude krytá.",
           },
           {
             from: [3, 1],
-            to: [2, 2],
+            to: [2, 0],
             promotes: true,
             comment:
-              "Promoce! Bílý pěšec z b5 bere černého c-pěšce na c6 a zároveň dosahuje 6. řady. V makruku je promoce vždy automatická na P+.",
+              "b5×a6 — promoce! Pěšec bere na 6. řadě a automaticky se mění na P+. Bílý ví, že P+ hned padne; jde mu o to, co zbude.",
           },
           {
-            from: [2, 4],
-            to: [3, 4],
+            from: [0, 0],
+            to: [2, 0],
             comment:
-              "e5. Povýšeného pěšce na c6 zatím žádná černá figura nenapadá, tak si černý bere aspoň to, co bílý zanedbal — centrum. Bílý má hodnotu navíc, černý prostor.",
+              "Rua bere P+ na a6. Černý nemá na výběr — P+ by z a6 napadal b7 i b5 a hlavně by byl figurou navíc.",
           },
           {
-            from: [7, 1],
-            to: [5, 2],
+            from: [7, 0],
+            to: [2, 0],
             comment:
-              "Bílý kůň na c3. c-pěšec uvolnil c3 a kůň může obsadit aktivní pole.",
+              "R×a6! Bílá věž bere černou. Pole a6 sice kryje Khon b7, ale bílý za věž dostane věž — a kdyby nevzal, vzal by černý R×a1, protože a1 nikdo nekryje.",
           },
           {
-            from: [2, 5],
-            to: [3, 5],
+            from: [1, 1],
+            to: [2, 0],
             comment:
-              "f5. Druhá fronta. Bílý strávil pět tahů jedním pěšcem na dámském křídle a královské křídlo nechal být — přesně tam černý útočí.",
-          },
-          {
-            from: [5, 3],
-            to: [4, 3],
-            comment:
-              "Bílý d-pěšec vpřed. Centrální tlak doplňuje hrozbu povýšeného pěšce na c6.",
-          },
-          {
-            from: [0, 6],
-            to: [2, 5],
-            comment:
-              "Kůň na f6. Míří na e4 a g4 a černý má plán hotový: bílý má silného pěšce na c6, černý za to iniciativu na druhé straně desky. Promoce není zadarmo.",
+              "Khon bere zpět na a6. Spočítej pěšce: bílý přišel o a- a c-pěšce, černý o a-, b- i c-pěšce — bílý je o pěšce napřed a má otevřený a-sloupec, na který se mu po prázdné druhé řadě dostane věž z h1 (Rh1-h2-a2). Promoce sama padla, ale výměny, které vynutila, přinesly zisk.",
           },
         ],
       },
-      {
+                        {
         id: "f-pawn-g-promo",
-        name: "Tlak po f-sloupci",
+        name: "h-pěšec s podporou g4 a promoce na g6",
         description:
-          "Bílý g-pěšec vyrazí na g5, sebere černého f-pěšce a sám se povýší na f6.",
+          "Bílý postoupí h-pěšcem na h5 s krytím z g4. Pole g6 na začátku žádná černá figura nekryje, takže černý musí buď brát, nebo g6 pokrýt Khonem — a pak přijde h5×g6 s promocí.",
         moves: [
           {
-            from: [5, 6],
-            to: [4, 6],
+            from: [5, 7],
+            to: [4, 7],
             comment:
-              "g-pěšec vpřed. Bílý začíná ofenzívu na královském křídle, která má vést k rychlé promoci.",
+              "h-pěšec vpřed. Bílý vybral krajního pěšce: pole g6 je na začátku bez krytí — Rua h8 hlídá jen h6 a Ma g8 jen f6 — takže pěšec na h5 bude mít cíl.",
           },
           {
             from: [2, 3],
@@ -1575,10 +1573,10 @@ export const STRATEGIES: Strategy[] = [
               "d5. Bílý útočí na okraji, černý si bere střed — z centra dosáhnou figury na obě křídla, z okraje ani na jedno.",
           },
           {
-            from: [4, 6],
-            to: [3, 6],
+            from: [5, 6],
+            to: [4, 6],
             comment:
-              "g-pěšec na g5. Bílý tlačí dál a připravuje sebrání f-pěšce.",
+              "g4. Pěšec h4 potřebuje před dalším krokem krytí: na h5 ho bude napadat g6.",
           },
           {
             from: [0, 1],
@@ -1587,53 +1585,53 @@ export const STRATEGIES: Strategy[] = [
               "Kůň na d7. Bílý žene pěšce po křídle, černý staví figuru do centra: odsud dosáhne kamkoli, kdežto pěšec umí jen dopředu.",
           },
           {
-            from: [3, 6],
-            to: [2, 5],
-            promotes: true,
+            from: [4, 7],
+            to: [3, 7],
             comment:
-              "Promoce! Bílý g-pěšec bere černého f-pěšce na f6 a dosahuje 6. řady. Povýšený pěšec je nyní silnou figurou hluboko v černém táboře.",
-          },
-          {
-            from: [2, 2],
-            to: [3, 2],
-            comment:
-              "c5. Bílý má na f6 povýšeného pěšce, ale jinak nic. Černý toho využívá a bere si prostor tam, kde bílý nemá jedinou figuru.",
-          },
-          {
-            from: [5, 5],
-            to: [4, 5],
-            comment:
-              "Bílý f-pěšec vpřed. Uvolňuje f3 pro koně a zpevňuje královské křídlo.",
-          },
-          {
-            from: [0, 6],
-            to: [2, 5],
-            comment:
-              "Kůň bere povýšeného pěšce na f6! Skok g8-f6 je legální L a P+ na f6 nikdo nekryje. Přesně tohle je riziko rychlé promoce — silná figura hluboko v soupeřově táboře bez podpory dlouho nevydrží.",
-          },
-          {
-            from: [7, 6],
-            to: [5, 5],
-            comment:
-              "Bílý kůň na f3. f-pěšec ustoupil, takže se jezdec z g1 konečně dostane ven — po ztrátě povýšeného pěšce musí bílý místo útoku konsolidovat.",
-          },
-          {
-            from: [2, 4],
-            to: [3, 4],
-            comment:
-              "e5. V pěšcích je materiál vyrovnaný, ale černý vyměnil obyčejného Bia za povýšeného — a to je zisk v hodnotě. Teď zavírá centrum a míří do koncovky.",
-          },
-          {
-            from: [5, 3],
-            to: [4, 3],
-            comment:
-              "Bílý d-pěšec vpřed. Doplňuje tlak v centru a otevírá diagonálu pro Met.",
+              "h5! Pěšec napadá g6 a hrozí h5×g6 s promocí. Braní g6×h5 bílý přežije — vezme zpět g4×h5 nebo věží z h1. Černý má víc rovnocenných odpovědí; podstatné je, že hrozbu nesmí ignorovat.",
           },
           {
             from: [0, 5],
-            to: [1, 4],
+            to: [1, 5],
             comment:
-              "Khon na e7. Kryje d6 i f6, kde stojí jeho vlastní kůň. Závěr varianty: promoce je silný motiv, ale povýšený pěšec bez podpory je jen dražší terč.",
+              "Khon na f7 kryje g6. Černý nechce brát g6×h5 — otevřel by bílé věži h-sloupec — a raději nechá pěšce povýšit s tím, že P+ hned sebere.",
+          },
+          {
+            from: [3, 7],
+            to: [2, 6],
+            promotes: true,
+            comment:
+              "h5×g6 — promoce! Pěšec bere na 6. řadě a mění se na P+. Na g6 vydrží jen okamžik, ale bílý vyměnil krajního pěšce za g-pěšce a otevřel h-sloupec pro Rua z h1.",
+          },
+          {
+            from: [1, 5],
+            to: [2, 6],
+            comment:
+              "Khon bere P+ na g6 — jediný tah: P+ by jinak vzal Khon f7, protože se hýbe jako Met.",
+          },
+          {
+            from: [7, 1],
+            to: [6, 3],
+            comment:
+              "Kůň na d2. Bílý dokončuje rozvoj — h-sloupec je poloviční (na h6 stojí černý pěšec krytý věží z h8), takže věž z h1 má cíl, ale zatím nic hmatatelného.",
+          },
+          {
+            from: [2, 7],
+            to: [3, 7],
+            comment:
+              "h5. Černý pěšce posílá vpřed, aby napadl g4 a uvolnil věži h8 sloupec. Pěšec h5 kryje Khon g6.",
+          },
+          {
+            from: [7, 6],
+            to: [6, 4],
+            comment:
+              "Kůň na e2. Bílý zapojuje druhého jezdce — míří přes g3 nebo f4 na křídlo, kde je teď po výměnách nejvíc práce.",
+          },
+          {
+            from: [0, 4],
+            to: [1, 5],
+            comment:
+              "Khun na f7. Král kryje g6 i e6 a černý má vše pokryté. Bilance: materiál je vyrovnaný, promoce proběhla a hned zmizela — bílý za ni má poloviční h-sloupec a lepší strukturu na křídle. Poučení: promoce v zahájení bývá výměna, ne zisk; cenné je, co po ní zůstane.",
           },
         ],
       },
