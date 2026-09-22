@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "source": "game",
+    "id": "khon-met-coop",
+    "ply": 15,
+    "reason": "záměrná chyba bílého: Ne6?? – kůň skočí na pole kryté Khonem e7 (Khon útočí i rovně vpřed); komentář tahu 15 ji výslovně popisuje"
+  },
+  {
+    "source": "game",
+    "id": "passive-vs-active",
+    "ply": 16,
+    "reason": "záměrná chyba černého: Nd7?? – zabírá králi pole d7, po N×e6 nelze odvrátit dvojí hrozbu N×g7 / Nc7+; komentář tahu 16 ji výslovně popisuje"
+  },
+  {
+    "source": "game",
+    "id": "two-knights-mate",
+    "ply": 6,
+    "reason": "záměrná chyba černého: Kc8?? místo K×a6 (remíza) – jediný prohrávající tah; komentář tahu 6 i description partie ji výslovně popisují"
+  },
+  {
+    "source": "game",
+    "id": "met-trap",
+    "ply": 16,
+    "reason": "záměrná chyba černého: Met d6-c5?? – pole c5 napadají Nb3, b4 a d4, kryje ho jen Nd7; komentář tahu 16 ji výslovně popisuje"
+  }
+]

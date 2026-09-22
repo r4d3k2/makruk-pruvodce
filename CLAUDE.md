@@ -33,7 +33,7 @@ Sourozenec projektu xiangqi-pruvodce — sdílí UX pattern a architekturu, liš
 - `src/lib/recommend.ts` — algoritmus chytrého opakování (1★ → 2★ → nehrané → 3★)
 - `src/data/strategies.ts` — 5 strategií × 1 varianta každá × ~10 tahů
 - `src/data/pieces.ts` — 6 figur + diagramy pohybu
-- `src/data/games.ts` — **7 instruktážních partií** (4 původních + Mat dvěma věžemi, Khon+Met mat, Kramnikova fianchetto Khon)
+- `src/data/games.ts` — **12 instruktážních partií** (matové koncovky + plné partie; všechny prošly validací enginem, viz níže)
 - `src/components/makruk/MakrukBoard.tsx` — SVG deska 8×8 s tracked pieces a CSS animacemi
 - `src/components/makruk/PieceSilhouettes.tsx` — wrapper pro SVG (PyChess + vlastní P+)
 - `src/components/makruk/Pill.tsx` — 3-level pill systém (L1 režimy, L2 strategie/partie, L3 varianty)
@@ -67,6 +67,8 @@ Sourozenec projektu xiangqi-pruvodce — sdílí UX pattern a architekturu, liš
 - **Pohyb Khon (slon):** 1 pole diagonálně NEBO 1 pole rovně dopředu (5 možných pohybů).
 - **Pohyb Met (dáma):** jen 1 pole diagonálně (slabá figura).
 - **Asymetrický setup:** Khun bílý na d1, Khun černý na e8 (Met opačně). Není to chyba — díky tomu obě Met startují na polích stejné barvy.
+- **P+ napadá všechny čtyři diagonály (i dozadu).** Figura stojící diagonálně vedle soupeřova P+ bez krytí visí — např. kůň na d7 vedle P+ na e6 prostě padne (P+×d7). Platí i pro pěšce, který na 6. řadu teprve bere: e5×f6=P+ hned napadá e7 i g7.
+- **Otevřený sloupec s věžemi proti sobě** (typicky a/h po a×b5 a×b5) znamená výměnu věží pro toho, kdo táhne první — R×a8 / R×h8. Do otevřeného sloupce s věží soupeře nevstupovat, dokud není vstupní pole kryté (Khon b7/b2, g7/g2) nebo soupeřova věž pryč; a v pěšcové výměně nebrat jako poslední krajním pěšcem.
 
 ## Co s tímto projektem NEDĚLAT
 
@@ -79,7 +81,7 @@ Sourozenec projektu xiangqi-pruvodce — sdílí UX pattern a architekturu, liš
 - **Neměnit pravidla makruku** — používáme originální/standardní verzi
 - **Neměnit ProPawn siluetu (`wpp.svg`/`bpp.svg`)** bez výslovné konzultace — vznikla po 5+ iteracích a uživatel je s ní spokojený
 - **Neimplementovat dvojkrok pěšce** — častá chyba ze šachové intuice, v makruku NEEXISTUJE
-- **Negenerovat tahy bez simulace** — každý tah v `strategies.ts` a `games.ts` musí být legální. Při přidávání nového obsahu vždy mentálně simulovat sekvenci.
+- **Nepřidávat ani neměnit tahy bez průchodu `npm run validate`** — každá změna v `strategies.ts` nebo `games.ts` musí projít validací enginem bez nelegálních tahů, chyb a zmeškaných braní mimo allowlist (viz „Validace tahů enginem").
 
 ## Co s tímto projektem DĚLAT (pravidla pro úpravy obsahu)
 
@@ -88,11 +90,19 @@ Sourozenec projektu xiangqi-pruvodce — sdílí UX pattern a architekturu, liš
 - **Studovat režim:** otočení desky 🔄 je čistě vizuální (bílý vždy začíná, otáčení mění jen pohled).
 - **Procvičovat režim:** hráč může hrát za obě strany přes „Hraj za bílého / Hraj za černého" přepínač. Soupeř hraje automaticky po 700 ms.
 
+## Validace tahů enginem
+
+- **Nástroj:** Fairy-Stockfish (GPL v3), varianta `makruk`. Binárka `fairy-stockfish_x86-64-bmi2.exe` (release `fairy_sf_14`) se stahuje lokálně do `tools/fairy-stockfish/` a **necommituje se** (adresář je v `.gitignore`).
+- **Spuštění:** `npm run validate` (skript `scripts/validate-moves.ts`, ~7 min pro celý dataset). Výstup: `reports/engine-validation.md` (+ `.json`). Jedna položka: `npm run validate -- --only game:met-trap` nebo `--only strategy:rua-on-7th/h-file-rook`.
+- **Pravidlo:** každá změna ve `strategies.ts` nebo `games.ts` musí projít validací **bez nelegálních tahů, bez chyb (ztráta ≥ 250 cp) a bez zmeškaných braní mimo allowlist**. Nepřesnosti (150–249 cp) tolerovat jen výjimečně — kolem 150 cp kolísají mezi běhy, cíl je ztráta ≤ ~100 cp.
+- **Allowlist** (`scripts/validate-allowlist.json`) je jen pro **záměrné chyby, které komentář tahu výslovně popisuje** (past, instruktážní chyba soupeře). Každý záznam má `source`, `id`, `ply` a `reason`; není to místo, kam schovávat neopravené chyby.
+- **Postup při opravě:** náhradní tah vybírat enginem (MultiPV 3, ne jen první volbu — tah musí sedět do plánu strategie/partie), přepsat navazující komentáře, `id` položky neměnit, `result` a závěrečný komentář musí odpovídat koncové pozici (sekce „Tvrzení na konci" v reportu).
+
 ## Autentické zdroje pro obsah
 
 - **Pravidla:** [pychess.org/variants/makruk](https://www.pychess.org/variants/makruk) — autoritativní reference
 - **Strategie a koncovky:** PyChess guide + chessvariants.org
-- **Kramnikova partie** (Partie 7 v games.ts): inspirována analyzovanou makruk hrou Vladimira Kramnika z chessvariants.org. Pasáž ukazuje fianchetto Khon a útok přes g-sloupec.
+- **Partie „Fianchetto Khon"** (`kramnik-fianchetto` v games.ts): **rekonstrukce inspirovaná plánem** z analyzované makruk hry Vladimira Kramnika (chessvariants.org) — fianchetto Khon, útok po g-sloupci. **Není to přepis jeho partie** ani autentická pasáž; v textech aplikace formulovat „inspirováno", nikdy „Kramnik hrál/označil".
 - **Kramnikova citace** (v history sekci Strategie 1 i 2): *„Makruk Thai je strategičtější než mezinárodní šachy — musíte plánovat operace s naprostou opatrností, protože makruk lze přirovnat k anticipovanému koncovce mezinárodních šachů."* — Vladimir Kramnik
 
 ## Komunikace s uživatelem
