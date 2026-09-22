@@ -31,7 +31,7 @@ Sourozenec projektu xiangqi-pruvodce — sdílí UX pattern a architekturu, liš
 - `src/lib/makruk.ts` — typy, výchozí deska, applyMoves s promocí, pieceTraceUpTo
 - `src/lib/storage.ts` — localStorage (téma, pokrok, strana hráče)
 - `src/lib/recommend.ts` — algoritmus chytrého opakování (1★ → 2★ → nehrané → 3★)
-- `src/data/strategies.ts` — 5 strategií × 1 varianta každá × ~10 tahů
+- `src/data/strategies.ts` — 5 strategií, celkem 20 variant (3–5 na strategii) × 10–12 tahů; všechny prošly validací enginem
 - `src/data/pieces.ts` — 6 figur + diagramy pohybu
 - `src/data/games.ts` — **12 instruktážních partií** (matové koncovky + plné partie; všechny prošly validací enginem, viz níže)
 - `src/components/makruk/MakrukBoard.tsx` — SVG deska 8×8 s tracked pieces a CSS animacemi
@@ -86,7 +86,7 @@ Sourozenec projektu xiangqi-pruvodce — sdílí UX pattern a architekturu, liš
 ## Co s tímto projektem DĚLAT (pravidla pro úpravy obsahu)
 
 - **Komentáře k tahům musí být pedagogické**, ne generické (žádné „dobrý tah", „symetricky"). Vysvětlovat **proč** tah dává smysl, navazovat na předchozí tah, případně zmínit specifika makruku (např. „pole c3 je obsazené Bia, kůň musí na d2").
-- **Tahy musí být legální** — Claude Code v promptech dostává explicitní pokyn k simulaci. Při ručních úpravách (např. v GitHub web editoru) toto pravidlo také platí.
+- **Tahy musí být legální a ověřené enginem** — po každé úpravě `strategies.ts`/`games.ts` spustit `npm run validate` (viz „Validace tahů enginem"). Platí i pro ruční úpravy (např. v GitHub web editoru): validaci pak dohnat při nejbližší práci v Claude Code.
 - **Studovat režim:** otočení desky 🔄 je čistě vizuální (bílý vždy začíná, otáčení mění jen pohled).
 - **Procvičovat režim:** hráč může hrát za obě strany přes „Hraj za bílého / Hraj za černého" přepínač. Soupeř hraje automaticky po 700 ms.
 
