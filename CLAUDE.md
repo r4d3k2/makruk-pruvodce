@@ -31,9 +31,9 @@ Sourozenec projektu xiangqi-pruvodce — sdílí UX pattern a architekturu, liš
 - `src/lib/makruk.ts` — typy, výchozí deska, applyMoves s promocí, pieceTraceUpTo
 - `src/lib/storage.ts` — localStorage (téma, pokrok, strana hráče)
 - `src/lib/recommend.ts` — algoritmus chytrého opakování (1★ → 2★ → nehrané → 3★)
-- `src/data/strategies.ts` — 5 strategií, celkem 20 variant (3–5 na strategii) × 10–12 tahů; všechny prošly validací enginem
+- `src/data/strategies.ts` — 6 strategií, celkem 22 variant (2–5 na strategii) × 10–12 tahů; všechny prošly validací enginem
 - `src/data/pieces.ts` — 6 figur + diagramy pohybu
-- `src/data/games.ts` — **12 instruktážních partií** (matové koncovky + plné partie; všechny prošly validací enginem, viz níže)
+- `src/data/games.ts` — **13 instruktážních partií** (matové koncovky + plné partie; všechny prošly validací enginem, viz níže)
 - `src/components/makruk/MakrukBoard.tsx` — SVG deska 8×8 s tracked pieces a CSS animacemi
 - `src/components/makruk/PieceSilhouettes.tsx` — wrapper pro SVG (PyChess + vlastní P+)
 - `src/components/makruk/Pill.tsx` — 3-level pill systém (L1 režimy, L2 strategie/partie, L3 varianty)

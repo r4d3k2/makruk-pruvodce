@@ -1236,6 +1236,7 @@ export const STRATEGIES: Strategy[] = [
     ],
   },
 
+
   {
     id: "promo-prep",
     name: "Příprava promoce",
@@ -1632,6 +1633,177 @@ export const STRATEGIES: Strategy[] = [
             to: [1, 5],
             comment:
               "Khun na f7. Král kryje g6 i e6 a černý má vše pokryté. Bilance: materiál je vyrovnaný, promoce proběhla a hned zmizela — bílý za ni má poloviční h-sloupec a lepší strukturu na křídle. Poučení: promoce v zahájení bývá výměna, ne zisk; cenné je, co po ní zůstane.",
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "black-initiative",
+    name: "Černý útočí první",
+    intro:
+      "Tempo navíc váží v makruku míň než v šachu: bez dvojkroku trvá rozvoj oběma stranám tak dlouho, že jeden půltah nic nerozhodne. Jakmile bílý hraje jen klidné rozvojové tahy a o nic se nepokusí, může plán převzít černý — a bílý pak celou partii jen odpovídá. V téhle strategii má plán černý.",
+    history:
+      "Že to jde, naznačuje Partie 7 v aplikaci: rekonstrukce inspirovaná plánem z Kramnikovy makrukové partie, kde černý postaví Khona do fianchetta a hru si otevře po g-sloupci. Není to přepis jeho tahů, jen motiv — černý nehledá vyrovnání, hledá vlastní plán. Obě varianty níže jsou takový pokus: první ukazuje, jak se iniciativa bere, druhá, jak se promarní.",
+    variants: [
+      {
+        id: "early-f5",
+        name: "Rychlé f5",
+        description:
+          "Černý zahraje f5 hned druhým tahem, vyklidí f8 pro věž a výměnou na e4 otevře f-sloupec. Bílé věže stojí na a1 a h1, takže na otevřený sloupec je černý první — a bílému koni z g1 zmizí pole f3.",
+        moves: [
+          {
+            from: [5, 3],
+            to: [4, 3],
+            comment:
+              "d-pěšec vpřed. Bílý si bere střed a spoléhá na tempo navíc — v makruku je to ale malá jistina, protože každý plán tu stojí o dva tahy víc než v šachu.",
+          },
+          {
+            from: [2, 5],
+            to: [3, 5],
+            comment:
+              "f5 hned druhým tahem. Černý nečeká, co bílý vymyslí: bere si prostor na královském křídle a chystá výměnu na e4, po které se otevře f-sloupec. Sloupec si vybral schválně — bílé věže stojí na a1 a h1 a f1 drží vlastní Khon.",
+          },
+          {
+            from: [5, 2],
+            to: [4, 2],
+            comment:
+              "c4 uvolňuje c3 pro koně. Přirozený rozvoj, jen pomalý: bílý řeší dámské křídlo, zatímco černý už pracuje na tom svém.",
+          },
+          {
+            from: [0, 6],
+            to: [1, 4],
+            comment:
+              "Kůň na e7, ne na f6. Rozdíl je zásadní: z f6 by kůň zavřel vlastní věži sloupec, který teprve chce otevřít. Z e7 hlídá d5, f5 i g6 a f-sloupec zůstává volný.",
+          },
+          {
+            from: [7, 1],
+            to: [5, 2],
+            comment:
+              "Kůň na c3 — díky c4 bez oklik. Aktivní pole, jenže na opačné straně desky: kdyby šel na d2, kryl by odtud f3. Takhle zůstane f3 bez obránce a to se za chvíli bude počítat.",
+          },
+          {
+            from: [0, 5],
+            to: [1, 6],
+            comment:
+              "Khon z f8 na g7. Poslední figura, která černému blokovala f-sloupec, je pryč; z g7 navíc kryje f6 i h6, takže na křídle nic nevisí. Sloupec je připravený dřív, než vůbec existuje.",
+          },
+          {
+            from: [5, 4],
+            to: [4, 4],
+            comment:
+              "e-pěšec do centra. Pěšce na e4 kryje f3 a napadá ho jen f5, takže napětí bílému nevadí. Přehlíží ale, co výměna udělá se sloupcem za jeho zády.",
+          },
+          {
+            from: [3, 5],
+            to: [4, 4],
+            comment:
+              "f5×e4 — o tohle šlo celou dobu. Postup f5-f4 by vypadal ostřeji, jenže pole f4 kryje pěšec z g3 a po výměně na něm i kůň, jakmile z g1 skočí na e2, takže by tam pěšec jen padl. Černý proto napětí řeší výměnou, a v pravý okamžik: až bílý vezme zpět pěšcem, bude f-sloupec otevřený celý a věž z h8 má na f8 dva kroky.",
+          },
+          {
+            from: [5, 5],
+            to: [4, 4],
+            comment:
+              "Bílý bere zpět f3×e4. Brát koněm z c3 by sice nechalo pěšce f3 stát a sloupec zavřený, jenže kůň na e4 by hned dostal d6-d5 a musel by uhnout. Bílý volí pevný střed a s otevřeným sloupcem počítá.",
+          },
+          {
+            from: [0, 7],
+            to: [0, 5],
+            comment:
+              "Rua na f8 — a rovnou s hrozbou R×f1. Khon na f1 nekryje nikdo: věž h1 ho nevidí přes vlastního koně na g1, Met z e1 dosáhne jen na d2 a f2. Tak vypadá otevřený sloupec, na kterém soupeř věž nemá.",
+          },
+          {
+            from: [7, 4],
+            to: [6, 5],
+            comment:
+              "Met e1-f2. Nejklidnější způsob, jak hrozbu odstavit: Met sloupec zacpe a sama je krytá Khonem z f1, takže R×f2 by byla věž za Met. Cena je ale jasná — bílý místo rozvoje uklízí.",
+          },
+          {
+            from: [0, 1],
+            to: [1, 3],
+            comment:
+              "Kůň na d7 dokončuje rozvoj. Bilance po 12 tazích: materiál je rovný, ale jedinou věž na otevřeném sloupci má černý — a bílý kůň z g1 nemá kam. Na f3 by ho vzala věž (f3 nekryje žádná bílá figura) a h3 drží vlastní pěšec, takže mu zbývá jediné pole e2. Iniciativu má černý, i když začínal bílý.",
+          },
+        ],
+      },
+      {
+        id: "met-sortie-black",
+        name: "Met vyráží",
+        description:
+          "Černá Met vyjede po diagonále d8-e7-f6-g5. Vypadá to aktivně, jenže z g5 nic nenapadá a bílý ji jedním pěšcem pošle zpátky. Varování, ne vzor.",
+        moves: [
+          {
+            from: [5, 3],
+            to: [4, 3],
+            comment:
+              "d-pěšec vpřed. Bílý si bere střed a rozvíjí se normálním tempem — žádný pokus o rychlý zisk, jen figury ven.",
+          },
+          {
+            from: [0, 3],
+            to: [1, 4],
+            comment:
+              "Met hned ven na e7. V makruku je 7. řada od začátku prázdná, takže Met nepotřebuje žádnou přípravu — a černý chce ukázat, že iniciativu může vzít i on.",
+          },
+          {
+            from: [7, 1],
+            to: [6, 3],
+            comment:
+              "Kůň na d2 — z b1 jediný legální skok, a3 i c3 drží vlastní Bia. Bílý Met zatím neřeší: dokud stojí na e7, nic nenapadá.",
+          },
+          {
+            from: [2, 5],
+            to: [3, 5],
+            comment:
+              "f5 otevírá Met cestu na f6 a rovnou bere prostor na křídle. Záměr je konkrétní: dostat Met na g5, odkud bude koukat na f4 i h4.",
+          },
+          {
+            from: [5, 4],
+            to: [4, 4],
+            comment:
+              "e-pěšec do centra. Pěšce kryje f3, takže napětí s f5 bílému nevadí — a centrum je přesně to, co černý při běhu s Met zanedbává.",
+          },
+          {
+            from: [1, 4],
+            to: [2, 5],
+            comment:
+              "Met na f6. Krok za krokem, jiné tempo než dáma v šachu — černý sází na to, že v pomalém makruku na takovou pouť čas je.",
+          },
+          {
+            from: [7, 6],
+            to: [6, 4],
+            comment:
+              "Druhý kůň na e2. Nenápadný, ale přesný tah: z e2 kryje kůň f4 i g3, tedy obě pole, na která by Met z g5 chtěla dál.",
+          },
+          {
+            from: [2, 5],
+            to: [3, 6],
+            comment:
+              "Met na g5?! Vypadá to jako vrchol plánu, jenže odsud Met nenapadá vůbec nic — f4 i h4 jsou prázdná pole a obě kryjí bílí. Tady zašla o krok dál, než měla.",
+          },
+          {
+            from: [5, 7],
+            to: [4, 7],
+            comment:
+              "h4! Pěšcem na Met. Brát nesmí: h4 kryje pěšec g3, takže Met×h4 g3×h4 by byla figura za pěšce. Slabou figuru vyžene v makruku každý pěšec — proto se s Met neútočí.",
+          },
+          {
+            from: [3, 6],
+            to: [2, 5],
+            comment:
+              "Met se vrací na f6. Čtyři tahy Met a nula zisku; pole g5 si navíc bílý pohlídal napořád.",
+          },
+          {
+            from: [7, 3],
+            to: [6, 2],
+            comment:
+              "Khun na c2. Bílý si v klidu uklízí krále z první řady — zatímco černý běhal s Met, on postavil centrum a vyvedl oba koně.",
+          },
+          {
+            from: [0, 6],
+            to: [1, 4],
+            comment:
+              "Kůň na e7, první černá lehká figura venku. Bilance po 12 tazích: materiál je rovný, rozvoj ne — bílý má dva koně a pevný střed, černý jednoho koně a Met na f6, odkud nic neohrožuje. Poučení: iniciativa se v makruku bere pěšci a věžemi, ne Met; ta je tak pomalá, že ji vyžene první pěšec, který na ni sáhne.",
           },
         ],
       },

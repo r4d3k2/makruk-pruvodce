@@ -1184,4 +1184,166 @@ export const GAMES: Game[] = [
       },
     ],
   },
+
+  // ============================================================
+  // PARTIE 13 — Počítání tahů: Rua a Ma proti králi (23 tahů)
+  // Mat v 12 bílých tazích, limit pro Rua je 16. Tahy vybrané
+  // enginem (Fairy-Stockfish, `go mate`), černý se brání nejdéle.
+  // ============================================================
+  {
+    id: "counting-rook-knight",
+    title: "Počítání tahů: Rua a Ma proti králi",
+    topic:
+      "Když zbude holý Khun, může slabší strana vyzvat k počítání — a silnější musí do limitu zamatovat. S Rua na desce je limit 16 tahů.",
+    description:
+      "Počítání je makruková pojistka proti nekonečnému dohrávání: jakmile slabší strana zůstane s holým Khunem, může vyzvat k počítání a silnější strana musí dát mat do limitu, jinak je remíza. Limit se řídí nejsilnější figurou, kterou silnější strana má — s Rua je to 16 tahů (pro srovnání: Khon s Met mají v Partii 6 limit 44, takže tam je času čtyřikrát víc). Bílý má Khun, Rua a Ma proti samotnému Khunovi a černý král stojí uprostřed desky, tedy nejdál od okraje, kde mat přijde. Postup je pevný: Rua odřízne sloupec, Khun se přiblíží, Ma vezme poslední úniková pole a Rua dorazí mat — a počítadlo u každého bílého tahu ukazuje, kolik z limitu zbývá.",
+    difficulty: 3,
+    result: "Bílý matuje v limitu",
+    setup: [
+      { type: "K", side: "white", row: 7, col: 2 }, // Khun c1
+      { type: "N", side: "white", row: 7, col: 1 }, // Ma b1
+      { type: "R", side: "white", row: 7, col: 7 }, // Rua h1
+      { type: "K", side: "black", row: 3, col: 3 }, // Khun d5
+    ],
+    moves: [
+      {
+        from: [7, 7],
+        to: [7, 4],
+        comment:
+          "Tah 1/16 — počítání začíná. Černému zbyl holý Khun a vyzval k počítání: bílý má od téhle chvíle 16 tahů na mat, jinak je partie remíza. Rua jde z rohu na e1 a bere králi e-sloupec — první stěna budoucí klece.",
+      },
+      {
+        from: [3, 3],
+        to: [4, 2],
+        comment:
+          "Černý Khun míří dolů, proti bílým figurám. Bránící se král má jediný úkol: zůstat co nejdál od okraje a co nejdéle v otevřeném prostoru — každý tah, který bílého zdrží, je tah ubraný z limitu.",
+      },
+      {
+        from: [7, 2],
+        to: [6, 3],
+        comment:
+          "Tah 2/16 — Khun ven. Samotná Rua matovat nedokáže, potřebuje krále jako druhou ruku; v makruku to platí stejně jako v šachu. Věž zatím jen drží linii a král dělá práci.",
+      },
+      {
+        from: [4, 2],
+        to: [3, 2],
+        comment:
+          "Král uhýbá na c5. Do e-sloupce ho Rua nepustí a proti bílému králi jít nechce, takže se drží prostoru na dámském křídle.",
+      },
+      {
+        from: [6, 3],
+        to: [5, 2],
+        comment:
+          "Tah 3/16 — Khun na c3, čelem proti soupeři. Bílý netlačí věží, ale králem: věž drží hranici a král soupeři ubírá pole. Šachy, které krále jen posílají zpátky do volného prostoru, by byly ztracené tahy.",
+      },
+      {
+        from: [3, 2],
+        to: [3, 3],
+        comment:
+          "Král zpátky do středu na d5. Na kraji by klec zapadla rychleji, takže černý zůstává v otevřeném poli, dokud to jde.",
+      },
+      {
+        from: [7, 1],
+        to: [5, 0],
+        comment:
+          "Tah 4/16 — Ma konečně ven. V matové síti je kůň ten, kdo zakryje pole, na která Rua ani Khun nedosáhnou; z a3 míří na b5 a c4, tedy do prostoru, kam král utíká.",
+      },
+      {
+        from: [3, 3],
+        to: [3, 2],
+        comment:
+          "Král zpátky na c5. Černý kličkuje mezi dvěma poli a čeká, jestli bílý nebude tápat — v počítání je zdržování jediná obrana.",
+      },
+      {
+        from: [7, 4],
+        to: [7, 3],
+        comment:
+          "Tah 5/16 — Rua z e1 na d1. Klec se zmenšila o celý sloupec: král je teď zavřený mezi a-sloupcem a c-sloupcem a bílý o něj dál nepřijde.",
+      },
+      {
+        from: [3, 2],
+        to: [2, 2],
+        comment:
+          "Král na c6. Nahoru je jediný volný směr — dolů čeká bílý Khun, napravo Rua.",
+      },
+      {
+        from: [5, 2],
+        to: [4, 2],
+        comment:
+          "Tah 6/16 — Khun na c4, přímo proti soupeřovu králi s jedním polem mezi sebou. Šachista tomu říká opozice: král na tahu musí uhnout do strany a druhý tím získá řadu.",
+      },
+      {
+        from: [2, 2],
+        to: [2, 1],
+        comment:
+          "Král uhýbá na b6. Pole c5 i d5 drží bílý Khun, do d-sloupce nesmí kvůli Rua — zbývá krok doleva.",
+      },
+      {
+        from: [7, 3],
+        to: [2, 3],
+        comment:
+          "Tah 7/16 — Rua na d6 se šachem. Věž ubírá celou 6. řadu a tlačí krále k 7. a 8. řadě, tedy přesně tam, kde mat přijde. Tohle je šach, který má smysl: posouvá hranici klece.",
+      },
+      {
+        from: [2, 1],
+        to: [1, 1],
+        comment:
+          "Král na b7. Ustoupit musí, a zpátky dolů ho bílý Khun nepustí.",
+      },
+      {
+        from: [5, 0],
+        to: [3, 1],
+        comment:
+          "Tah 8/16 — Ma na b5. Kůň bere králi obě pole 7. řady, na která by mohl uhnout (a7 i c7), a zároveň stojí tam, kde ho Khun z c4 kryje. Bez koně by se král v rohu pořád protáčel.",
+      },
+      {
+        from: [1, 1],
+        to: [0, 2],
+        comment:
+          "Král na c8. Poslední řada je jediné, co zbylo — a7 i c7 hlídá Ma.",
+      },
+      {
+        from: [4, 2],
+        to: [3, 2],
+        comment:
+          "Tah 9/16 — Khun na c5. Bílý nespěchá se šachy a klidně přidá krále: v počítání se počítají tahy, ne šachy, a tenhle krok bere králi pole b6 i b4 na později.",
+      },
+      {
+        from: [0, 2],
+        to: [1, 1],
+        comment:
+          "Král zpátky na b7. Černý se drží co nejdál od rohu, protože v rohu mat přichází nejdřív.",
+      },
+      {
+        from: [2, 3],
+        to: [0, 3],
+        comment:
+          "Tah 10/16 — Rua na d8 uzavírá 8. řadu. Klec má teď tři stěny: 8. řadu a d-sloupec drží Rua, dolní okraj bílý Khun s Ma. Králi zbyl čtverec u a-sloupce.",
+      },
+      {
+        from: [1, 1],
+        to: [2, 0],
+        comment:
+          "Král na a6. Do prostoru se už nedostane, jen se posouvá po zbylých polích.",
+      },
+      {
+        from: [0, 3],
+        to: [0, 1],
+        comment:
+          "Tah 11/16 — Rua z d8 na b8. Klec se zmenšila na jediný sloupec: b7 i b6 drží věž, na b5 stojí Ma krytý Khunem, a7 hlídá Ma. Králi zbyl jediný legální tah.",
+      },
+      {
+        from: [2, 0],
+        to: [3, 0],
+        comment:
+          "a5 — a nic jiného. Všechna ostatní pole si mezi sebe rozdělily Rua (b-sloupec), Ma (a7) a bílý Khun.",
+      },
+      {
+        from: [0, 1],
+        to: [0, 0],
+        comment:
+          "MAT v 12/16 — Rua na a8 dává šach po a-sloupci. Král na a5 nemá kam: a4 i a6 drží Rua, b4 a b6 bílý Khun, na b5 stojí Ma krytý Khunem. Do limitu zbývaly čtyři tahy — kdyby bílý tři čtyři tahy tápal s králem někde stranou, počítadlo by dojelo na 16 a z vyhrané pozice by byla remíza.",
+      },
+    ],
+  },
 ];
